@@ -1,13 +1,17 @@
+import 'package:flight_app/app/controllers.dart';
+import 'package:flight_app/app/service.dart';
+// import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
+// import 'package:get/route_manager.dart';
+// import 'package:get/state_manager.dart';
 import 'package:flight_app/constants/app_const.dart';
 import 'package:flight_app/app/app_routes.dart';
 import 'package:flight_app/ui/themes/theme_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,8 +23,15 @@ Future<void> main() async {
 
 class MainApp extends StatelessWidget {
   final RxString _themeMode = 'auto'.obs;
-
+  final RxString _locale = 'en'.obs;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final locationController = Get.put(LocationController());
+
+  // void changeLanguage(String code) {
+  //   setState(() {
+  //     _locale = Locale(code);
+  //   });
+  // }
 
   Future<void> _getThemeStatus() async {
     var mode = _prefs.then((SharedPreferences prefs) {
@@ -41,7 +52,15 @@ class MainApp extends StatelessWidget {
     }
   }
 
+  Future<void> _getLocale() async {
+    final prefs = await _prefs;
+    _locale.value = prefs.getString('appLocale') ?? 'en';
+    Get.updateLocale(Locale(_locale.value));
+  }
+
   MainApp({super.key}) {
+    locationController.fetchLocation();
+    _getThemeStatus();
     _getThemeStatus();
   }
 
@@ -52,11 +71,11 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       localizationsDelegates: const [
-        // AppLocalizations.delegate,
-        // GlobalMaterialLocalizations.delegate,
-        // GlobalWidgetsLocalizations.delegate,
-        // GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
+      // supportedLocales: LocalizationService.delegate.supportedLocales,
       theme: lightColorScheme,
       darkTheme: darkColorScheme,
       initialRoute: '/',

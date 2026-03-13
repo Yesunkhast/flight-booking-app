@@ -1,9 +1,11 @@
+// import 'package:flight_app/app/controllers.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/search_filter/city_list_autocomplete.dart';
 import 'package:flight_app/widgets/search_filter/search_input.dart';
 import 'package:flight_app/widgets/search_filter/search_tags.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+// import 'package:get/route_manager.dart';
 // import 'package:flight_app/widgets/search_filter/';
 
 class SearchList extends StatefulWidget {
@@ -18,9 +20,13 @@ class _SearchListState extends State<SearchList> {
 
   bool _showList = false;
 
+  // final controller = Get.find<FlightSearchController>();
+
+  late String _type;
   @override
   void initState() {
     super.initState();
+    _type = Get.arguments;
     _textRef.addListener(_checkTextLength);
   }
 
@@ -60,6 +66,11 @@ class _SearchListState extends State<SearchList> {
     'Fuzhou'
   ];
 
+  // void getCity(String city) {
+  //   selectCity!(city);
+  //   Get.back();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +89,30 @@ class _SearchListState extends State<SearchList> {
               hintText: 'Search City or Airport',
             )),
         body: _showList
-            ? CityListAutocomplete(keyword: _textRef.text)
+            ? CityListAutocomplete(keyword: _textRef.text, type: _type)
+            // ListView.builder(
+            //     itemCount: list
+            //         .where((city) => city
+            //             .toLowerCase()
+            //             .contains(_textRef.text.toLowerCase()))
+            //         .length,
+            //     itemBuilder: (context, index) {
+            //       final filteredList = list
+            //           .where((city) => city
+            //               .toLowerCase()
+            //               .contains(_textRef.text.toLowerCase()))
+            //           .toList();
+
+            //       final city = filteredList[index];
+
+            //       return ListTile(
+            //         title: Text(city),
+            //         onTap: () => _selectCity(city),
+            //       );
+            //     },
+            //   )
             : ListView(children: [
-                VSpaceShort(),
+                VSpaceShort(), //edgeer listruu damjuulj songson hotig avah
                 TagHistory(),
                 VSpaceShort(),
                 TagTrending(),

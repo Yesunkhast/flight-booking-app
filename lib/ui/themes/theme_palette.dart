@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class ThemePalette {
   // Primary
-  static Color primaryMain = const Color.fromRGBO(41, 98, 255, 1);
+  static Color primaryMain = const Color.fromRGBO(179, 20, 106, 1);
   static Color primaryLight = const Color.fromRGBO(212, 224, 255, 1);
   static Color primaryDark = const Color.fromRGBO(25, 59, 153, 1);
 
   // Secondary
-  static Color secondaryMain = const Color.fromRGBO(255, 237, 41, 1);
+  static Color secondaryMain = const Color.fromRGBO(12, 45, 83, 1);
   static Color secondaryLight = const Color.fromRGBO(255, 250, 191, 1);
   static Color secondaryDark = const Color.fromRGBO(153, 142, 25, 1);
 
@@ -24,48 +24,53 @@ class ThemePalette {
 
   // Gradient Mixed
   static LinearGradient gradientMixedLight = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: <Color>[ThemePalette.secondaryLight, ThemePalette.tertiaryLight, ThemePalette.primaryLight]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: <Color>[
+        ThemePalette.secondaryLight,
+        ThemePalette.tertiaryLight,
+        ThemePalette.primaryLight
+      ]);
 
   static LinearGradient gradientMixedMain = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: <Color>[ThemePalette.secondaryMain, ThemePalette.tertiaryMain, ThemePalette.primaryMain]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: <Color>[
+        ThemePalette.secondaryMain,
+        ThemePalette.tertiaryMain,
+        ThemePalette.primaryMain
+      ]);
 
   static LinearGradient gradientMixedDark = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: <Color>[ThemePalette.secondaryDark, ThemePalette.tertiaryDark, ThemePalette.primaryDark]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: <Color>[
+        ThemePalette.secondaryDark,
+        ThemePalette.tertiaryDark,
+        ThemePalette.primaryDark
+      ]);
 
   // Gradient Primary
   static LinearGradient gradientPrimaryLight = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.topRight,
-    colors: <Color>[ThemePalette.primaryLight, ThemePalette.primaryMain]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+      colors: <Color>[ThemePalette.primaryLight, ThemePalette.primaryMain]);
 
   static LinearGradient gradientPrimaryDark = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.topRight,
-    colors: <Color>[ThemePalette.primaryMain, ThemePalette.primaryDark]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+      colors: <Color>[ThemePalette.primaryMain, ThemePalette.primaryDark]);
 
-   // Gradient Secondary
+  // Gradient Secondary
   static LinearGradient gradientSecondaryLight = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.topRight,
-    colors: <Color>[ThemePalette.secondaryLight, ThemePalette.secondaryMain]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+      colors: <Color>[ThemePalette.secondaryLight, ThemePalette.secondaryMain]);
 
   static LinearGradient gradientSecondaryDark = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.topRight,
-    colors: <Color>[ThemePalette.secondaryMain, ThemePalette.secondaryDark]
-  );
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+      colors: <Color>[ThemePalette.secondaryMain, ThemePalette.secondaryDark]);
 }
 
 ColorScheme colorScheme(BuildContext context) {
@@ -85,7 +90,8 @@ Color lighten(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 
   final hsl = HSLColor.fromColor(color);
-  final hslLight = hsl.withLightness((hsl.lightness + amount / 1.5).clamp(0.0, 1.0));
+  final hslLight =
+      hsl.withLightness((hsl.lightness + amount / 1.5).clamp(0.0, 1.0));
 
   return hslLight.toColor();
 }

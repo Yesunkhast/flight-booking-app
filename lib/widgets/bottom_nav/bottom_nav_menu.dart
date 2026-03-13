@@ -15,73 +15,71 @@ class BottomNavMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String currentRoute = Get.currentRoute;
-    
+
     return BottomAppBar(
-      elevation: 20,
-      shadowColor: Colors.black,
-      height: 60,
-      color: Theme.of(context).colorScheme.surface,
-      padding: const EdgeInsets.all(0),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            MenuItem(
-              title: 'Home',
-              icon: Icons.home, 
-              isActive: currentRoute == AppLink.home,
-              onTap: () {
-                Get.toNamed(AppLink.home);
-              }
-            ),
-            MenuItem(
-              title: 'Explore',
-              icon: CupertinoIcons.location_fill,
-              isActive: currentRoute == AppLink.explore,
-              onTap: () {
-                Get.toNamed(AppLink.explore);
-              }
-            ),
-            OverlayTooltipItem(
-              displayIndex: 3,
-              tooltip: (controller) => Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: MTooltip(title: 'Your scheduled booking tiket will be listed here.', controller: controller),
-              ),
-              tooltipVerticalPosition: TooltipVerticalPosition.TOP,
-              tooltipHorizontalPosition: TooltipHorizontalPosition.CENTER,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: colorScheme(context).surface
+        elevation: 20,
+        shadowColor: Colors.black,
+        height: 60,
+        color: Theme.of(context).colorScheme.surface,
+        padding: const EdgeInsets.all(0),
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MenuItem(
+                    title: 'Home',
+                    icon: Icons.home,
+                    isActive: currentRoute == AppLink.home,
+                    onTap: () {
+                      Get.toNamed(AppLink.home);
+                    }),
+                MenuItem(
+                    title: 'News',
+                    icon: CupertinoIcons.location_fill,
+                    isActive: currentRoute == AppLink.explore,
+                    onTap: () {
+                      Get.toNamed(AppLink.explore);
+                    }),
+                OverlayTooltipItem(
+                  displayIndex: 3,
+                  tooltip: (controller) => Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: MTooltip(
+                        title:
+                            'Your scheduled booking tiket will be listed here.',
+                        controller: controller),
+                  ),
+                  tooltipVerticalPosition: TooltipVerticalPosition.TOP,
+                  tooltipHorizontalPosition: TooltipHorizontalPosition.CENTER,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: colorScheme(context).surface),
+                    child: MenuItem(
+                        title: 'My Orders',
+                        icon: CupertinoIcons.tickets_fill,
+                        isActive: currentRoute == AppLink.myTicket,
+                        onTap: () {
+                          Get.toNamed(AppLink.myTicket);
+                        }),
+                  ),
                 ),
-                child: MenuItem(
-                  title: 'My Orders',
-                  icon: CupertinoIcons.tickets_fill,
-                  isActive: currentRoute == AppLink.myTicket,
-                  onTap: () {
-                    Get.toNamed(AppLink.myTicket);
-                  }
-                ),
-              ),
-            ),
-            MenuItem(
-              title: 'Promos',
-              icon: CupertinoIcons.tags_solid,
-              isActive: currentRoute == AppLink.promo,
-              onTap: () {
-                Get.toNamed(AppLink.promo);
-              }
-            ),
-            MenuItem(
-              title: 'Profile',
-              icon: CupertinoIcons.person_fill,
-              isActive: currentRoute == AppLink.profile,
-              onTap: () => Get.toNamed(AppLink.profile)
-            ),
-          ]);
-        }
-      )
-    );
+                // MenuItem(
+                //   title: 'Promos',
+                //   icon: CupertinoIcons.tags_solid,
+                //   isActive: currentRoute == AppLink.promo,
+                //   onTap: () {
+                //     Get.toNamed(AppLink.promo);
+                //   }
+                // ),
+                MenuItem(
+                    title: 'Profile',
+                    icon: CupertinoIcons.person_fill,
+                    isActive: currentRoute == AppLink.profile,
+                    onTap: () => Get.toNamed(AppLink.profile)),
+              ]);
+        }));
   }
 }
 
@@ -101,37 +99,36 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ZoomTapAnimation (
+    return ZoomTapAnimation(
       child: InkWell(
         borderRadius: BorderRadius.circular(30),
-        onTap: () => {
-          onTap()
-        },
+        onTap: () => {onTap()},
         child: SizedBox(
           width: 60,
           height: 50,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(icon, color: isActive ? ThemePalette.primaryMain : Theme.of(context).colorScheme.onSurface),
-              Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: ThemeText.caption
-              ),
-              isActive ? Container(
-                width: 6,
-                height: 6,
-                margin: const EdgeInsets.only(top: 2),
-                decoration: BoxDecoration(
-                  borderRadius: ThemeRadius.big,
-                  color: ThemePalette.primaryMain
-                ),
-              ) : Container()
-            ]
-          ),
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(icon,
+                    color: isActive
+                        ? ThemePalette.primaryMain
+                        : Theme.of(context).colorScheme.onSurface),
+                Text(title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: ThemeText.caption),
+                isActive
+                    ? Container(
+                        width: 6,
+                        height: 6,
+                        margin: const EdgeInsets.only(top: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: ThemeRadius.big,
+                            color: ThemePalette.primaryMain),
+                      )
+                    : Container()
+              ]),
         ),
       ),
     );

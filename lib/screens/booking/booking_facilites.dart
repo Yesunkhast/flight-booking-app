@@ -1,4 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controllers.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
@@ -12,10 +13,13 @@ import 'package:flight_app/widgets/stepper/step_progress.dart';
 import 'package:flight_app/models/city.dart';
 import 'package:flight_app/widgets/flight/info_header.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+// import 'package:get/route_manager.dart';
 
 class BookingFacilites extends StatelessWidget {
-  const BookingFacilites({super.key});
+  BookingFacilites({super.key});
+
+  final controller = Get.put(FlightSearchController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,44 +39,43 @@ class BookingFacilites extends StatelessWidget {
         StepProgress(activeIndex: 1, items: bookingSteps),
         const Divider(),
         ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-          child: PlaneInfo(plane: planeList[1])
-        ),
-        Expanded(
-          child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-            child: Padding(
+            child: PlaneInfo(plane: planeList[1])),
+        Expanded(
+            child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+          child: Padding(
               padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
               child: ListView(
                 children: const [
                   VSpace(),
-                  BaggageForm(totalPassengers: 3,),
+                  BaggageForm(
+                    totalPassengers: 3,
+                  ),
                   VSpaceBig(),
-                  SeatForm(totalPassengers: 3,),
+                  SeatForm(
+                    totalPassengers: 3,
+                  ),
                   VSpace(),
                 ],
-              )
-            ),
-          )
-        ),
+              )),
+        )),
         Padding(
           padding: EdgeInsets.only(
-            left: spacingUnit(2),
-            right: spacingUnit(2),
-            top: spacingUnit(1),
-            bottom: spacingUnit(4)
-          ),
+              left: spacingUnit(2),
+              right: spacingUnit(2),
+              top: spacingUnit(1),
+              bottom: spacingUnit(4)),
           child: Container(
             height: 50,
             width: double.infinity,
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
             child: FilledButton(
-              onPressed: () {
-                Get.toNamed(AppLink.bookingStep3);
-              },
-              style: ThemeButton.btnBig.merge(ThemeButton.primary),
-              child: const Text('CONTINUE', style: ThemeText.subtitle2)
-            ),
+                onPressed: () {
+                  Get.toNamed(AppLink.bookingStep3);
+                },
+                style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                child: const Text('CONTINUE', style: ThemeText.subtitle2)),
           ),
         )
       ]),

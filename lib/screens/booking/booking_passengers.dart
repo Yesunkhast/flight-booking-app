@@ -37,36 +37,31 @@ class BookingPassengers extends StatelessWidget {
         StepProgress(activeIndex: 0, items: bookingSteps),
         const Divider(),
         ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-          child: PlaneInfo(plane: planeList[1])
-        ),
-        Expanded(
-          child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-            child: Padding(
+            child: PlaneInfo(plane: planeList[1])),
+        Expanded(
+            child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+          child: Padding(
               padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-              child: const PassengerForm(totalPassengers: passengers)
-            ),
-          )
-        ),
+              child: const PassengerForm(totalPassengers: passengers)),
+        )),
         Padding(
           padding: EdgeInsets.only(
-            left: spacingUnit(2),
-            right: spacingUnit(2),
-            top: spacingUnit(1),
-            bottom: spacingUnit(4)
-          ),
+              left: spacingUnit(2),
+              right: spacingUnit(2),
+              top: spacingUnit(1),
+              bottom: spacingUnit(4)),
           child: Container(
             height: 50,
             width: double.infinity,
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
             child: FilledButton(
-              onPressed: () {
-                Get.toNamed(AppLink.bookingStep2);
-              },
-              style: ThemeButton.btnBig.merge(ThemeButton.primary),
-              child: const Text('CONTINUE', style: ThemeText.subtitle2)
-            ),
+                onPressed: () {
+                  Get.toNamed(AppLink.bookingStep2);
+                },
+                style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                child: const Text('CONTINUE', style: ThemeText.subtitle2)),
           ),
         )
       ]),

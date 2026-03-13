@@ -13,15 +13,14 @@ class _FilterDateSliderState extends State<FilterDateSlider> {
   final _scrollController = ScrollController();
   final double stepWidth = 35;
 
-  int _currentDate = 7;
+  int _currentDate = 9;
 
   @override
   void initState() {
-     SchedulerBinding.instance.addPostFrameCallback((_) => _scrollController.animateTo(
-      _currentDate * stepWidth - 16,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn
-    ));
+    SchedulerBinding.instance.addPostFrameCallback((_) =>
+        _scrollController.animateTo(_currentDate * stepWidth - 16,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn));
     super.initState();
   }
 
@@ -40,9 +39,20 @@ class _FilterDateSliderState extends State<FilterDateSlider> {
   @override
   Widget build(BuildContext context) {
     final List<String> dateList = [
-      '13 Oct', '14 Oct', '15 Oct', '16 Oct', '17 Oct',
-      '18 Oct', '19 Oct', '20 Oct', '21 Oct', '22 Oct',
-      '23 Oct', '24 Oct', '25 Oct', '26 Oct'
+      '13 Oct',
+      '14 Oct',
+      '15 Oct',
+      '16 Oct',
+      '17 Oct',
+      '18 Oct',
+      '19 Oct',
+      '20 Oct',
+      '21 Oct',
+      '22 Oct',
+      '23 Oct',
+      '24 Oct',
+      '25 Oct',
+      '26 Oct'
     ];
 
     return SizedBox(
@@ -56,13 +66,12 @@ class _FilterDateSliderState extends State<FilterDateSlider> {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2),
             child: TagButton(
-              size: BtnSize.small,
-              text: dateList[index],
-              selected: index == _currentDate,
-              onPressed: () {
-                _onDateSelected(index);
-              }
-            ),
+                size: BtnSize.medium,
+                text: dateList[index],
+                selected: index == _currentDate,
+                onPressed: () {
+                  _onDateSelected(index);
+                }),
           );
         }),
       ),

@@ -1,14 +1,14 @@
 import 'package:flight_app/ui/themes/theme_spacing.dart';
-import 'package:flight_app/utils/custom_tooltip.dart';
 import 'package:flight_app/widgets/bottom_nav/bottom_nav_menu.dart';
-import 'package:flight_app/widgets/home/city_destinations/city_destinations_main.dart';
 import 'package:flight_app/widgets/home/header.dart';
-import 'package:flight_app/widgets/home/news_list.dart';
-import 'package:flight_app/widgets/home/package_list_slider.dart';
-import 'package:flight_app/widgets/home/partners_logo.dart';
-import 'package:flight_app/widgets/home/promo_slider.dart';
+// import 'package:flight_app/utils/custom_tooltip.dart';
+// import 'package:flight_app/widgets/home/city_destinations/city_destinations_main.dart';
+// import 'package:flight_app/widgets/home/news_list.dart';
+// import 'package:flight_app/widgets/home/package_list_slider.dart';
+// import 'package:flight_app/widgets/home/partners_logo.dart';
+// import 'package:flight_app/widgets/home/promo_slider.dart';
+// import 'package:flight_app/widgets/home/flight_list_double.dart';
 import 'package:flight_app/widgets/home/search.dart';
-import 'package:flight_app/widgets/home/flight_list_double.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +46,6 @@ class _HomeState extends State<Home> {
         _isDoneGuide = true;
       });
     });
-
     _checkFinishedGuide();
     super.initState();
   }
@@ -62,7 +61,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     _scrollref.addListener(() {
       setState(() {
-        if(_scrollref.offset > 60) {
+        if (_scrollref.offset > 60) {
           _isFixed = true;
         } else {
           _isFixed = false;
@@ -76,7 +75,8 @@ class _HomeState extends State<Home> {
       tooltipAnimationDuration: const Duration(milliseconds: 1000),
       controller: _tooltipRef,
       startWhen: (initializedWidgetLength) async {
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(
+            milliseconds: 500)); // data tataj duusah hurtel screeing huleene
         return initializedWidgetLength == 1 && !_isDoneGuide;
       },
       builder: (context) => Scaffold(
@@ -92,25 +92,28 @@ class _HomeState extends State<Home> {
             children: [
               const SearchHome(),
               const VSpace(),
-              OverlayTooltipItem(
-                displayIndex: 1,
-                tooltip: (controller) => Padding(
-                  padding: EdgeInsets.all(spacingUnit(1)),
-                  child: MTooltip(title: 'Explore The Most Popular Places', controller: controller),
-                ),
-                child: const CityDestinations()
-              ),
-              const VSpace(),
-              const PromoSlider(),
-              const VSpaceBig(),
-              const PackageListSlider(),
-              const VSpaceBig(),
-              const FlightListDouble(),
-              const VSpace(),
-              const NewsList(),
-              const VSpace(),
-              const PartnersLogo(),
-              const SizedBox(height: 100,)
+              // OverlayTooltipItem(
+              //     displayIndex: 1,
+              //     tooltip: (controller) => Padding(
+              //           padding: EdgeInsets.all(spacingUnit(1)),
+              //           child: MTooltip(
+              //               title: 'Explore The Most Popular Places',
+              //               controller: controller),
+              //         ),
+              //     child: const CityDestinations()),
+              // const VSpace(),
+              // const PromoSlider(),
+              // const VSpaceBig(),
+              // const PackageListSlider(),
+              // const VSpaceBig(),
+              // const FlightListDouble(),
+              // const VSpace(),
+              // const NewsList(),
+              // const VSpace(),
+              // const PartnersLogo(),
+              const SizedBox(
+                height: 100,
+              )
             ],
           ),
         ),

@@ -16,17 +16,15 @@ final List<GetPage> routesBooking = [
     page: () => const GeneralLayout(content: BookingPassengers()),
   ),
   GetPage(
-    name: AppLink.bookingStep2,
-    page: () => const GeneralLayout(content: BookingFacilites()),
-    transition: Transition.rightToLeft,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
-  ),
+      name: AppLink.bookingStep2,
+      page: () => GeneralLayout(content: BookingFacilites()),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(
-    name: AppLink.bookingStep3,
-    page: () => const GeneralLayout(content: BookingCheckout()),
-    transition: Transition.rightToLeft,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
-  ),
+      name: AppLink.bookingStep3,
+      page: () => const GeneralLayout(content: BookingCheckout()),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(
     name: AppLink.addPassengger,
     page: () => const GeneralLayout(content: AddPassengger()),

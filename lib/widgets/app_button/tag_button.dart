@@ -43,14 +43,20 @@ class TagButton extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         decoration: BoxDecoration(
-          borderRadius: ThemeRadius.small,
-          border: Border.all(color: selected ? colorScheme(context).primary : colorScheme(context).primaryContainer),
-          color: selected ? colorScheme(context).primaryContainer : Colors.transparent
-        ),
+            borderRadius: ThemeRadius.small,
+            border: Border.all(
+                color: selected
+                    ? colorScheme(context).primary
+                    : colorScheme(context).primaryContainer),
+            color:
+                selected ? colorScheme(context).onPrimary : Colors.transparent),
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: colorScheme(context).onSurface),
+          style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              color: colorScheme(context).onSurface),
         ),
       ),
     );

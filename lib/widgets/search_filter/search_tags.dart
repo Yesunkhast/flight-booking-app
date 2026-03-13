@@ -192,7 +192,7 @@ class _TagChinaState extends State<TagChina> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Chine\'s Popular Cities',
+            'China\'s Popular Cities',
             style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: spacingUnit(1)),
