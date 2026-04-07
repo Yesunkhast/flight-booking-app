@@ -56,8 +56,9 @@ class _MessageFormState extends State<MessageForm> {
       initialValue: categoryTemp,
       onSelected: (value) {
         if (value != null) {
-          String result = categoryOptions.firstWhere((e) => e.value == value).label;
-          
+          String result =
+              categoryOptions.firstWhere((e) => e.value == value).label;
+
           _messageKey.currentState?.patchValue({
             'topic': result,
           });
@@ -74,14 +75,14 @@ class _MessageFormState extends State<MessageForm> {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: ThemeSize.sm
-        ),
+        constraints: BoxConstraints(maxWidth: ThemeSize.sm),
         child: FormBuilder(
           key: _messageKey,
           child: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: [
             const VSpaceShort(),
-            const Text('Contact us below if you need help / want to activate the promo', style: ThemeText.headline),
+            const Text(
+                'Contact us below if you need help / want to activate the promo',
+                style: ThemeText.headline),
             const VSpace(),
             FormBuilderField(
               name: 'topic',
@@ -100,18 +101,15 @@ class _MessageFormState extends State<MessageForm> {
               validator: FormBuilderValidators.required(),
             ),
             const VSpaceShort(),
-            
             FormBuilderField(
-              name: 'subject',
-              builder: (FormFieldState<dynamic> field) {
-                return AppTextField(
-                  label: 'Subject',
-                  onChanged: (value) => field.didChange(value),
-                );
-              }
-            ),
+                name: 'subject',
+                builder: (FormFieldState<dynamic> field) {
+                  return AppTextField(
+                    label: 'Subject',
+                    onChanged: (value) => field.didChange(value),
+                  );
+                }),
             const VSpaceShort(),
-        
             FormBuilderField(
               name: 'description',
               builder: (FormFieldState<dynamic> field) {
@@ -119,13 +117,13 @@ class _MessageFormState extends State<MessageForm> {
                   label: 'Description',
                   maxLines: 5,
                   onChanged: (value) => field.didChange(value),
-                  errorText: field.hasError ? 'Please write mssage description' : null,
+                  errorText:
+                      field.hasError ? 'Please write mssage description' : null,
                 );
               },
               validator: FormBuilderValidators.required(),
             ),
             const VSpace(),
-        
             SizedBox(
               width: double.infinity,
               child: FilledButton(

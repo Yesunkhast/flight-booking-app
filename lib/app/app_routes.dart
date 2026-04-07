@@ -19,6 +19,8 @@ import 'package:flight_app/screens/promo/promo_main.dart';
 import 'package:flight_app/screens/promo/voucher_detail.dart';
 import 'package:flight_app/screens/search/search_flight.dart';
 import 'package:flight_app/screens/search/search_list.dart';
+import 'package:flight_app/screens/settings/language_list.dart';
+import 'package:flight_app/screens/splash/splash_screen.dart';
 import 'package:flight_app/ui/layouts/general_layout.dart';
 import 'package:flight_app/ui/layouts/home_layout.dart';
 import 'package:get/route_manager.dart';
@@ -29,11 +31,14 @@ const int pageTransitionDuration = 200;
 final List<GetPage> appRoutes = [
   /// HOME
   GetPage(
-    name: AppLink.home,
-    page: () => const StartScreen(),
-    transition: Transition.fadeIn,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
+    name: AppLink.splash,
+    page: () => SplashScreen(),
   ),
+  GetPage(
+      name: AppLink.home,
+      page: () => const StartScreen(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(
     name: AppLink.intro,
     page: () => GeneralLayout(content: IntroScreen(saveIntroStatus: () {})),
@@ -61,11 +66,10 @@ final List<GetPage> appRoutes = [
 
   // MY TICKET
   GetPage(
-    name: AppLink.myTicket,
-    page: () => const HomeLayout(content: OrderList()),
-    transition: Transition.fadeIn,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
-  ),
+      name: AppLink.myTicket,
+      page: () => const HomeLayout(content: OrderList()),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(
     name: AppLink.ticketDetail,
     page: () => const GeneralLayout(content: OrderDetail()),
@@ -83,19 +87,17 @@ final List<GetPage> appRoutes = [
 
   /// EXPLORE
   GetPage(
-    name: AppLink.explore,
-    page: () => const HomeLayout(content: ExploreMain()),
-    transition: Transition.fadeIn,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
-  ),
+      name: AppLink.explore,
+      page: () => const HomeLayout(content: ExploreMain()),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
 
   /// PROMO
   GetPage(
-    name: AppLink.promo,
-    page: () => const HomeLayout(content: PromoMain()),
-    transition: Transition.fadeIn,
-    transitionDuration: const Duration(milliseconds: pageTransitionDuration)
-  ),
+      name: AppLink.promo,
+      page: () => const HomeLayout(content: PromoMain()),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(
     name: AppLink.promoDetail,
     page: () => const GeneralLayout(content: PromoDetail()),
@@ -103,6 +105,12 @@ final List<GetPage> appRoutes = [
   GetPage(
     name: AppLink.voucherDetail,
     page: () => const GeneralLayout(content: VoucherDetail()),
+  ),
+
+  /// LANGUAGE
+  GetPage(
+    name: AppLink.language,
+    page: () => const GeneralLayout(content: LanguageList()),
   ),
 
   /// AUTH

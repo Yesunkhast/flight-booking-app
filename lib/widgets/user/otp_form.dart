@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/auth_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -19,6 +24,10 @@ class _OtpFormState extends State<OtpForm> {
   late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
+  final _authController = Get.find<AuthController>();
+
+  Timer? timer;
+  int seconds = 10; // hugtsaa uurhcluh 90second
 
   @override
   void initState() {
@@ -26,17 +35,38 @@ class _OtpFormState extends State<OtpForm> {
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
+    startTimer();
   }
 
   @override
   void dispose() {
     pinController.dispose();
     focusNode.dispose();
+    timer?.cancel();
     super.dispose();
+  }
+
+  void _sendAgain() {
+    startTimer();
+  }
+
+  void startTimer() {
+    seconds = 10; // hugtsaa uurhcluh 90second
+    timer?.cancel();
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (seconds > 0) {
+        setState(() {
+          seconds--;
+        });
+      } else {
+        t.cancel();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final focusedBorderColor = Theme.of(context).colorScheme.primary;
     final fillColor = Theme.of(context).colorScheme.surface;
     final borderColor = Theme.of(context).colorScheme.outlineVariant;
@@ -54,19 +84,19 @@ class _OtpFormState extends State<OtpForm> {
     );
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: ThemeSize.xs
-      ),
+      constraints: BoxConstraints(maxWidth: ThemeSize.xs),
       child: Column(
         children: [
           /// TITLE
           const VSpace(),
-          const Text('Check Your Phone', style: ThemeText.title2),
+          Text(localization.checkYourPhone, style: ThemeText.title2),
           SizedBox(height: spacingUnit(1)),
-          Text('We\'ve sent the code to your phone', style: ThemeText.headline.copyWith(color: colorScheme(context).onSurfaceVariant)),
+          Text(localization.weHaveSentCode,
+              style: ThemeText.headline
+                  .copyWith(color: colorScheme(context).onSurfaceVariant)),
           const VSpace(),
-      
-          /// FORM      
+
+          /// FORM
           Form(
             key: formKey,
             child: Column(
@@ -81,7 +111,7 @@ class _OtpFormState extends State<OtpForm> {
                     separatorBuilder: (index) => const SizedBox(width: 8),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      return value == '1234' ? null : 'Pin is incorrect';
+                      return value == '1234' ? null : localization.pinIncorrect;
                     },
                     onCompleted: (pin) {
                       debugPrint('onCompleted: $pin');
@@ -122,14 +152,18 @@ class _OtpFormState extends State<OtpForm> {
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    style: ThemeButton.btnBig.merge(ThemeButton.tonalPrimary(context)),
-                    onPressed: () {
-                      focusNode.unfocus();
-                      if (formKey.currentState!.validate()) {
-                        Get.toNamed(AppLink.home);
-                      }
-                    },
-                    child: const Text('VERIFY'),
+                    style: ThemeButton.btnBig
+                        .merge(ThemeButton.tonalPrimary(context)),
+                    onPressed: _authController.isLoading.value
+                        ? null
+                        : () {
+                            // _authController.verifyOtp();
+                            focusNode.unfocus();
+                            if (formKey.currentState!.validate()) {
+                              Get.toNamed(AppLink.home);
+                            }
+                          },
+                    child: Text(localization.verify.toUpperCase()),
                   ),
                 ),
                 const VSpaceShort(),
@@ -137,25 +171,24 @@ class _OtpFormState extends State<OtpForm> {
                   width: double.infinity,
                   child: OutlinedButton(
                     style: ThemeButton.btnBig,
-                    onPressed: null,
-                    child: const Text('SEND AGAIN'),
+                    onPressed: seconds == 0 ? _sendAgain : null,
+                    child: Text(localization.sendAgain.toUpperCase()),
                   ),
                 ),
                 const SizedBox(height: 8),
-                RichText(text: TextSpan(
-                  text: 'Please wait ',
-                  style: ThemeText.paragraph.copyWith(color: colorScheme(context).onSurface),  
-                    children: const [
+                RichText(
+                    text: TextSpan(
+                        text: '${localization.pleaseWait} ! ',
+                        style: ThemeText.paragraph
+                            .copyWith(color: colorScheme(context).onSurface),
+                        children: [
                       TextSpan(
-                        text: '1:30',
-                        style: TextStyle(fontWeight: FontWeight.bold)
-                      ),
+                          text: ' $seconds sec',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       TextSpan(
-                        text: ' to send again',
+                        text: ' ${localization.sendAgain.toLowerCase()}',
                       )
-                    ]
-                  )
-                )
+                    ]))
               ],
             ),
           ),

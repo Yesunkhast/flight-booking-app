@@ -38,48 +38,57 @@ class BookingCheckout extends StatelessWidget {
         StepProgress(activeIndex: 2, items: bookingSteps),
         const Divider(),
         Expanded(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-            child: const ReviewOrder()
-          )
-        ),
+            child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+                child: const ReviewOrder())),
         Padding(
           padding: EdgeInsets.only(
-            left: spacingUnit(2),
-            right: spacingUnit(2),
-            top: spacingUnit(1),
-            bottom: spacingUnit(4)
-          ),
+              left: spacingUnit(2),
+              right: spacingUnit(2),
+              top: spacingUnit(1),
+              bottom: spacingUnit(4)),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.start, children: [
-              wideScreen ? SizedBox(width: MediaQuery.of(context).size.width * 0.25) : Container(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                  '\$$price',
-                    textAlign: TextAlign.end,
-                    style: ThemeText.headline.copyWith(color: colorScheme(context).onSurfaceVariant, decoration: TextDecoration.lineThrough, height: 1)
+                  wideScreen
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25)
+                      : Container(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('\$$price',
+                          textAlign: TextAlign.end,
+                          style: ThemeText.headline.copyWith(
+                              color: colorScheme(context).onSurfaceVariant,
+                              decoration: TextDecoration.lineThrough,
+                              height: 1)),
+                      Text('\$$finalPrice',
+                          textAlign: TextAlign.end,
+                          style: ThemeText.title.copyWith(
+                              color: colorScheme(context).primary,
+                              height: 1,
+                              fontWeight: FontWeight.bold)),
+                    ],
                   ),
-                  Text('\$$finalPrice', textAlign: TextAlign.end, style: ThemeText.title.copyWith(color: colorScheme(context).primary, height: 1, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(width: spacingUnit(4)),
-              Expanded(
-                child: SizedBox(
-                  height: 50,
-                  child: FilledButton(
-                    onPressed: () {
-                      Get.toNamed(AppLink.payment);
-                    },
-                    style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                    child: const Text('SECURE PAY', style: ThemeText.subtitle2)
-                  ),
-                ),
-              )
-            ]),
+                  SizedBox(width: spacingUnit(4)),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: FilledButton(
+                          onPressed: () {
+                            Get.toNamed(AppLink.payment);
+                          },
+                          style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                          child: const Text('SECURE PAY',
+                              style: ThemeText.subtitle2)),
+                    ),
+                  )
+                ]),
           ),
         )
       ]),

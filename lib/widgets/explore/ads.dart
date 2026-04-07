@@ -1,6 +1,6 @@
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 
@@ -26,12 +26,9 @@ class AdsFood extends StatelessWidget {
       width: double.infinity,
       height: getHeight(context),
       decoration: BoxDecoration(
-        borderRadius: ThemeRadius.small,
-        image: DecorationImage(
-          image: NetworkImage(ImgApi.photo[75]),
-          fit: BoxFit.cover
-        )
-      ),
+          borderRadius: ThemeRadius.small,
+          image: DecorationImage(
+              image: NetworkImage(ImgApi.photo[75]), fit: BoxFit.cover)),
     );
   }
 }
@@ -46,12 +43,9 @@ class AdsHoliday extends StatelessWidget {
       width: double.infinity,
       height: getHeight(context),
       decoration: BoxDecoration(
-        borderRadius: ThemeRadius.small,
-        image: DecorationImage(
-          image: NetworkImage(ImgApi.photo[78]),
-          fit: BoxFit.cover
-        )
-      ),
+          borderRadius: ThemeRadius.small,
+          image: DecorationImage(
+              image: NetworkImage(ImgApi.photo[78]), fit: BoxFit.cover)),
     );
   }
 }

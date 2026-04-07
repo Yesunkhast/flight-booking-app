@@ -13,7 +13,8 @@ class SelectCategoryGrid extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-        child: Text('Category Search', style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold)),
+        child: Text('Category Search',
+            style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold)),
       ),
       GridView.builder(
         shrinkWrap: true,
@@ -34,16 +35,23 @@ class SelectCategoryGrid extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: ThemeRadius.small,
-                color: item.color.withValues(alpha: 0.1)
-              ),
+                  borderRadius: ThemeRadius.small,
+                  color: item.color.withValues(alpha: 0.1)),
               child: Padding(
                 padding: EdgeInsets.all(spacingUnit(1)),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  Expanded(child: Text(item.name, style: TextStyle(fontWeight: FontWeight.bold, color: item.color))),
-                  Image.asset(item.image, fit: BoxFit.contain, height: 30,)
+                child:
+                    Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  Expanded(
+                      child: Text(item.name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: item.color))),
+                  Image.asset(
+                    item.image,
+                    fit: BoxFit.contain,
+                    height: 30,
+                  )
                 ]),
-              ),          
+              ),
             ),
           );
         },

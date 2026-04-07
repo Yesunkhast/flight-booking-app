@@ -31,7 +31,8 @@ class _SeatFormState extends State<SeatForm> {
   @override
   void initState() {
     super.initState();
-    List <String>initGroup = List.generate(widget.totalPassengers, (index) => 'B${index+1}');
+    List<String> initGroup =
+        List.generate(widget.totalPassengers, (index) => 'B${index + 1}');
     Future.delayed(Durations.short1, () {
       setState(() {
         _seatGroup = initGroup;
@@ -64,36 +65,38 @@ class _SeatFormState extends State<SeatForm> {
     return Column(children: [
       const TitleBasic(title: 'Select Seat', size: 'small'),
       ListView.builder(
-        shrinkWrap: true,
-        itemCount: _seatGroup.length,
-        physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(top: spacingUnit(2)),
-            child: AppInputBox(
-              content: ListTile(
-                minVerticalPadding: 0,
-                contentPadding: const EdgeInsets.all(0),
-                leading: const Icon(Icons.airline_seat_recline_extra),
-                title: Row(children: [
-                  Expanded(child: Text(
-                    '${passengerList[index].title} ${passengerList[index].name}',
-                    style: ThemeText.headline.copyWith(color: colorScheme(context).onSurface)
-                  )),
-                  Text(_seatGroup[index], style: ThemeText.subtitle2.copyWith(color: colorScheme(context).onSurface))
-                ]),
-                trailing: Icon(Icons.edit, color: colorScheme(context).primary),
-                onTap: () {
-                  showSeatSheet(index);
-                  setState(() {
-                    _selectedSeat = _seatGroup[index];
-                  });
-                }
-              )
-            ),
-          );
-        }
-      )
+          shrinkWrap: true,
+          itemCount: _seatGroup.length,
+          physics: const ClampingScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(top: spacingUnit(2)),
+              child: AppInputBox(
+                  content: ListTile(
+                      minVerticalPadding: 0,
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(Icons.airline_seat_recline_extra),
+                      title: Row(children: [
+                        Expanded(
+                            child: Text(
+                                passengerList[index]
+                                    .username, //'${passengerList[index].title} ${passengerList[index].name}'
+                                style: ThemeText.headline.copyWith(
+                                    color: colorScheme(context).onSurface))),
+                        Text(_seatGroup[index],
+                            style: ThemeText.subtitle2.copyWith(
+                                color: colorScheme(context).onSurface))
+                      ]),
+                      trailing:
+                          Icon(Icons.edit, color: colorScheme(context).primary),
+                      onTap: () {
+                        showSeatSheet(index);
+                        setState(() {
+                          _selectedSeat = _seatGroup[index];
+                        });
+                      })),
+            );
+          })
     ]);
   }
 }

@@ -9,31 +9,29 @@ class RewardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: EdgeInsets.only(
-        top: spacingUnit(2),
-        left: spacingUnit(2),
-        right: spacingUnit(2),
-        bottom: spacingUnit(4),
-      ),
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 0.75
-      ),
-      itemCount: rewardList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final item = rewardList[index];
-        return RewardCard(
-          image: item.image,
-          logo: item.logo,
-          title: item.title,
-          subtitle: item.description,
-          point: item.points,
-        );
-      }
-    );
+        padding: EdgeInsets.only(
+          top: spacingUnit(2),
+          left: spacingUnit(2),
+          right: spacingUnit(2),
+          bottom: spacingUnit(4),
+        ),
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.75),
+        itemCount: rewardList.length,
+        itemBuilder: (BuildContext context, int index) {
+          final item = rewardList[index];
+          return RewardCard(
+            image: item.image,
+            logo: item.logo,
+            title: item.title,
+            subtitle: item.description,
+            point: item.points,
+          );
+        });
   }
 }

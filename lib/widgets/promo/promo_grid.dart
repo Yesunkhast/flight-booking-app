@@ -15,7 +15,11 @@ class PromoGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      padding: EdgeInsets.only(top: spacingUnit(2), left: spacingUnit(2), right: spacingUnit(2), bottom: isHome ? 100 : spacingUnit(1)),
+      padding: EdgeInsets.only(
+          top: spacingUnit(2),
+          left: spacingUnit(2),
+          right: spacingUnit(2),
+          bottom: isHome ? 100 : spacingUnit(1)),
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         mainAxisExtent: 300,

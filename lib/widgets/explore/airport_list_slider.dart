@@ -22,7 +22,7 @@ class AirportListSlider extends StatelessWidget {
       airportList[8],
       airportList[9],
     ];
-  
+
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
@@ -42,17 +42,17 @@ class AirportListSlider extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(left: index == 0 ? 4 : 0),
               child: Column(children: [
-                SizedBox(width: 280, height: cardHeight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: AirportCard(
-                      thumb: item.photo,
-                      name: item.name,
-                      code: item.code,
-                      location: item.location
-                    ),
-                  )
-                ),
+                SizedBox(
+                    width: 280,
+                    height: cardHeight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: AirportCard(
+                          thumb: item.photo,
+                          name: item.name,
+                          code: item.code,
+                          location: item.location),
+                    )),
               ]),
             );
           }),

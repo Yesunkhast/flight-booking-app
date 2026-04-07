@@ -49,15 +49,15 @@ class TagButton extends StatelessWidget {
                     ? colorScheme(context).primary
                     : colorScheme(context).primaryContainer),
             color:
-                selected ? colorScheme(context).onPrimary : Colors.transparent),
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              color: colorScheme(context).onSurface),
-        ),
+                selected ? colorScheme(context).primary : Colors.transparent),
+        child: Text(text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+                color: selected
+                    ? colorScheme(context).onPrimary
+                    : colorScheme(context).onPrimaryContainer)),
       ),
     );
   }

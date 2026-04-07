@@ -18,19 +18,19 @@ class NewsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Uri urlBlog = Uri.parse('https://oiron1.netlify.app/en/agency/blog/');
-    final Uri urlBlogDetail = Uri.parse('https://oiron1.netlify.app/agency/blog/detail-blog/');
+    final Uri urlBlogDetail =
+        Uri.parse('https://oiron1.netlify.app/agency/blog/detail-blog/');
     const double cardHeight = 180;
-  
+
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
         child: TitleAction(
-          title: 'You have to know',
-          textAction: 'See All',
-          onTap: () {
-            _launchUrl(urlBlog);
-          }
-        ),
+            title: 'You have to know',
+            textAction: 'See All',
+            onTap: () {
+              _launchUrl(urlBlog);
+            }),
       ),
       SizedBox(height: spacingUnit(2)),
       SizedBox(
@@ -43,20 +43,20 @@ class NewsList extends StatelessWidget {
           itemBuilder: ((context, index) {
             News item = newsList[index];
             return Padding(
-              padding: EdgeInsets.only(left: index == 0 ? 8 : 0, right: 8, bottom: 8),
+              padding: EdgeInsets.only(
+                  left: index == 0 ? 8 : 0, right: 8, bottom: 8),
               child: SizedBox(
-                width: ThemeBreakpoints.smUp(context) ? 200 : 160,
-                child: GestureDetector(
-                  onTap: () {
-                    _launchUrl(urlBlogDetail);
-                  },
-                  child: NewsCard(
-                    thumb: item.thumb,
-                    title: item.title,
-                    date: item.date,
-                  ),
-                )
-              ),
+                  width: ThemeBreakpoints.smUp(context) ? 200 : 160,
+                  child: GestureDetector(
+                    onTap: () {
+                      _launchUrl(urlBlogDetail);
+                    },
+                    child: NewsCard(
+                      thumb: item.thumb,
+                      title: item.title,
+                      date: item.date,
+                    ),
+                  )),
             );
           }),
         ),

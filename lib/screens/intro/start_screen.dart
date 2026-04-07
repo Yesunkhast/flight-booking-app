@@ -18,6 +18,8 @@ class _StartScreenState extends State<StartScreen> {
 
   void _checkFinishedIntro() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // await Future.delayed(const Duration(seconds: 5));
     setState(() {
       _isFinishedIntro = prefs.getBool(_key) ?? false;
     });
@@ -39,11 +41,10 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _isFinishedIntro ?
-      const GeneralLayout(content: Home())
-      : IntroScreen(saveIntroStatus: () {
-        _saveIntroStatus();
-      }
-    );
+    return _isFinishedIntro
+        ? const GeneralLayout(content: Home())
+        : IntroScreen(saveIntroStatus: () {
+            _saveIntroStatus();
+          });
   }
 }

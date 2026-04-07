@@ -24,21 +24,28 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
   /// FILTER AND ORDER
   List<Trip> allData = [];
   List<Trip> resultFlight = [];
-  List<Trip> filterFlights(
-    List<Trip> flights, {
-      double? maxPrice,
+  List<Trip> filterFlights(List<Trip> flights,
+      {double? maxPrice,
       double? minPrice,
       List<Plane>? airlines,
       List<int>? transits,
-      double? duration
-  }) {
+      double? duration}) {
     return flights.where((item) {
-      bool matchesAirline = airlines == null || airlines.isEmpty || _selectedAirlines.contains(item.plane);
-      bool matchesPrice = maxPrice == null || minPrice == null || item.price >= minPrice && item.price <= maxPrice;
-      bool matchesTransit = transits == null || _stopTransits.contains(item.transit);
-      bool matchesDuration = duration == null || (item.arrival.difference(item.depart)).inHours <= duration;
-      
-      return matchesAirline && matchesPrice && matchesTransit && matchesDuration;
+      bool matchesAirline = airlines == null ||
+          airlines.isEmpty ||
+          _selectedAirlines.contains(item.plane);
+      bool matchesPrice = maxPrice == null ||
+          minPrice == null ||
+          item.price >= minPrice && item.price <= maxPrice;
+      bool matchesTransit =
+          transits == null || _stopTransits.contains(item.transit);
+      bool matchesDuration = duration == null ||
+          (item.arrival.difference(item.depart)).inHours <= duration;
+
+      return matchesAirline &&
+          matchesPrice &&
+          matchesTransit &&
+          matchesDuration;
     }).toList();
   }
 
@@ -86,9 +93,7 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
             return 0; // No sorting if an invalid criteria is passed
         }
 
-        return descending
-            ? valueB.compareTo(valueA)
-            : valueA.compareTo(valueB);
+        return descending ? valueB.compareTo(valueA) : valueA.compareTo(valueB);
       });
     });
   }
@@ -96,14 +101,12 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
   void changePrice(RangeValues values) {
     setState(() {
       _priceRange = values;
-      resultFlight = filterFlights(
-        allData,
-        airlines: _selectedAirlines,
-        minPrice: values.start,
-        maxPrice: values.end,
-        duration: _duration,
-        transits: _stopTransits
-      );
+      resultFlight = filterFlights(allData,
+          airlines: _selectedAirlines,
+          minPrice: values.start,
+          maxPrice: values.end,
+          duration: _duration,
+          transits: _stopTransits);
     });
   }
 
@@ -115,14 +118,12 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
         _selectedAirlines.remove(plane);
       }
 
-      resultFlight = filterFlights(
-        allData,
-        airlines: _selectedAirlines,
-        minPrice: _priceRange.start,
-        maxPrice: _priceRange.end,
-        duration: _duration,
-        transits: _stopTransits
-      );
+      resultFlight = filterFlights(allData,
+          airlines: _selectedAirlines,
+          minPrice: _priceRange.start,
+          maxPrice: _priceRange.end,
+          duration: _duration,
+          transits: _stopTransits);
     });
   }
 
@@ -134,14 +135,12 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
         _stopTransits.remove(val);
       }
 
-      resultFlight = filterFlights(
-        allData,
-        airlines: _selectedAirlines,
-        minPrice: _priceRange.start,
-        maxPrice: _priceRange.end,
-        duration: _duration,
-        transits: _stopTransits
-      );
+      resultFlight = filterFlights(allData,
+          airlines: _selectedAirlines,
+          minPrice: _priceRange.start,
+          maxPrice: _priceRange.end,
+          duration: _duration,
+          transits: _stopTransits);
     });
   }
 
@@ -149,14 +148,12 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
     setState(() {
       _duration = val;
 
-      resultFlight = filterFlights(
-        allData,
-        airlines: _selectedAirlines,
-        minPrice: _priceRange.start,
-        maxPrice: _priceRange.end,
-        duration: val,
-        transits: _stopTransits
-      );
+      resultFlight = filterFlights(allData,
+          airlines: _selectedAirlines,
+          minPrice: _priceRange.start,
+          maxPrice: _priceRange.end,
+          duration: val,
+          transits: _stopTransits);
     });
   }
 
@@ -204,50 +201,63 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
       ),
       body: Column(children: [
         /// TAB MENU ROUND-TRIP
-        RoundTripTab(
-          setTabMenu: _setTabMenu,
-          tabMenuIndex: _tabMenuIndex
-        ),
+        RoundTripTab(setTabMenu: _setTabMenu, tabMenuIndex: _tabMenuIndex),
 
         /// DATE PICKER
         const FilterDateSlider(),
-        Divider(color: colorScheme(context).outline,),
+        Divider(
+          color: colorScheme(context).outline,
+        ),
 
         /// FLIGHT LIST
         Expanded(
-          child: _tabMenuIndex == 0 ? _departReturn(context, _departDone) : _departReturn(context, _returnDone)
-        ),
+            child: _tabMenuIndex == 0
+                ? _departReturn(context, _departDone)
+                : _departReturn(context, _returnDone)),
       ]),
       bottomNavigationBar: ScrollToHide(
-        scrollController: _scrollController,
-        height: 100,
-        hideDirection: Axis.vertical,
-        child: FilterBottomFloating(
-          onSortBest: () { sortFlights('best', descending: true); },
-          onSortCheapest: () { sortFlights('cheapest'); },
-          onSortDiscount: () { sortFlights('discount', descending: true); },
-          onSortPlaneName: () { sortFlights('name'); },
-          onSortTransits: () { sortFlights('transit'); },
-          onSortDepart: () { sortFlights('depart'); },
-          onSortArrival: () { sortFlights('arival'); },
-          priceRange: _priceRange,
-          duration: _duration,
-          selectedAirlines: _selectedAirlines,
-          transits: _stopTransits,
-          onChangePrice: (RangeValues val) {
-            changePrice(val);
-          },
-          onChangeDuration: (double val) {
-            changeDuration(val);
-          },
-          onUpdateTransit: (String type, int val) {
-            selectTransits(type, val);
-          },
-          onUpdateAirlines: (String type, Plane item) {
-            selectAirlines(type, item);
-          },
-        )
-      ),
+          scrollController: _scrollController,
+          height: 100,
+          hideDirection: Axis.vertical,
+          child: FilterBottomFloating(
+            onSortBest: () {
+              sortFlights('best', descending: true);
+            },
+            onSortCheapest: () {
+              sortFlights('cheapest');
+            },
+            onSortDiscount: () {
+              sortFlights('discount', descending: true);
+            },
+            onSortPlaneName: () {
+              sortFlights('name');
+            },
+            onSortTransits: () {
+              sortFlights('transit');
+            },
+            onSortDepart: () {
+              sortFlights('depart');
+            },
+            onSortArrival: () {
+              sortFlights('arival');
+            },
+            priceRange: _priceRange,
+            duration: _duration,
+            selectedAirlines: _selectedAirlines,
+            transits: _stopTransits,
+            onChangePrice: (RangeValues val) {
+              changePrice(val);
+            },
+            onChangeDuration: (double val) {
+              changeDuration(val);
+            },
+            onUpdateTransit: (String type, int val) {
+              selectTransits(type, val);
+            },
+            onUpdateAirlines: (String type, Plane item) {
+              selectAirlines(type, item);
+            },
+          )),
     );
   }
 
@@ -264,6 +274,7 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
         },
       );
     }
-    return FlightTripList(scrollRef: _scrollController, flightData: resultFlight);
+    return FlightTripList(
+        scrollRef: _scrollController, flightData: resultFlight);
   }
 }

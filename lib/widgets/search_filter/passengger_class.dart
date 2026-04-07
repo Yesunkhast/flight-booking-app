@@ -1,3 +1,4 @@
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -28,6 +29,7 @@ class PassenggerClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       color: colorScheme(context).surface,
       padding: EdgeInsets.all(spacingUnit(2)),
@@ -35,7 +37,7 @@ class PassenggerClass extends StatelessWidget {
         children: [
           const GrabberIcon(),
           const VSpaceShort(),
-          const TitleBasic(title: 'Passengers'),
+          TitleBasic(title: localizations.passenger),
           SizedBox(height: spacingUnit(1)),
           AppInputBox(
               content: Row(children: [
@@ -46,7 +48,7 @@ class PassenggerClass extends StatelessWidget {
               contentPadding: const EdgeInsets.all(0),
               minTileHeight: 0,
               minVerticalPadding: 0,
-              title: const Text('Adults'),
+              title: Text(localizations.adult),
               subtitle: const Text('Age 12 and over'),
             )),
             SizedBox(width: spacingUnit(1)),
@@ -70,7 +72,7 @@ class PassenggerClass extends StatelessWidget {
               contentPadding: const EdgeInsets.all(0),
               minTileHeight: 0,
               minVerticalPadding: 0,
-              title: const Text('Child'),
+              title: Text(localizations.child),
               subtitle: const Text('Age 2-11'),
             )),
             SizedBox(width: spacingUnit(1)),
@@ -94,7 +96,7 @@ class PassenggerClass extends StatelessWidget {
               contentPadding: const EdgeInsets.all(0),
               minTileHeight: 0,
               minVerticalPadding: 0,
-              title: const Text('Infant'),
+              title: Text(localizations.infant),
               subtitle: const Text('Below Age 2'),
             )),
             SizedBox(width: spacingUnit(1)),

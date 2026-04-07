@@ -20,60 +20,64 @@ class CityDestinationsGrid extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
       decoration: BoxDecoration(
-        color: colorScheme(context).surfaceContainerLowest,
-        borderRadius: ThemeRadius.medium
-      ),
+          color: colorScheme(context).surfaceContainerLowest,
+          borderRadius: ThemeRadius.medium),
       child: Column(
         children: [
           const TitleBasic(title: 'Popular Destinations'),
-          SizedBox(height: spacingUnit(2),), 
-          GridView.builder(
-            padding: const EdgeInsets.all(0),
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 0.8,
-            ),
-            itemCount: 8,
-            itemBuilder: (context, index) {
-              final City item = recomendedCityList[index];
-              return GestureDetector(
-                onTap: () {
-                  Get.toNamed(AppLink.searchFlight);
-                },
-                child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: ThemeRadius.medium,
-                      boxShadow: [ThemeShade.shadeMedium(context)],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: ThemeRadius.medium,
-                      child: Image.network(
-                        item.photos[0],
-                        fit: BoxFit.cover,
-                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return const SizedBox(
-                            width: double.infinity,
-                            height: 60,
-                            child: ShimmerPreloader()
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: spacingUnit(1)),
-                  Text(item.name, overflow: TextOverflow.ellipsis, style: ThemeText.paragraph)
-                ])
-              );
-            }
+          SizedBox(
+            height: spacingUnit(2),
           ),
+          GridView.builder(
+              padding: const EdgeInsets.all(0),
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: 8,
+              itemBuilder: (context, index) {
+                final City item = recomendedCityList[index];
+                return GestureDetector(
+                    onTap: () {
+                      Get.toNamed(AppLink.searchFlight);
+                    },
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: ThemeRadius.medium,
+                              boxShadow: [ThemeShade.shadeMedium(context)],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: ThemeRadius.medium,
+                              child: Image.network(
+                                item.photos[0],
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return const SizedBox(
+                                      width: double.infinity,
+                                      height: 60,
+                                      child: ShimmerPreloader());
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: spacingUnit(1)),
+                          Text(item.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: ThemeText.paragraph)
+                        ]));
+              }),
         ],
       ),
     );

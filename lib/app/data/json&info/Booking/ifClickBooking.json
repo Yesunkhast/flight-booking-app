@@ -1,0 +1,148 @@
+{
+    "status": "SUCCESS",
+    "code": 0,
+    "message": "",
+    "result": {
+        "bookingStrId": 93278,
+        "nctype": "d",
+        "cardType": 0,
+        "cabinCount": "A",
+        "flightInfo": [
+            {
+                "dpt": "ERL",
+                "dptDate": "2026-04-07",
+                "dptTime": "22:25",
+                "dptCityName": "",
+                "dptCityNameEng": "Erenhot-\u042d\u0440\u044d\u044d\u043d",
+                "dptAirport": "\u8d5b\u4e4c\u82cf\u673a\u573a",
+                "dptAirportEng": "sai-wu-su",
+                "dptTerminal": "",
+                "arr": "PKX",
+                "arrDate": "2026-04-07",
+                "arrTime": "23:40",
+                "arrCityName": "",
+                "arrCityNameEng": "Beijing-\u0411\u044d\u044d\u0436\u0438\u043d",
+                "arrAirport": "\u5317\u4eac\u5927\u5174\u673a\u573a",
+                "arrAirportEng": "bei-jing-da-xing",
+                "arrTerminal": "",
+                "flightNum": "JD5222",
+                "actFlightNum": "",
+                "airline": "CAPITAL AIRLINES",
+                "airlineCode": "JD",
+                "airlineLogo": "/assets/d/JD.png",
+                "distance": 0,
+                "flightTimes": "1 \u0446\u0430\u0433 15 \u043c\u0438\u043d\u0443\u0442",
+                "cabinType": "ECONOMY",
+                "cabinCount": "",
+                "stopsNum": 0,
+                "stopInfoList": [],
+                "tripNote": null
+            }
+        ],
+        "tgqShowData": [
+            {
+                "tgqPointCharges": [
+                    {
+                        "returnFee": 222,
+                        "timeText": "2026-03-24 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 336,
+                        "changeFee": 175
+                    },
+                    {
+                        "returnFee": 269,
+                        "timeText": "2026-04-04 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 72,
+                        "changeFee": 222
+                    },
+                    {
+                        "returnFee": 363,
+                        "timeText": "2026-04-05 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 48,
+                        "changeFee": 269
+                    },
+                    {
+                        "returnFee": 410,
+                        "timeText": "2026-04-07 18:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 4,
+                        "changeFee": 316
+                    },
+                    {
+                        "returnFee": 457,
+                        "timeText": "2026-04-07 18:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u0445\u043e\u0439\u0448",
+                        "time": -2147483648,
+                        "changeFee": 363
+                    }
+                ]
+            }
+        ],
+        "baggageRuleInfos": [
+            {
+                "cabinBaggageRule": "1 \u0448\u0438\u0440\u0445\u044d\u0433 ,7 \u043a\u0433 , \u044d\u0437\u044d\u043b\u0445\u04af\u04af\u043d \u043d\u044c \u0434\u0430\u0440\u0430\u0430\u0445 \u0445\u044d\u043c\u0436\u044d\u044d\u043d\u044d\u044d\u0441 \u0445\u044d\u0442\u0440\u044d\u0445\u0433\u04af\u0439 20\u00d740\u00d755CM (\u4e0d\u542b\u8f6e\u6d4b\u91cf)",
+                "infantBaggageRule": " /  \u0422\u04e9\u043b\u0431\u04e9\u0440\u0442\u044d\u0439 \u6258\u8fd0 \u0442\u044d\u044d\u0448 \uff0c\u4f46\u53ef\u643a\u5e261 \u0448\u0438\u0440\u0445\u044d\u0433 7 \u043a\u0433  \u0433\u0430\u0440 \u0442\u044d\u044d\u0448 \uff0820*40*55cm\uff09",
+                "checkedBaggageRule": "20 \u043a\u0433 , \u044d\u0437\u044d\u043b\u0445\u04af\u04af\u043d \u043d\u044c \u0434\u0430\u0440\u0430\u0430\u0445 \u0445\u044d\u043c\u0436\u044d\u044d\u043d\u044d\u044d\u0441 \u0445\u044d\u0442\u0440\u044d\u0445\u0433\u04af\u0439 40\u00d760\u00d7100CM(\u542b\u8f6e\u6d4b\u91cf)",
+                "specialRules": [
+                    "\u624b\u63d0\u884c\u674e\uff1a1\u4ef6,7KG,\u4f53\u79ef\u4e0d\u8d85\u8fc720\u00d740\u00d755CM (\u4e0d\u542b\u8f6e\u6d4b\u91cf)\uff1b\u6258\u8fd0\u884c\u674e\uff1a20KG,\u4f53\u79ef\u4e0d\u8d85\u8fc740\u00d760\u00d7100CM(\u542b\u8f6e\u6d4b\u91cf)\uff1b\u5a74\u513f\u7968\u884c\u674e\uff1a\u65e0\u514d\u8d39\u6258\u8fd0\u884c\u674e\uff0c\u4f46\u53ef\u643a\u5e261\u4ef67KG\u624b\u63d0\u884c\u674e\uff0820*40*55cm\uff09\u3002\u6e29\u99a8\u63d0\u793a\uff1a\u6000\u5b55\u8d85\u8fc732\u5468\u4e0d\u8db336\u5468\u7684\u5065\u5eb7\u5b55\u5987\u3001\u62c5\u67b6\u65c5\u5ba2\u3001\u65e0\u6210\u4eba\u966a\u4f34\u513f\u7ae5\u3001\u76f2\u4eba\u65c5\u5ba2\u3001\u6b8b\u75be\u65c5\u5ba2\u3001\u75c5\u60a3\u65c5\u5ba2\u3001\u72af\u4eba\u7b49\u7279\u6b8a\u65c5\u5ba2\u9700\u8981\u63d0\u4f9b\u7279\u6b8a\u4fdd\u969c\u670d\u52a1\uff0c\u5207\u52ff\u76f4\u63a5\u5728\u7f51\u4e0a\u8d2d\u7968\uff0c\u8bf7\u81f4\u7535\u8fdb\u884c\u54a8\u8be2\u3002"
+                ]
+            }
+        ],
+        "priceInfo": {
+            "price": 500.0,
+            "tax": 110.0,
+            "totalPrice": 610.0,
+            "cTax": 0,
+            "cPrice": 421.0,
+            "cTotalPrice": 421.0,
+            "childPriceType": 1,
+            "fee": 3000,
+            "moneyTransfer": 3,
+            "nightFee": 0,
+            "date": "2026-04-07 07:52:17.870209",
+            "operatorFee": 4000,
+            "operatorFeePercent": 1
+        },
+        "policyInfo": {
+            "maxAge": 100,
+            "minAge": 0,
+            "cardType": 0,
+            "specialRule": "",
+            "childBuyAdult": false
+        },
+        "childTgqData": [
+            {
+                "tgqPointCharges": [
+                    {
+                        "returnFee": 120,
+                        "timeText": "2026-03-24 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 336,
+                        "changeFee": 101
+                    },
+                    {
+                        "returnFee": 120,
+                        "timeText": "2026-04-04 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 72,
+                        "changeFee": 101
+                    },
+                    {
+                        "returnFee": 159,
+                        "timeText": "2026-04-05 22:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 48,
+                        "changeFee": 120
+                    },
+                    {
+                        "returnFee": 159,
+                        "timeText": "2026-04-07 18:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u04e9\u043c\u043d\u04e9",
+                        "time": 4,
+                        "changeFee": 120
+                    },
+                    {
+                        "returnFee": 237,
+                        "timeText": "2026-04-07 18:25 \u0446\u0430\u0433\u0430\u0430\u0441 \u0445\u043e\u0439\u0448",
+                        "time": -2147483648,
+                        "changeFee": 159
+                    }
+                ]
+            }
+        ],
+        "specialProductRule": {}
+    }
+}

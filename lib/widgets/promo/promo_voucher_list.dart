@@ -1,5 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/models/voucher.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/utils/no_data.dart';
@@ -14,39 +14,40 @@ class PromoVoucherList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return dataList.isNotEmpty ? ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: dataList.length,
-      padding: EdgeInsets.only(
-        top: spacingUnit(2),
-        left: spacingUnit(2),
-        right: spacingUnit(2),
-        bottom: spacingUnit(10),
-      ),
-      itemBuilder: ((BuildContext context, int index) {
-        Voucher item = dataList[index];
-        return Container(
-          width: double.infinity,
-          height: 100,
-          padding: EdgeInsets.only(bottom: spacingUnit(2)),
-          child: InkWell(
-            onTap: () {
-              Get.toNamed(AppLink.voucherDetail);
-            },
-            child: VoucherCard(
-              title: item.title,
-              desc: item.desc,
-              onSelected: (_) {},
-              isSelected: false,
-              color: item.color,
-              image: item.image ?? item.image,
-              status: VoucherStatus.readonly
+    return dataList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: dataList.length,
+            padding: EdgeInsets.only(
+              top: spacingUnit(2),
+              left: spacingUnit(2),
+              right: spacingUnit(2),
+              bottom: spacingUnit(10),
             ),
-          ),
-        );
-      }),
-    ) : _emptyList(context);
+            itemBuilder: ((BuildContext context, int index) {
+              Voucher item = dataList[index];
+              return Container(
+                width: double.infinity,
+                height: 100,
+                padding: EdgeInsets.only(bottom: spacingUnit(2)),
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(AppLink.voucherDetail);
+                  },
+                  child: VoucherCard(
+                      title: item.title,
+                      desc: item.desc,
+                      onSelected: (_) {},
+                      isSelected: false,
+                      color: item.color,
+                      image: item.image ?? item.image,
+                      status: VoucherStatus.readonly),
+                ),
+              );
+            }),
+          )
+        : _emptyList(context);
   }
 
   Widget _emptyList(BuildContext context) {

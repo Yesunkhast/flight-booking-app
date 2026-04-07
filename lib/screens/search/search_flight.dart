@@ -1,5 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -31,6 +32,7 @@ class _SearchFlightState extends State<SearchFlight> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -51,7 +53,7 @@ class _SearchFlightState extends State<SearchFlight> {
                 Get.back();
               },
             ),
-            title: const Text('Search Flights', style: ThemeText.subtitle),
+            title: Text(localizations.searchFlight, style: ThemeText.subtitle),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(
                 ImgApi.searchBanner,
@@ -148,14 +150,14 @@ class _SearchFlightState extends State<SearchFlight> {
                     horizontal: spacingUnit(2), vertical: spacingUnit(1)),
                 child: Row(children: [
                   TagButton(
-                      text: 'One Way',
+                      text: localizations.oneWay,
                       selected: !_roundTrip,
                       onPressed: () {
                         _setRoundTrip(false);
                       }),
                   SizedBox(width: spacingUnit(1)),
                   TagButton(
-                      text: 'Round Trip',
+                      text: localizations.roundTrip,
                       selected: _roundTrip,
                       onPressed: () {
                         _setRoundTrip(true);

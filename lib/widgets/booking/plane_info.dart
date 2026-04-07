@@ -22,17 +22,20 @@ class PlaneInfo extends StatelessWidget {
             width: 20,
           ),
         ),
-        const SizedBox(width: 4,),
+        const SizedBox(
+          width: 4,
+        ),
         Text(plane.name, style: ThemeText.paragraph),
         const Spacer(),
         Text(plane.code, style: ThemeText.paragraph),
-        const SizedBox(width: 4,),
+        const SizedBox(
+          width: 4,
+        ),
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            borderRadius: ThemeRadius.xsmall,
-            color: colorScheme(context).primaryContainer
-          ),
+              borderRadius: ThemeRadius.xsmall,
+              color: colorScheme(context).primaryContainer),
           child: Text(plane.classType, style: ThemeText.caption),
         )
       ]),

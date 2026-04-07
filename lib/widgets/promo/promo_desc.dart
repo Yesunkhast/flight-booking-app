@@ -7,18 +7,17 @@ import 'package:flight_app/utils/image_viewer.dart';
 import 'package:flight_app/utils/shimmer_preloader.dart';
 
 class PromoDesc extends StatelessWidget {
-  const PromoDesc({
-    super.key,
-    required this.title,
-    required this.desc,
-    required this.thumb,
-    required this.terms1,
-    required this.terms2,
-    required this.terms3,
-    required this.date,
-    required this.point,
-    required this.liked
-  });
+  const PromoDesc(
+      {super.key,
+      required this.title,
+      required this.desc,
+      required this.thumb,
+      required this.terms1,
+      required this.terms2,
+      required this.terms3,
+      required this.date,
+      required this.point,
+      required this.liked});
 
   final String title;
   final String desc;
@@ -39,66 +38,71 @@ class PromoDesc extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: spacingUnit(2)),
           child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
             /// EVENT TITLE
-            Expanded(child: Text(
-              title,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: ThemeText.title2.copyWith(fontWeight: FontWeight.bold))
-            ),
+            Expanded(
+                child: Text(title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: ThemeText.title2
+                        .copyWith(fontWeight: FontWeight.bold))),
             SizedBox(width: spacingUnit(1)),
 
             /// TIME REMAINING
             Container(
-              width: 120,
-              padding: EdgeInsets.all(spacingUnit(1)),
-              margin: EdgeInsets.only(bottom: spacingUnit(1)),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: ThemeRadius.medium
-              ),
-              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Icon(Icons.access_time_outlined, size: 15, color: Colors.white),
-                const SizedBox(width: 2),
-                Text(date, style: ThemeText.paragraph.copyWith(color: Colors.white)),
-              ],)
-            ),
+                width: 120,
+                padding: EdgeInsets.all(spacingUnit(1)),
+                margin: EdgeInsets.only(bottom: spacingUnit(1)),
+                decoration: BoxDecoration(
+                    color: Colors.black, borderRadius: ThemeRadius.medium),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.access_time_outlined,
+                        size: 15, color: Colors.white),
+                    const SizedBox(width: 2),
+                    Text(date,
+                        style:
+                            ThemeText.paragraph.copyWith(color: Colors.white)),
+                  ],
+                )),
           ]),
         ),
 
         /// THUMBNAIL HERO
         Hero(
-          tag: thumb,
-          child: GestureDetector(
-            onTap: () {
-              Get.to(() => ImageViewer(img: thumb));
-            },
-            child: ClipRRect(
-              borderRadius: ThemeRadius.medium,
-              child: Image.network(
-                thumb,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200,
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: ShimmerPreloader()
-                  );
-                },
+            tag: thumb,
+            child: GestureDetector(
+              onTap: () {
+                Get.to(() => ImageViewer(img: thumb));
+              },
+              child: ClipRRect(
+                borderRadius: ThemeRadius.medium,
+                child: Image.network(
+                  thumb,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: ShimmerPreloader());
+                  },
+                ),
               ),
-            ),
-          )
-        ),
+            )),
 
         /// DESCRIPTION AND termsS
         Container(
           padding: EdgeInsets.symmetric(vertical: spacingUnit(2)),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(desc, style: ThemeText.paragraph),
             SizedBox(height: spacingUnit(2)),
-            Text('Terms of use:', style: ThemeText.subtitle2.copyWith(fontWeight: FontWeight.bold)),
+            Text('Attention:',
+                style:
+                    ThemeText.subtitle2.copyWith(fontWeight: FontWeight.bold)),
             SizedBox(height: spacingUnit(1)),
             Text('1. $terms1', style: ThemeText.paragraph),
             SizedBox(height: spacingUnit(1)),

@@ -1,5 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/app/controllers.dart';
+import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';

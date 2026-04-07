@@ -29,22 +29,21 @@ class FlightRoutesHorizontal extends StatelessWidget {
           SizedBox(
             height: 80,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const ClampingScrollPhysics(),
-              itemCount: routes.length,
-              shrinkWrap: true,
-              itemBuilder: ((context, index) {
-                FlightRoute item = routes[index];
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.33,
-                  child: FlightRouteCard(
-                    airport: item.airport,
-                    time: DateFormat.jm().format(item.time),
-                    type: item.type,
-                  ),
-                );
-              })
-            ),
+                scrollDirection: Axis.horizontal,
+                physics: const ClampingScrollPhysics(),
+                itemCount: routes.length,
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  FlightRoute item = routes[index];
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.33,
+                    child: FlightRouteCard(
+                      airport: item.airport,
+                      time: DateFormat.jm().format(item.time),
+                      type: item.type,
+                    ),
+                  );
+                })),
           ),
         ],
       ),

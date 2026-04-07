@@ -1,15 +1,11 @@
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 
-class Chat{
+class Chat {
   final String avatar;
   final String name;
   final List<MessageItem> messages;
 
-  Chat({
-    required this.avatar,
-    required this.name,
-    required this.messages
-  });
+  Chat({required this.avatar, required this.name, required this.messages});
 }
 
 class MessageItem {
@@ -60,89 +56,59 @@ final List<Chat> chatListPersonal = [
 /// EXAMPLE MESSAGES
 final List<MessageItem> message1 = [
   MessageItem(
-    message: 'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
-    date: 'Just now',
-    isMe: false
-  ),
+      message:
+          'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
+      date: 'Just now',
+      isMe: false),
   MessageItem(
-    message: 'optimize plug-and-play applications',
-    date: 'Just now',
-    isMe: true
-  ),
+      message: 'optimize plug-and-play applications',
+      date: 'Just now',
+      isMe: true),
   MessageItem(
-    message: 'Nullam molestie nibh in lectus. Pellentesque at nulla.',
-    date: '2 hours ago',
-    isMe: false
-  ),
-  MessageItem(
-    message: '9860 Hoffman Place',
-    date: 'yesterday',
-    isMe: false
-  ),
+      message: 'Nullam molestie nibh in lectus. Pellentesque at nulla.',
+      date: '2 hours ago',
+      isMe: false),
+  MessageItem(message: '9860 Hoffman Place', date: 'yesterday', isMe: false),
 ];
 
 final List<MessageItem> message2 = [
   MessageItem(
-    message: 'Nullam molestie nibh in lectus. Pellentesque at nulla.',
-    date: 'Yesterday',
-    isMe: true
-  ),
+      message: 'Nullam molestie nibh in lectus. Pellentesque at nulla.',
+      date: 'Yesterday',
+      isMe: true),
   MessageItem(
-    message: 'monetize viral interfaces',
-    date: 'Yesterday',
-    isMe: true
-  ),
+      message: 'monetize viral interfaces', date: 'Yesterday', isMe: true),
+  MessageItem(message: '824 Dakota Hill', date: '2 days ago', isMe: false),
   MessageItem(
-    message: '824 Dakota Hill',
-    date: '2 days ago',
-    isMe: false
-  ),
+      message: 'seize leading-edge channels', date: '2 days ago', isMe: false),
   MessageItem(
-    message: 'seize leading-edge channels',
-    date: '2 days ago',
-    isMe: false
-  ),
+      message: 'optimize real-time portals', date: 'Last week', isMe: true),
   MessageItem(
-    message: 'optimize real-time portals',
-    date: 'Last week',
-    isMe: true
-  ),
-  MessageItem(
-    message: 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc.',
-    date: '1 Mar',
-    isMe: false
-  ),
+      message:
+          'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc.',
+      date: '1 Mar',
+      isMe: false),
 ];
 
 final List<MessageItem> message3 = [
+  MessageItem(message: 'expedite sticky networks', date: '12 Aug', isMe: true),
   MessageItem(
-    message: 'expedite sticky networks',
-    date: '12 Aug',
-    isMe: true
-  ),
+      message:
+          'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate',
+      date: '12 Aug',
+      isMe: false),
   MessageItem(
-    message: 'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate',
-    date: '12 Aug',
-    isMe: false
-  ),
+      message: 'Quisque ut erat. Curabitur gravida nisi at nibh.',
+      date: '1 Jan',
+      isMe: false),
   MessageItem(
-    message: 'Quisque ut erat. Curabitur gravida nisi at nibh.',
-    date: '1 Jan',
-    isMe: false
-  ),
+      message: 'Quisque id justo sit amet sapien dignissim vestibulum.',
+      date: '1 Jan',
+      isMe: false),
   MessageItem(
-    message: 'Quisque id justo sit amet sapien dignissim vestibulum.',
-    date: '1 Jan',
-    isMe: false
-  ),
+      message: 'Suspendisse ornare consequat lectus.',
+      date: '1 Jan',
+      isMe: true),
   MessageItem(
-    message: 'Suspendisse ornare consequat lectus.',
-    date: '1 Jan',
-    isMe: true
-  ),
-  MessageItem(
-    message: 'engage visionary e-commerce',
-    date: '1 Jan',
-    isMe: true
-  ),
+      message: 'engage visionary e-commerce', date: '1 Jan', isMe: true),
 ];

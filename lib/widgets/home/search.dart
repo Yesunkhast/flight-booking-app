@@ -48,7 +48,8 @@ class _SearchHomeState extends State<SearchHome> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
+    // print("soligdson hel :${localizations?.bookFlight}");
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -124,8 +125,7 @@ class _SearchHomeState extends State<SearchHome> {
                                           _setDomestic(true);
                                         },
                                         child: Text(
-                                          "${t?.bookFlight}",
-                                          // "Domestic Flight",
+                                          localizations.domesticFlight,
                                           textAlign: TextAlign.center,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
@@ -158,8 +158,8 @@ class _SearchHomeState extends State<SearchHome> {
                                           // _setExpand(true);
                                           _setDomestic(false);
                                         },
-                                        child: const Text(
-                                          "International Flight",
+                                        child: Text(
+                                          localizations.internationalFlight,
                                           textAlign: TextAlign.center,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
@@ -191,7 +191,7 @@ class _SearchHomeState extends State<SearchHome> {
                         child: Row(
                           children: [
                             TagButton(
-                              text: 'One Way',
+                              text: localizations.oneWay,
                               selected: !_roundTrip,
                               onPressed: () {
                                 _setRoundTrip(false);
@@ -199,7 +199,7 @@ class _SearchHomeState extends State<SearchHome> {
                             ),
                             SizedBox(width: spacingUnit(1)),
                             TagButton(
-                              text: 'Round Trip',
+                              text: localizations.roundTrip,
                               selected: _roundTrip,
                               onPressed: () {
                                 _setRoundTrip(true);

@@ -1,4 +1,4 @@
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 
 class Reward {
   final String id;
@@ -20,13 +20,12 @@ class Reward {
 
 final List<Reward> rewardList = [
   Reward(
-    id: '1',
-    title: 'Free Flight',
-    description: 'Get a free flight to your favorite destination',
-    points: 1000,
-    image: ImgApi.photo[71],
-    logo: ImgApi.photo[101]
-  ),
+      id: '1',
+      title: 'Free Flight',
+      description: 'Get a free flight to your favorite destination',
+      points: 1000,
+      image: ImgApi.photo[71],
+      logo: ImgApi.photo[101]),
   Reward(
     id: '2',
     title: 'Free Hotel',
@@ -100,5 +99,3 @@ final List<Reward> rewardList = [
     logo: ImgApi.photo[110],
   ),
 ];
-
-

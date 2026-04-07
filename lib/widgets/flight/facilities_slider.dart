@@ -11,40 +11,24 @@ class FacilitiesSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<ListItem> facilities = [
       ListItem(
-        value: 'baggage',
-        label: 'Extra Baggage',
-        icon: Icons.business_center
-      ),
+          value: 'baggage',
+          label: 'Extra Baggage',
+          icon: Icons.business_center),
+      ListItem(value: 'food', label: 'Foods', icon: Icons.restaurant),
+      ListItem(value: 'beverage', label: 'Beverages', icon: Icons.coffee),
       ListItem(
-        value: 'food',
-        label: 'Foods',
-        icon: Icons.restaurant
-      ),
+          value: 'medical',
+          label: 'Medical Assistance',
+          icon: Icons.medical_services),
       ListItem(
-        value: 'beverage',
-        label: 'Beverages',
-        icon: Icons.coffee
-      ),
+          value: 'entertainment',
+          label: 'Entertainment',
+          icon: Icons.ondemand_video),
+      ListItem(value: 'wifi', label: 'Wi-Fi', icon: Icons.wifi),
       ListItem(
-        value: 'medical',
-        label: 'Medical Assistance',
-        icon: Icons.medical_services
-      ),
-      ListItem(
-        value: 'entertainment',
-        label: 'Entertainment',
-        icon: Icons.ondemand_video
-      ),
-      ListItem(
-        value: 'wifi',
-        label: 'Wi-Fi',
-        icon: Icons.wifi
-      ),
-      ListItem(
-        value: 'wheelchair',
-        label: 'Assistance',
-        icon: Icons.wheelchair_pickup_rounded
-      )
+          value: 'wheelchair',
+          label: 'Assistance',
+          icon: Icons.wheelchair_pickup_rounded)
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,23 +41,24 @@ class FacilitiesSlider extends StatelessWidget {
         SizedBox(
           height: 90,
           child: ListView.builder(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: facilities.length,
-            itemBuilder: ((context, index) {
-              ListItem item = facilities[index];
-          
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-                child: Column(children: [
-                  Icon(item.icon, size: 48, color: colorScheme(context).outlineVariant),
-                  SizedBox(height: spacingUnit(1),),
-                  Text(item.label, style: ThemeText.paragraph)
-                ])
-              );
-            })
-          ),
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: facilities.length,
+              itemBuilder: ((context, index) {
+                ListItem item = facilities[index];
+
+                return Container(
+                    padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+                    child: Column(children: [
+                      Icon(item.icon,
+                          size: 48, color: colorScheme(context).outlineVariant),
+                      SizedBox(
+                        height: spacingUnit(1),
+                      ),
+                      Text(item.label, style: ThemeText.paragraph)
+                    ]));
+              })),
         ),
       ],
     );

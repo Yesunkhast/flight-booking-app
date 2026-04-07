@@ -1,12 +1,13 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
-import 'package:flight_app/utils/custom_tooltip.dart';
+// import 'package:flight_app/utils/custom_tooltip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
-import 'package:overlay_tooltip/overlay_tooltip.dart';
+// import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class BottomNavMenu extends StatelessWidget {
@@ -14,13 +15,14 @@ class BottomNavMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     String currentRoute = Get.currentRoute;
 
     return BottomAppBar(
         elevation: 20,
         shadowColor: Colors.black,
-        height: 60,
-        color: Theme.of(context).colorScheme.surface,
+        height: 70,
+        color: Theme.of(context).colorScheme.secondary,
         padding: const EdgeInsets.all(0),
         child: LayoutBuilder(builder: (context, constraints) {
           return Row(
@@ -28,53 +30,60 @@ class BottomNavMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MenuItem(
-                    title: 'Home',
+                    title: localizations.home,
                     icon: Icons.home,
                     isActive: currentRoute == AppLink.home,
                     onTap: () {
                       Get.toNamed(AppLink.home);
                     }),
-                MenuItem(
-                    title: 'News',
-                    icon: CupertinoIcons.location_fill,
-                    isActive: currentRoute == AppLink.explore,
-                    onTap: () {
-                      Get.toNamed(AppLink.explore);
-                    }),
-                OverlayTooltipItem(
-                  displayIndex: 3,
-                  tooltip: (controller) => Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: MTooltip(
-                        title:
-                            'Your scheduled booking tiket will be listed here.',
-                        controller: controller),
-                  ),
-                  tooltipVerticalPosition: TooltipVerticalPosition.TOP,
-                  tooltipHorizontalPosition: TooltipHorizontalPosition.CENTER,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: colorScheme(context).surface),
-                    child: MenuItem(
-                        title: 'My Orders',
-                        icon: CupertinoIcons.tickets_fill,
-                        isActive: currentRoute == AppLink.myTicket,
-                        onTap: () {
-                          Get.toNamed(AppLink.myTicket);
-                        }),
-                  ),
-                ),
                 // MenuItem(
-                //   title: 'Promos',
-                //   icon: CupertinoIcons.tags_solid,
-                //   isActive: currentRoute == AppLink.promo,
-                //   onTap: () {
-                //     Get.toNamed(AppLink.promo);
-                //   }
+                //     title: localizations.news,
+                //     icon: CupertinoIcons.location_fill,
+                //     isActive: currentRoute == AppLink.explore,
+                //     onTap: () {
+                //       Get.toNamed(AppLink.explore);
+                //     }),
+                MenuItem(
+                    // title: "News",
+                    title: localizations.news,
+                    icon: CupertinoIcons.tags_solid,
+                    isActive: currentRoute == AppLink.promo,
+                    onTap: () {
+                      Get.toNamed(AppLink.promo);
+                    }),
+                // OverlayTooltipItem(
+                //   displayIndex: 3,
+                //   tooltip: (controller) => Padding(
+                //     padding: const EdgeInsets.only(right: 15),
+                //     child: MTooltip(
+                //         title:
+                //             'Your scheduled booking tiket will be listed here.',
+                //         controller: controller),
+                //   ),
+                //   tooltipVerticalPosition: TooltipVerticalPosition.TOP,
+                //   tooltipHorizontalPosition: TooltipHorizontalPosition.CENTER,
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         shape: BoxShape.circle,
+                //         color: colorScheme(context).surface),
+                //     child: MenuItem(
+                //         title: localizations.orders,
+                //         icon: CupertinoIcons.tickets_fill,
+                //         isActive: currentRoute == AppLink.myTicket,
+                //         onTap: () {
+                //           Get.toNamed(AppLink.myTicket);
+                //         }),
+                //   ),
                 // ),
                 MenuItem(
-                    title: 'Profile',
+                    title: localizations.orders,
+                    icon: CupertinoIcons.tickets_fill,
+                    isActive: currentRoute == AppLink.myTicket,
+                    onTap: () {
+                      Get.toNamed(AppLink.myTicket);
+                    }),
+                MenuItem(
+                    title: localizations.profile,
                     icon: CupertinoIcons.person_fill,
                     isActive: currentRoute == AppLink.profile,
                     onTap: () => Get.toNamed(AppLink.profile)),
@@ -113,11 +122,17 @@ class MenuItem extends StatelessWidget {
                 Icon(icon,
                     color: isActive
                         ? ThemePalette.primaryMain
-                        : Theme.of(context).colorScheme.onSurface),
+                        : ThemePalette.primaryLight),
                 Text(title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: ThemeText.caption),
+                    style: TextStyle(
+                        color: isActive
+                            ? ThemePalette.primaryMain
+                            : ThemePalette.primaryLight,
+                        fontSize: ThemeText.caption.fontSize,
+                        fontWeight: ThemeText.caption.fontWeight,
+                        fontFamily: ThemeText.caption.fontFamily)),
                 isActive
                     ? Container(
                         width: 6,

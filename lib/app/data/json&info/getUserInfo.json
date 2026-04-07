@@ -1,0 +1,15 @@
+{
+    "status": "SUCCESS",
+    "code": 0,
+    "message": "",
+    "result": {
+        "phone": "94290065",
+        "email": null,
+        "surname": null,
+        "name": null,
+        "gender": "",
+        "birthday": "None",
+        "point": 0,
+        "is_operator": false
+    }
+}

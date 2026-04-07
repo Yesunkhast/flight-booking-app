@@ -15,7 +15,6 @@ class FlightListSlider extends StatefulWidget {
 }
 
 class _FlightListSliderState extends State<FlightListSlider> {
-
   @override
   Widget build(BuildContext context) {
     const double cardWidth = 220;
@@ -26,47 +25,45 @@ class _FlightListSliderState extends State<FlightListSlider> {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
         child: TitleAction(
-          title: 'Top Destinations',
-          textAction: 'Find More',
-          onTap: () {
-            Get.toNamed('/flight-list');
-          }
-        ),
+            title: 'Top Destinations',
+            textAction: 'Find More',
+            onTap: () {
+              Get.toNamed('/flight-list');
+            }),
       ),
       SizedBox(height: spacingUnit(2)),
-      
+
       /// FLIGHT ITEMS
       SizedBox(
         height: cardHeight,
         child: ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: ((context, index) {
-            Trip item = topFlightList[index];
-        
-            return SizedBox(
-              width: cardWidth,
-              child: Padding(
-                padding: EdgeInsets.only(right: spacingUnit(1), left: index == 0 ? spacingUnit(1) : 0),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppLink.flightDetail);
-                  },
-                  child: FlightPortraitCard(
-                    from: item.from.name,
-                    to: item.to.name,
-                    label: item.label,
-                    date: DateFormat('dd MMM yyyy').format(item.arrival),
-                    price: item.price,
-                    plane: item.plane
-                  ),
-                ),
-              )
-            );
-          })
-        ),
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: ((context, index) {
+              Trip item = topFlightList[index];
+
+              return SizedBox(
+                  width: cardWidth,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: spacingUnit(1),
+                        left: index == 0 ? spacingUnit(1) : 0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppLink.flightDetail);
+                      },
+                      child: FlightPortraitCard(
+                          from: item.from.name,
+                          to: item.to.name,
+                          label: item.label,
+                          date: DateFormat('dd MMM yyyy').format(item.arrival),
+                          price: item.price,
+                          plane: item.plane),
+                    ),
+                  ));
+            })),
       )
     ]);
   }

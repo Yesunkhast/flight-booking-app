@@ -115,6 +115,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Book Flight'**
   String get bookFlight;
+
+  /// No description provided for @domesticFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'China Domestic Flight'**
+  String get domesticFlight;
+
+  /// No description provided for @internationalFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'International Flight'**
+  String get internationalFlight;
+
+  /// No description provided for @searchFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Flight'**
+  String get searchFlight;
+
+  /// No description provided for @oneWay.
+  ///
+  /// In en, this message translates to:
+  /// **'One-way'**
+  String get oneWay;
+
+  /// No description provided for @roundTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Round-trip'**
+  String get roundTrip;
+
+  /// No description provided for @flyingFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Flying From'**
+  String get flyingFrom;
+
+  /// No description provided for @flyingTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Flying To'**
+  String get flyingTo;
+
+  /// No description provided for @departureDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Departure Date'**
+  String get departureDate;
+
+  /// No description provided for @returnDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Return Date'**
+  String get returnDate;
+
+  /// No description provided for @adult.
+  ///
+  /// In en, this message translates to:
+  /// **'adult'**
+  String get adult;
+
+  /// No description provided for @child.
+  ///
+  /// In en, this message translates to:
+  /// **'child'**
+  String get child;
+
+  /// No description provided for @infant.
+  ///
+  /// In en, this message translates to:
+  /// **'infant'**
+  String get infant;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @news.
+  ///
+  /// In en, this message translates to:
+  /// **'News'**
+  String get news;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'My Orders'**
+  String get orders;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @passenger.
+  ///
+  /// In en, this message translates to:
+  /// **'Passenger'**
+  String get passenger;
+
+  /// No description provided for @yourPoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Point'**
+  String get yourPoint;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
+
+  /// No description provided for @hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours'**
+  String get hours;
+
+  /// No description provided for @minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get minutes;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @helpAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and Support'**
+  String get helpAndSupport;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @welcomeTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Welome to'**
+  String get welcomeTo;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have account'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @infantAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Below Age 2'**
+  String get infantAge;
+
+  /// No description provided for @childrenAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age 2-11'**
+  String get childrenAge;
+
+  /// No description provided for @adultAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age 12 and over'**
+  String get adultAge;
+
+  /// No description provided for @userName.
+  ///
+  /// In en, this message translates to:
+  /// **'user name'**
+  String get userName;
+
+  /// No description provided for @emailOrPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone Number'**
+  String get emailOrPhoneNumber;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @repeatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Password'**
+  String get repeatPassword;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// No description provided for @agreewithOurTermsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree with our terms and condtions'**
+  String get agreewithOurTermsAndConditions;
+
+  /// No description provided for @pleaseFillYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get pleaseFillYourName;
+
+  /// No description provided for @incorrectEmailOrPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect email or phone number'**
+  String get incorrectEmailOrPhoneNumber;
+
+  /// No description provided for @passwordMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordMinLength;
+
+  /// No description provided for @passwordDoesNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordDoesNotMatch;
+
+  /// No description provided for @passwordNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordNotMatch;
+
+  /// No description provided for @acceptTermsError.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the terms and conditions to continue'**
+  String get acceptTermsError;
+
+  /// No description provided for @checkYourPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your phone'**
+  String get checkYourPhone;
+
+  /// No description provided for @weHaveSentCode.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a code to your phone'**
+  String get weHaveSentCode;
+
+  /// No description provided for @pinIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'The PIN is incorrect'**
+  String get pinIncorrect;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @sendAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Send again'**
+  String get sendAgain;
+
+  /// No description provided for @pleaseWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait'**
+  String get pleaseWait;
+
+  /// No description provided for @toSendAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'to send again'**
+  String get toSendAgain;
+
+  /// No description provided for @helpAndSup.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and support'**
+  String get helpAndSup;
 }
 
 class _AppLocalizationsDelegate

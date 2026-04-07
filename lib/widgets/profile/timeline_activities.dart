@@ -14,9 +14,11 @@ class TimelineActivities extends StatelessWidget {
 
     return ListView(padding: const EdgeInsets.all(4), children: [
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-        child: const Text('History', style: ThemeText.title2,)
-      ),
+          padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+          child: const Text(
+            'History',
+            style: ThemeText.title2,
+          )),
       const VSpaceShort(),
       Stack(
         alignment: Alignment.centerLeft,
@@ -24,30 +26,27 @@ class TimelineActivities extends StatelessWidget {
           Positioned(
             left: 24,
             child: Container(
-              width: 3,
-              height: itemHeight * pointHistory.length,
-              decoration: BoxDecoration(
-                color: colorScheme(context).outline,
-                borderRadius: BorderRadius.circular(5)
-              )
-            ),
+                width: 3,
+                height: itemHeight * pointHistory.length,
+                decoration: BoxDecoration(
+                    color: colorScheme(context).outline,
+                    borderRadius: BorderRadius.circular(5))),
           ),
           ListView.builder(
-            itemCount: pointHistory.length,
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.all(0),
-            itemBuilder: ((context, index) {
-              Reward item = pointHistory[index];
-              return ActivityCard(
-                title: item.title,
-                time: item.date,
-                icon: item.icon,
-                color: item.color,
-                isHighlighted: item.isOut,
-              );
-            })
-          )
+              itemCount: pointHistory.length,
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.all(0),
+              itemBuilder: ((context, index) {
+                Reward item = pointHistory[index];
+                return ActivityCard(
+                  title: item.title,
+                  time: item.date,
+                  icon: item.icon,
+                  color: item.color,
+                  isHighlighted: item.isOut,
+                );
+              }))
         ],
       ),
     ]);

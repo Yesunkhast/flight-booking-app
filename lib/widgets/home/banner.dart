@@ -1,4 +1,4 @@
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -28,26 +28,30 @@ class HomeBanner extends StatelessWidget {
             padding: EdgeInsets.only(top: 45),
             child: Text(
               'Where do you want to go?',
-              style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),
         Positioned(
-          bottom: 0,
-          left: 0,
-          child: RoundedDecoMain(
-            height: 70,
-            bgDecoration: BoxDecoration(
-              color: colorScheme(context).surfaceContainerLowest,
-              boxShadow: [BoxShadow(
+            bottom: 0,
+            left: 0,
+            child: RoundedDecoMain(
+              height: 70,
+              bgDecoration: BoxDecoration(
                 color: colorScheme(context).surfaceContainerLowest,
-                blurRadius: 0.0,
-                spreadRadius: 0.0,
-                offset: const Offset(0, 2),
-              )],
-            ),
-          )
-        ),
+                boxShadow: [
+                  BoxShadow(
+                    color: colorScheme(context).surfaceContainerLowest,
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                    offset: const Offset(0, 2),
+                  )
+                ],
+              ),
+            )),
       ],
     );
   }

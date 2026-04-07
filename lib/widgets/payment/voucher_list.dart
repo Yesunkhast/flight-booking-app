@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 class VoucherList extends StatelessWidget {
-  const VoucherList({super.key, required this.selectedVouchers, required this.onSelected});
+  const VoucherList(
+      {super.key, required this.selectedVouchers, required this.onSelected});
 
   final List<Voucher> selectedVouchers;
   final Function(String type, Voucher item) onSelected;
@@ -35,7 +36,8 @@ class VoucherList extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: OutlinedButton(
                     onPressed: () {},
-                    style: ThemeButton.btnSmall.merge(ThemeButton.outlinedPrimary(context)),
+                    style: ThemeButton.btnSmall
+                        .merge(ThemeButton.outlinedPrimary(context)),
                     child: const Text('USE CODE', style: ThemeText.caption),
                   ),
                 ),
@@ -102,12 +104,12 @@ class VoucherList extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {
-                  Get.back();
-                },
-                style: ThemeButton.btnBig.merge(ThemeButton.tonalPrimary(context)),
-                child: const Text('DONE', style: ThemeText.subtitle2)
-              ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ThemeButton.btnBig
+                      .merge(ThemeButton.tonalPrimary(context)),
+                  child: const Text('DONE', style: ThemeText.subtitle2)),
             ),
           ),
         ],

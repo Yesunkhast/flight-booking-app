@@ -19,47 +19,45 @@ class PackageListSlider extends StatelessWidget {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
         child: TitleAction(
-          title: 'Featured Packages',
-          textAction: 'See All',
-          onTap: () {
-            Get.toNamed(AppLink.promoDetail);
-          }
-        ),
+            title: 'Featured Packages',
+            textAction: 'See All',
+            onTap: () {
+              Get.toNamed(AppLink.promoDetail);
+            }),
       ),
       SizedBox(height: spacingUnit(2)),
       SizedBox(
         height: cardHeight + 16,
         child: ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: packageList.length,
-          itemBuilder: ((context, index) {
-            FlightPackage item = packageList[index];
-        
-            return GestureDetector(
-              onTap: () {
-                Get.toNamed(AppLink.flightDetailPackage);
-              },
-              child: SizedBox(
-                width: cardWidth,
-                child: Padding(
-                  padding: EdgeInsets.only(right: spacingUnit(1), left: index == 0 ? spacingUnit(1) : 0),
-                  child: PackageCard(
-                    image: item.img,
-                    label: item.label!,
-                    from: item.from.name,
-                    to: item.to.name,
-                    date: item.date,
-                    tags: item.tags != null ? item.tags! : [],
-                    price: item.price,
-                    plane: item.plane
-                  ),
-                )
-              ),
-            );
-          })
-        ),
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: packageList.length,
+            itemBuilder: ((context, index) {
+              FlightPackage item = packageList[index];
+
+              return GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppLink.flightDetailPackage);
+                },
+                child: SizedBox(
+                    width: cardWidth,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          right: spacingUnit(1),
+                          left: index == 0 ? spacingUnit(1) : 0),
+                      child: PackageCard(
+                          image: item.img,
+                          label: item.label!,
+                          from: item.from.name,
+                          to: item.to.name,
+                          date: item.date,
+                          tags: item.tags != null ? item.tags! : [],
+                          price: item.price,
+                          plane: item.plane),
+                    )),
+              );
+            })),
       )
     ]);
   }

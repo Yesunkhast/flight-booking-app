@@ -34,39 +34,38 @@ class _OrderHistoryState extends State<OrderHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      appBar: AppBar(
-        backgroundColor: colorScheme(context).surfaceContainerLowest,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back_ios_new)
+        extendBody: true,
+        appBar: AppBar(
+          backgroundColor: colorScheme(context).surfaceContainerLowest,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(Icons.arrow_back_ios_new)),
+          centerTitle: true,
+          title: const Text('Transaction History', style: ThemeText.subtitle),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.toNamed(AppLink.faq);
+                },
+                icon: const Icon(Icons.help_outline))
+          ],
         ),
-        centerTitle: true,
-        title: const Text('Transaction History', style: ThemeText.subtitle),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.toNamed(AppLink.faq);
-            },
-            icon: const Icon(Icons.help_outline)
-          )
-        ],
-      ),
-      body: SingleChildScrollView(child: Column(
-        children: [
-          SizedBox(height: spacingUnit(1)),
-          FilterTransaction(
-            sortby: _sortby,
-            category: _category,
-            onSortByDate: _onSortByDate,
-            onChangeCategory: _onChangeCategory,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: spacingUnit(1)),
+              FilterTransaction(
+                sortby: _sortby,
+                category: _category,
+                onSortByDate: _onSortByDate,
+                onChangeCategory: _onChangeCategory,
+              ),
+              TicketList(bookingList: bookingList),
+              const VSpaceBig()
+            ],
           ),
-          TicketList(bookingList: bookingList),
-          const VSpaceBig()
-        ],
-      ),)
-    );
+        ));
   }
 }

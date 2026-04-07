@@ -1,4 +1,9 @@
 import 'package:flight_app/app/app_link.dart';
+// import 'package:flight_app/app/controller/auth_controller.dart';
+// import 'package:flight_app/app/controller/mail_auth_controller.dart';
+// import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
+// import 'package:flight_app/screens/profile/terms_condition.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -18,46 +23,69 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _registerKey = GlobalKey<FormBuilderState>();
+  // final EmailAuthController emailAuthController =
+  //     Get.find<EmailAuthController>();
+  Future<void> _handleRegister() async {
+    final isValid = _registerKey.currentState?.saveAndValidate() ?? false;
+
+    if (!isValid) return;
+
+    final formData = _registerKey.currentState!.value;
+    final name = (formData['name'] ?? '').toString().trim();
+    final mailOrPhone = (formData['mailOrPhone'] ?? '').toString().trim();
+    final password = (formData['password'] ?? '').toString().trim();
+
+    // await emailAuthController.register(
+    //   name: name,
+    //   email: phone,
+    //   password: password,
+    // );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: ThemeSize.sm
-      ),
+      constraints: BoxConstraints(maxWidth: ThemeSize.sm),
       child: FormBuilder(
         key: _registerKey,
         child: ListView(padding: EdgeInsets.zero, children: [
           /// TITLE
           const VSpace(),
-          const Text('Register', style: ThemeText.title),
+          Text(localization.register.toUpperCase(), style: ThemeText.title),
           SizedBox(height: spacingUnit(1)),
-          Text('👋 Very nice to meet you! Create new account for free.', style: ThemeText.headline.copyWith(color: colorScheme.onSurfaceVariant)),
+          Text('👋 Very nice to meet you! Create new account for free.',
+              style: ThemeText.headline
+                  .copyWith(color: colorScheme.onSurfaceVariant)),
           const VSpace(),
-        
+
           /// INPUT FIELD
           FormBuilderField(
             name: 'name',
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
-                label: 'User Name',
+                label: localization.userName,
                 onChanged: (value) => field.didChange(value),
-                errorText: field.hasError ? 'Please fill your name' : null,
+                errorText:
+                    field.hasError ? localization.pleaseFillYourName : null,
               );
             },
             validator: FormBuilderValidators.required(),
           ),
           const VSpace(),
-      
+
           FormBuilderField(
-            name: 'email_or_phone',
+            name: 'mailOrPhone',
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
-                label: 'Email or Phone Numner',
+                // controller: emailAuthController.,
+                label: localization.emailOrPhoneNumber,
                 onChanged: (value) => field.didChange(value),
-                errorText: field.hasError ? 'Incorrect email or phone number' : null,
+                errorText: field.hasError
+                    ? localization.incorrectEmailOrPhoneNumber
+                    : null,
               );
             },
             validator: FormBuilderValidators.compose([
@@ -69,15 +97,16 @@ class _RegisterFormState extends State<RegisterForm> {
             ]),
           ),
           const VSpace(),
-      
+
           FormBuilderField(
             name: 'password',
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
-                label: 'Password',
+                label: localization.password,
                 obscureText: true,
                 onChanged: (value) => field.didChange(value),
-                errorText: field.hasError ? 'Please fill your password with minimum 6 characters' : null,
+                errorText:
+                    field.hasError ? localization.passwordMinLength : null,
               );
             },
             validator: FormBuilderValidators.compose([
@@ -86,31 +115,35 @@ class _RegisterFormState extends State<RegisterForm> {
             ]),
           ),
           const VSpace(),
-      
+
           FormBuilderField(
             name: 'repeat_password',
             autovalidateMode: AutovalidateMode.onUserInteraction,
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
-                label: 'Repeat Password',
+                label: localization.repeatPassword,
                 obscureText: true,
                 onChanged: (value) => field.didChange(value),
                 errorText: field.hasError ? 'Password doesn\'t match' : null,
               );
             },
             validator: (value) =>
-              _registerKey.currentState?.fields['password']?.value != value
-                ? 'Password not match'
-                : null,
+                _registerKey.currentState?.fields['password']?.value != value
+                    ? localization.passwordNotMatch
+                    : null,
           ),
           const VSpaceShort(),
           FormBuilderCheckbox(
             name: 'accept_terms',
             initialValue: false,
-            title: const Text('Agree with our terms and condtions'),
+            onChanged: (value) {
+              value == true ? Get.toNamed(AppLink.terms) : null;
+              // TermsCondition()
+            },
+            title: Text(localization.agreewithOurTermsAndConditions),
             validator: FormBuilderValidators.equal(
-              true,
-              errorText: 'You must accept terms and conditions to continue',
+              false,
+              errorText: localization.acceptTermsError,
             ),
           ),
           const VSpace(),
@@ -118,17 +151,21 @@ class _RegisterFormState extends State<RegisterForm> {
             width: double.infinity,
             height: 50,
             child: FilledButton(
-              onPressed: () {
-                if (_registerKey.currentState?.saveAndValidate() ?? false) {
-                  debugPrint(_registerKey.currentState?.value.toString());
-                  Get.toNamed(AppLink.otp);
-                }
-              },
-              style: ThemeButton.btnBig.merge(ThemeButton.primary),
-              child: const Text('CONTINUE', style: ThemeText.subtitle)
-            ),
+                onPressed:
+                    // _authController.isLoading.value ? null :
+                    () {
+                  if (_registerKey.currentState?.saveAndValidate() ?? false) {
+                    debugPrint(_registerKey.currentState?.value.toString());
+                    _handleRegister();
+                    // _authController.sendOtp();
+                    Get.toNamed(AppLink.otp);
+                  }
+                },
+                style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                child: Text(localization.continueText.toUpperCase(),
+                    style: ThemeText.subtitle)),
           ),
-          const VSpaceBig()
+          const VSpaceBig(),
         ]),
       ),
     );

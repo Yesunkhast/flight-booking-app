@@ -1,5 +1,5 @@
-import 'package:flight_app/constants/app_const.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/app_const.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 
 class City {
   final String id;

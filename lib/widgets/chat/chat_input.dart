@@ -5,12 +5,11 @@ import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 
 class ChatInput extends StatefulWidget {
-  const ChatInput({
-    super.key,
-    required this.sendMsg,
-    this.hasBorder = true,
-    this.hintText = 'Write Message'
-  });
+  const ChatInput(
+      {super.key,
+      required this.sendMsg,
+      this.hasBorder = true,
+      this.hintText = 'Write Message'});
 
   final Function(MessageItem) sendMsg;
   final bool hasBorder;
@@ -26,10 +25,7 @@ class _ChatInputState extends State<ChatInput> {
   void handleSendMsg(String msgVal) {
     /// Generate Message
     final generateMessage = MessageItem(
-      message: msgVal,
-      date: DateTime.now().toString(),
-      isMe: true
-    );
+        message: msgVal, date: DateTime.now().toString(), isMe: true);
 
     /// Send Message
     widget.sendMsg(generateMessage);
@@ -48,11 +44,10 @@ class _ChatInputState extends State<ChatInput> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: spacingUnit(1),
-        left: spacingUnit(1),
-        right: spacingUnit(1),
-        bottom: spacingUnit(3)
-      ),
+          top: spacingUnit(1),
+          left: spacingUnit(1),
+          right: spacingUnit(1),
+          bottom: spacingUnit(3)),
       height: 80,
       decoration: BoxDecoration(
         color: colorScheme(context).surfaceContainerHighest,
@@ -63,29 +58,30 @@ class _ChatInputState extends State<ChatInput> {
             controller: textController,
             style: const TextStyle(height: 1),
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: ThemeRadius.big,
-                borderSide: BorderSide(color: colorScheme(context).outline),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: ThemeRadius.big,
-                borderSide: BorderSide(color: colorScheme(context).outline),
-              ),
-              filled: true,
-              hintText: widget.hintText
-            ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: ThemeRadius.big,
+                  borderSide: BorderSide(color: colorScheme(context).outline),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: ThemeRadius.big,
+                  borderSide: BorderSide(color: colorScheme(context).outline),
+                ),
+                filled: true,
+                hintText: widget.hintText),
           ),
         ),
         const SizedBox(width: 8),
         IconButton(
-          onPressed: () {
-            handleSendMsg(textController.text);
-          },
-          icon: const Icon(Icons.send, size: 24, color: Colors.white,),
-          style: IconButton.styleFrom(
-            backgroundColor: ThemePalette.primaryMain
-          )
-        )
+            onPressed: () {
+              handleSendMsg(textController.text);
+            },
+            icon: const Icon(
+              Icons.send,
+              size: 24,
+              color: Colors.white,
+            ),
+            style:
+                IconButton.styleFrom(backgroundColor: ThemePalette.primaryMain))
       ]),
     );
   }

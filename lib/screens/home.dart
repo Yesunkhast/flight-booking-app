@@ -1,3 +1,4 @@
+// import 'package:flight_app/app/controllers.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/bottom_nav/bottom_nav_menu.dart';
 import 'package:flight_app/widgets/home/header.dart';
@@ -10,6 +11,8 @@ import 'package:flight_app/widgets/home/header.dart';
 // import 'package:flight_app/widgets/home/flight_list_double.dart';
 import 'package:flight_app/widgets/home/search.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:get/route_manager.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,6 +49,7 @@ class _HomeState extends State<Home> {
         _isDoneGuide = true;
       });
     });
+
     _checkFinishedGuide();
     super.initState();
   }
@@ -76,7 +80,7 @@ class _HomeState extends State<Home> {
       controller: _tooltipRef,
       startWhen: (initializedWidgetLength) async {
         await Future.delayed(const Duration(
-            milliseconds: 500)); // data tataj duusah hurtel screeing huleene
+            milliseconds: 500)); // tooltip garch irne ghde eniid dran arilgan
         return initializedWidgetLength == 1 && !_isDoneGuide;
       },
       builder: (context) => Scaffold(

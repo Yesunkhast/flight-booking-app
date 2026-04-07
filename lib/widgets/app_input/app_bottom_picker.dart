@@ -48,7 +48,8 @@ class _BottomPickerRadioState extends State<BottomPickerRadio> {
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: colorScheme(context).surface,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16), topRight: Radius.circular(16)),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -76,11 +77,12 @@ class _BottomPickerRadioState extends State<BottomPickerRadio> {
                       (option) => ListTile(
                         onTap: () => _onChanged(option.value, context),
                         title: Text(option.label),
-                        subtitle:
-                          option.text != null ? Text(option.text ?? '') : null,
-                          visualDensity: const VisualDensity(
-                            horizontal: -4,
-                          ),
+                        subtitle: option.text != null
+                            ? Text(option.text ?? '')
+                            : null,
+                        visualDensity: const VisualDensity(
+                          horizontal: -4,
+                        ),
                         contentPadding: const EdgeInsets.only(
                           left: 5,
                           right: 5,

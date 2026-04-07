@@ -75,18 +75,17 @@ class _PaymentMethodState extends State<PaymentMethod> {
       appBar: AppBar(
         forceMaterialTransparency: true,
         leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back_ios_new)
-        ),
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back_ios_new)),
         centerTitle: true,
         title: const Text('Payment', style: ThemeText.subtitle),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         StepProgress(activeIndex: 3, items: bookingSteps),
-
-        Expanded(child: ListView(
+        Expanded(
+            child: ListView(
           shrinkWrap: true,
           children: [
             Padding(
@@ -108,7 +107,6 @@ class _PaymentMethodState extends State<PaymentMethod> {
             ),
           ],
         )),
-
         Container(
           width: double.infinity,
           color: colorScheme(context).surface,
@@ -120,79 +118,116 @@ class _PaymentMethodState extends State<PaymentMethod> {
                   showVoucherList();
                 },
                 child: Container(
-                  color: colorScheme(context).secondaryContainer,
-                  padding: EdgeInsets.symmetric(horizontal: spacingUnit(1), vertical: spacingUnit(1)),
-                  child: _selectedVouchers.isNotEmpty ? Row(children: [
-                    Wrap(
-                      spacing: 4.0,
-                      children: _selectedVouchers.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        Voucher item = entry.value;
+                    color: colorScheme(context).secondaryContainer,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: spacingUnit(1), vertical: spacingUnit(1)),
+                    child: _selectedVouchers.isNotEmpty
+                        ? Row(children: [
+                            Wrap(
+                              spacing: 4.0,
+                              children: _selectedVouchers
+                                  .asMap()
+                                  .entries
+                                  .map((entry) {
+                                int index = entry.key;
+                                Voucher item = entry.value;
 
-                        if (index > 1) {
-                          return Container();
-                        }
-                        return Container(
-                          width: 80,
-                          padding: const EdgeInsets.all(2.0),
-                          decoration: BoxDecoration(
-                            borderRadius: ThemeRadius.xsmall,
-                            border: Border.all(width: 1, color: item.color)
-                          ),
-                          child: Text(item.title, style: ThemeText.caption, overflow: TextOverflow.ellipsis,)
-                        );
-                      }).toList(),
-                    ),
-                    _selectedVouchers.length > 2 ? Text('${_selectedVouchers.length - 2} more...', style: ThemeText.caption,) : Container(),
-                    const Spacer(),
-                    Text('CHANGE', style: ThemeText.paragraph.copyWith(color: colorScheme(context).onSecondaryContainer, fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_ios, color: colorScheme(context).onSecondaryContainer, size: 11),
-                  ]) : Row(children: [
-                    Icon(Icons.discount, color: colorScheme(context).primary, size: 11),
-                    const SizedBox(width: 4),
-                    Text('5 Vouchers Available', style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold)),
-                    const Spacer(),
-                    Text('USE VOUCHERS', style: ThemeText.paragraph.copyWith(color: colorScheme(context).onSecondaryContainer, fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_ios, color: colorScheme(context).onSecondaryContainer, size: 11),
-                  ])
-                ),
+                                if (index > 1) {
+                                  return Container();
+                                }
+                                return Container(
+                                    width: 80,
+                                    padding: const EdgeInsets.all(2.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius: ThemeRadius.xsmall,
+                                        border: Border.all(
+                                            width: 1, color: item.color)),
+                                    child: Text(
+                                      item.title,
+                                      style: ThemeText.caption,
+                                      overflow: TextOverflow.ellipsis,
+                                    ));
+                              }).toList(),
+                            ),
+                            _selectedVouchers.length > 2
+                                ? Text(
+                                    '${_selectedVouchers.length - 2} more...',
+                                    style: ThemeText.caption,
+                                  )
+                                : Container(),
+                            const Spacer(),
+                            Text('CHANGE',
+                                style: ThemeText.paragraph.copyWith(
+                                    color: colorScheme(context)
+                                        .onSecondaryContainer,
+                                    fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 4),
+                            Icon(Icons.arrow_forward_ios,
+                                color:
+                                    colorScheme(context).onSecondaryContainer,
+                                size: 11),
+                          ])
+                        : Row(children: [
+                            Icon(Icons.discount,
+                                color: colorScheme(context).primary, size: 11),
+                            const SizedBox(width: 4),
+                            Text('5 Vouchers Available',
+                                style: ThemeText.paragraph
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            const Spacer(),
+                            Text('USE VOUCHERS',
+                                style: ThemeText.paragraph.copyWith(
+                                    color: colorScheme(context)
+                                        .onSecondaryContainer,
+                                    fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 4),
+                            Icon(Icons.arrow_forward_ios,
+                                color:
+                                    colorScheme(context).onSecondaryContainer,
+                                size: 11),
+                          ])),
               ),
 
               /// TOTAL PRICE AND ACTION BUTTON
               Padding(
                 padding: EdgeInsets.only(
-                  top: spacingUnit(1),
-                  bottom: spacingUnit(5),
-                  left: spacingUnit(2),
-                  right: spacingUnit(2)
-                ),
+                    top: spacingUnit(1),
+                    bottom: spacingUnit(5),
+                    left: spacingUnit(2),
+                    right: spacingUnit(2)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ThemeBreakpoints.smUp(context) ? const Spacer() : Container(),
+                    ThemeBreakpoints.smUp(context)
+                        ? const Spacer()
+                        : Container(),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                        '\$$price',
-                          textAlign: TextAlign.end,
-                          style: ThemeText.headline.copyWith(color: colorScheme(context).onSurfaceVariant, decoration: TextDecoration.lineThrough, height: 1)
-                        ),
-                        Text('\$$finalPrice', textAlign: TextAlign.end, style: ThemeText.title.copyWith(color: colorScheme(context).primary, height: 1, fontWeight: FontWeight.bold)),
+                        Text('\$$price',
+                            textAlign: TextAlign.end,
+                            style: ThemeText.headline.copyWith(
+                                color: colorScheme(context).onSurfaceVariant,
+                                decoration: TextDecoration.lineThrough,
+                                height: 1)),
+                        Text('\$$finalPrice',
+                            textAlign: TextAlign.end,
+                            style: ThemeText.title.copyWith(
+                                color: colorScheme(context).primary,
+                                height: 1,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(width: spacingUnit(4)),
                     Expanded(
                       child: FilledButton(
-                        onPressed: () {
-                          Get.toNamed('/payment/$_paymentMethod');
-                        },
-                        style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                        child: const Text('CONTINUE', style: ThemeText.subtitle2)
-                      ),
+                          onPressed: () {
+                            Get.toNamed('/payment/$_paymentMethod');
+                          },
+                          style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                          child: const Text('CONTINUE',
+                              style: ThemeText.subtitle2)),
                     ),
                   ],
                 ),

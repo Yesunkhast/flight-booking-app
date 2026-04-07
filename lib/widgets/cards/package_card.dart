@@ -10,19 +10,18 @@ import 'package:flight_app/widgets/decorations/dashed_border.dart';
 import 'package:flutter/cupertino.dart';
 
 class PackageCard extends StatelessWidget {
-  const PackageCard({
-    super.key,
-    required this.image,
-    this.roundTrip = true,
-    required this.label,
-    required this.from,
-    required this.to,
-    required this.date,
-    required this.tags,
-    required this.price,
-    this.refundable = true,
-    this.plane
-  });
+  const PackageCard(
+      {super.key,
+      required this.image,
+      this.roundTrip = true,
+      required this.label,
+      required this.from,
+      required this.to,
+      required this.date,
+      required this.tags,
+      required this.price,
+      this.refundable = true,
+      this.plane});
 
   final String image;
   final bool roundTrip;
@@ -50,13 +49,13 @@ class PackageCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 130,
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
                   if (loadingProgress == null) return child;
                   return const SizedBox(
-                    width: double.infinity,
-                    height: 130,
-                    child: ShimmerPreloader()
-                  );
+                      width: double.infinity,
+                      height: 130,
+                      child: ShimmerPreloader());
                 },
               ),
               Positioned(
@@ -65,28 +64,31 @@ class PackageCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
-                    borderRadius: ThemeRadius.xsmall,
-                    color: colorScheme(context).surface.withValues(alpha: 0.75)
+                      borderRadius: ThemeRadius.xsmall,
+                      color:
+                          colorScheme(context).surface.withValues(alpha: 0.75)),
+                  child: const Text(
+                    'ROUND-TRIP',
+                    style: ThemeText.caption,
                   ),
-                  child: const Text('ROUND-TRIP', style: ThemeText.caption,),
                 ),
               ),
               Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: colorScheme(context).secondary,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(60),
-                    )
-                  ),
-                  child: Text(label, textAlign: TextAlign.end, style: ThemeText.paragraphBold.copyWith(color: colorScheme(context).primary))
-                )
-              ),
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                      width: 60,
+                      height: 60,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: colorScheme(context).secondary,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(60),
+                          )),
+                      child: Text(label,
+                          textAlign: TextAlign.end,
+                          style: ThemeText.paragraphBold
+                              .copyWith(color: colorScheme(context).primary)))),
             ],
           ),
         ),
@@ -97,30 +99,52 @@ class PackageCard extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 100),
-              PaperCard(content: Padding(
+              PaperCard(
+                  content: Padding(
                 padding: EdgeInsets.all(spacingUnit(1)),
                 child: Column(children: [
                   /// DESTINATIONS
                   SizedBox(
                     child: Row(children: [
-                      Flexible(child: Text(from, overflow: TextOverflow.ellipsis, style: ThemeText.subtitle)),
-                      roundTrip ? const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        child: Icon(CupertinoIcons.arrow_right_arrow_left, size: 16),
-                      ) : Container(),
-                      roundTrip ? Flexible(child: Text(to, overflow: TextOverflow.ellipsis, style: ThemeText.subtitle)) : Container(),
+                      Flexible(
+                          child: Text(from,
+                              overflow: TextOverflow.ellipsis,
+                              style: ThemeText.subtitle)),
+                      roundTrip
+                          ? const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 4),
+                              child: Icon(CupertinoIcons.arrow_right_arrow_left,
+                                  size: 16),
+                            )
+                          : Container(),
+                      roundTrip
+                          ? Flexible(
+                              child: Text(to,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: ThemeText.subtitle))
+                          : Container(),
                     ]),
                   ),
-          
+
                   /// DATE
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text(date, style: ThemeText.caption.copyWith(color: colorScheme(context).onSurfaceVariant),),
-                      Text('Start from', style: ThemeText.caption.copyWith(color: colorScheme(context).onSurfaceVariant),),
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            date,
+                            style: ThemeText.caption.copyWith(
+                                color: colorScheme(context).onSurfaceVariant),
+                          ),
+                          Text(
+                            'Start from',
+                            style: ThemeText.caption.copyWith(
+                                color: colorScheme(context).onSurfaceVariant),
+                          ),
+                        ]),
                   ),
-          
+
                   /// PRICE
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                     Wrap(
@@ -131,13 +155,15 @@ class PackageCard extends StatelessWidget {
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
-                            borderRadius: ThemeRadius.xsmall,
-                            color: index % 2 == 0 ? colorScheme(context).primaryContainer : colorScheme(context).secondaryContainer
-                          ),
-                          child: Text(
-                            tag.toCapitalCase(),
-                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: colorScheme(context).onSurface)
-                          ),
+                              borderRadius: ThemeRadius.xsmall,
+                              color: index % 2 == 0
+                                  ? colorScheme(context).primaryContainer
+                                  : colorScheme(context).secondaryContainer),
+                          child: Text(tag.toCapitalCase(),
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: colorScheme(context).onSurface)),
                         );
                       }).toList(),
                     ),
@@ -145,30 +171,42 @@ class PackageCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        borderRadius: ThemeRadius.xsmall,
-                        color: colorScheme(context).tertiaryContainer
-                      ),
-                      child: Icon(CupertinoIcons.arrow_uturn_left, color: colorScheme(context).tertiary, size: 10),
+                          borderRadius: ThemeRadius.xsmall,
+                          color: colorScheme(context).tertiaryContainer),
+                      child: Icon(CupertinoIcons.arrow_uturn_left,
+                          color: colorScheme(context).tertiary, size: 10),
                     ),
                     Expanded(
-                      child: Text('\$${price.toStringAsFixed(0)}', textAlign: TextAlign.end, style: ThemeText.title2.copyWith(color: colorScheme(context).primary, fontWeight: FontWeight.bold, height: 1)),
+                      child: Text('\$${price.toStringAsFixed(0)}',
+                          textAlign: TextAlign.end,
+                          style: ThemeText.title2.copyWith(
+                              color: colorScheme(context).primary,
+                              fontWeight: FontWeight.bold,
+                              height: 1)),
                     )
                   ]),
-          
+
                   /// AIRPLANE
-                  Padding(padding: EdgeInsets.symmetric(vertical: spacingUnit(1)), child: const DashedBorder()),
-                  plane != null ? Row(children: [
-                    ClipRRect(
-                      borderRadius: ThemeRadius.xsmall,
-                      child: Image.network(
-                        plane!.logo,
-                        width: 14,
-                        height: 14,
-                      ),
-                    ),
-                    const SizedBox(width: 2),
-                    Text('${plane!.name} • Economy', style: ThemeText.caption,),
-                  ]) : Container()
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: spacingUnit(1)),
+                      child: const DashedBorder()),
+                  plane != null
+                      ? Row(children: [
+                          ClipRRect(
+                            borderRadius: ThemeRadius.xsmall,
+                            child: Image.network(
+                              plane!.logo,
+                              width: 14,
+                              height: 14,
+                            ),
+                          ),
+                          const SizedBox(width: 2),
+                          Text(
+                            '${plane!.name} • Economy',
+                            style: ThemeText.caption,
+                          ),
+                        ])
+                      : Container()
                 ]),
               ))
             ],

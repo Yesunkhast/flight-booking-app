@@ -34,18 +34,18 @@ class _VoucherDetailState extends State<VoucherDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final Promotion promoItem = promoList[1]; 
+    final Promotion promoItem = promoList[1];
 
     _scrollref.addListener(() {
       setState(() {
-        if(_scrollref.offset > 100) {
+        if (_scrollref.offset > 100) {
           _isFixed = true;
         } else {
           _isFixed = false;
         }
       });
     });
-  
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
@@ -56,10 +56,15 @@ class _VoucherDetailState extends State<VoucherDetail> {
         }),
         centerTitle: false,
         titleSpacing: 0,
+
         /// TITLE
         title: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 300),
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: _isFixed ? 1 : 0)),
+          style: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: _isFixed ? 1 : 0)),
           child: Text(
             promoItem.name.toCapitalCase(),
             overflow: TextOverflow.ellipsis,
@@ -69,54 +74,49 @@ class _VoucherDetailState extends State<VoucherDetail> {
         actions: [
           // POINT
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: ThemeRadius.big
-            ),
-            child: Text('${promoItem.price} POINT', style: ThemeText.paragraph)
-          ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: ThemeRadius.big),
+              child:
+                  Text('${promoItem.price} POINT', style: ThemeText.paragraph)),
           SizedBox(width: spacingUnit(1)),
+
           /// LIKED
           Padding(
             padding: EdgeInsets.only(right: spacingUnit(1)),
             child: Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                boxShadow: [ThemeShade.shadeMedium(context)],
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.favorite_border_outlined,
-                size: 16,
-                color: Colors.pink
-              )
-            ),
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  boxShadow: [ThemeShade.shadeMedium(context)],
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.favorite_border_outlined,
+                    size: 16, color: Colors.pink)),
           ),
         ],
       ),
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-          child: ListView(
-            controller: _scrollref,
-            children: [
-              /// EVENT BANNER HERO AND DESCRIPTON
-              PromoDesc(
+          child: ListView(controller: _scrollref, children: [
+            /// EVENT BANNER HERO AND DESCRIPTON
+            PromoDesc(
                 title: promoItem.name.toCapitalCase(),
                 desc: promoItem.desc,
                 thumb: promoItem.thumb,
-                terms1: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                terms2: 'Integer sem massa, interdum commodo leo ac, posuere molestie leo',
-                terms3: 'Sed iaculis quis lacus sed malesuada. Nam suscipit lacus',
+                terms1:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                terms2:
+                    'Integer sem massa, interdum commodo leo ac, posuere molestie leo',
+                terms3:
+                    'Sed iaculis quis lacus sed malesuada. Nam suscipit lacus',
                 date: promoItem.date,
                 point: promoItem.price,
-                liked: true
-              ),
-            ]
-          ),
+                liked: true),
+          ]),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -124,23 +124,23 @@ class _VoucherDetailState extends State<VoucherDetail> {
         shadowColor: Colors.black,
         color: Theme.of(context).colorScheme.surface,
         padding: EdgeInsets.only(
-          left: spacingUnit(2),
-          right: spacingUnit(2),
-          top: spacingUnit(1),
-          bottom: spacingUnit(3)
-        ),
+            left: spacingUnit(2),
+            right: spacingUnit(2),
+            top: spacingUnit(1),
+            bottom: spacingUnit(3)),
         child: Center(
           child: Container(
             height: 48,
             width: double.infinity,
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
             child: OutlinedButton(
-              onPressed: () {
-                Get.toNamed(AppLink.searchFlight);
-              },
-              style: ThemeButton.btnBig.merge(ThemeButton.outlinedSecondary(context)),
-              child: const Text('USE THIS COUPON', style: ThemeText.subtitle2)
-            ),
+                onPressed: () {
+                  Get.toNamed(AppLink.searchFlight);
+                },
+                style: ThemeButton.btnBig
+                    .merge(ThemeButton.outlinedSecondary(context)),
+                child:
+                    const Text('USE THIS COUPON', style: ThemeText.subtitle2)),
           ),
         ),
       ),

@@ -3,75 +3,6 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
-class FlightSearchController extends GetxController {
-  RxString from = ''.obs;
-  RxString to = ''.obs;
-  RxString departureDate = ''.obs;
-  RxString returnDate = ''.obs;
-
-  RxDouble adults = 0.0.obs;
-  RxDouble children = 0.0.obs;
-  RxDouble infants = 0.0.obs;
-
-  RxString classType = 'Economy'.obs;
-
-  void setFrom(String city) {
-    from.value = city;
-  }
-
-  void setTo(String city) {
-    to.value = city;
-  }
-
-  void setAdults(double count) {
-    adults.value = count;
-  }
-
-  void setChildren(double count) {
-    children.value = count;
-  }
-
-  void setInfants(double count) {
-    infants.value = count;
-  }
-
-  void setClassType(String type) {
-    classType.value = type;
-  }
-}
-
-class UserController extends GetxController {
-  RxString name = ''.obs;
-  RxString email = ''.obs;
-  RxString avatarUrl = ''.obs;
-  RxString location = ''.obs;
-
-  void setName(String newName) {
-    name.value = newName;
-  }
-
-  void setEmail(String newEmail) {
-    email.value = newEmail;
-  }
-
-  void setAvatarUrl(String newAvatarUrl) {
-    avatarUrl.value = newAvatarUrl;
-  }
-
-  void setLocation(String newLocation) {
-    location.value = newLocation;
-  }
-}
-
-class PassengerController extends GetxController {
-  RxString name = ''.obs;
-  RxString parentName = ''.obs;
-  RxString passportNumber = ''.obs;
-  RxString date = ''.obs;
-  RxString passwordExpireDate = ''.obs;
-  RxString sex = ''.obs;
-}
-
 class LocationController extends GetxController {
   final LocationService _locationService = LocationService();
 
@@ -119,6 +50,7 @@ class LocationController extends GetxController {
       error.value = e.toString();
       city.value = 'Location error';
       country.value = '';
+      // ignore: avoid_print
       print('Location error: $e');
     } finally {
       isLoading.value = false;

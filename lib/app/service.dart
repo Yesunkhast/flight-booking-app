@@ -7,6 +7,7 @@ class LocationService {
   Future<Position?> getCurrentLocation() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      // ignore: avoid_print
       print("Location service is disabled");
       return null;
     }
@@ -18,16 +19,19 @@ class LocationService {
     }
 
     if (permission == LocationPermission.denied) {
+      // ignore: avoid_print
       print("Location permission denied");
       return null;
     }
 
     if (permission == LocationPermission.deniedForever) {
+      // ignore: avoid_print
       print("Location permission denied forever");
       return null;
     }
 
     return Geolocator.getCurrentPosition(
+      // ignore: deprecated_member_use
       desiredAccuracy: LocationAccuracy.high,
     );
   }
@@ -41,18 +45,16 @@ class LocalizationService extends GetxService {
     final prefs = await SharedPreferences.getInstance();
     final savedLocale = prefs.getString(keyLanguage) ?? 'en';
     locale.value = savedLocale;
-    Get.updateLocale(Locale(savedLocale));
     return this;
   }
 
-  void changeLocale(String languageCode) async {
+  Future<void> changeLocale(String languageCode) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(keyLanguage, languageCode);
     locale.value = languageCode;
     Get.updateLocale(Locale(languageCode));
   }
 
-  List<String> get supportedLocales => ['en', 'es', 'fr', 'de'];
-  List<String> get supportedLocalesName =>
-      ['English', 'Español', 'Français', 'Deutsch'];
+  List<String> get supportedLocales => ['en', 'mn'];
+  List<String> get supportedLocalesName => ['English', 'Монгол'];
 }

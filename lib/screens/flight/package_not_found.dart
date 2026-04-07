@@ -1,5 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/utils/no_data.dart';
 import 'package:flight_app/widgets/app_button/back_icon_button.dart';
@@ -12,25 +12,24 @@ class PackageNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Package', style: ThemeText.subtitle),
-        backgroundColor: Colors.transparent,
-        leading: BackIconButton(onTap: () {
-          Get.back();
-        }),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: NoData(
-          image: ImgApi.emptyPackage,
-          title: 'Package Not Found',
-          desc: 'Nulla condimentum pulvinar arcu a pellentesque.',
-          secondaryAction: () {
-            Get.toNamed(AppLink.home);
-          },
-          secondaryTxtBtn: 'BACK TO HOME',
+        appBar: AppBar(
+          title: const Text('Package', style: ThemeText.subtitle),
+          backgroundColor: Colors.transparent,
+          leading: BackIconButton(onTap: () {
+            Get.back();
+          }),
+          centerTitle: true,
         ),
-      )
-    );
+        body: Center(
+          child: NoData(
+            image: ImgApi.emptyPackage,
+            title: 'Package Not Found',
+            desc: 'Nulla condimentum pulvinar arcu a pellentesque.',
+            secondaryAction: () {
+              Get.toNamed(AppLink.home);
+            },
+            secondaryTxtBtn: 'BACK TO HOME',
+          ),
+        ));
   }
 }

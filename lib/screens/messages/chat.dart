@@ -9,7 +9,11 @@ import 'package:flight_app/widgets/chat/chat_input.dart';
 import 'package:flight_app/widgets/chat/chat_message.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key, required this.messageData, required this.name, required this.avatar});
+  const ChatPage(
+      {super.key,
+      required this.messageData,
+      required this.name,
+      required this.avatar});
 
   final List<MessageItem> messageData;
   final String name;
@@ -23,17 +27,19 @@ class _ChatPageState extends State<ChatPage> {
   List<MessageItem> initMsg = [];
   final _scrollController = ScrollController();
 
-  void _sendMessage(MessageItem message){
+  void _sendMessage(MessageItem message) {
     setState(() {
       initMsg.add(message);
     });
 
     /// Scroll to bottom
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent + kToolbarHeight + kBottomNavigationBarHeight + 32,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn
-    );
+        _scrollController.position.maxScrollExtent +
+            kToolbarHeight +
+            kBottomNavigationBarHeight +
+            32,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn);
   }
 
   @override
@@ -58,28 +64,23 @@ class _ChatPageState extends State<ChatPage> {
             onTap: () {
               Get.toNamed('/user-profile');
             },
-            child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(widget.avatar)
-              ),
+                  radius: 15, backgroundImage: NetworkImage(widget.avatar)),
               SizedBox(width: spacingUnit(1)),
               Text(widget.name, style: ThemeText.subtitle),
             ]),
           ),
-          actions: const [
-            OtherBtn()
-          ],
+          actions: const [OtherBtn()],
         ),
         body: Column(children: [
           Expanded(
-            child: ChatMessage(
-              avatar: widget.avatar,
-              name: widget.name,
-              chatMessages: initMsg,
-              scrollCtrl: _scrollController
-            )
-          ),
+              child: ChatMessage(
+                  avatar: widget.avatar,
+                  name: widget.name,
+                  chatMessages: initMsg,
+                  scrollCtrl: _scrollController)),
           ChatInput(sendMsg: _sendMessage),
         ]),
       ),

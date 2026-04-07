@@ -1,4 +1,7 @@
 class AppLink {
+  ///LANGUAGE
+  static const language = '/language';
+
   /// AUTH
   static const intro = '/intro';
   static const welcome = '/welcome';
@@ -10,6 +13,7 @@ class AppLink {
   // HOME
   static const home = '/';
   static const notFound = '/not-found';
+  static const splash = '/splash';
 
   // SEARCH
   static const searchFlight = '/search-flight';
@@ -64,7 +68,7 @@ class AppLink {
   static const faq = '/faq';
   static const contact = '/contact';
   static const terms = '/terms-conditions';
-  
+
   // SAMPLE UI
   static const buttonCollection = '/button-collection';
   static const shadowRoundedCollection = '/shadow-rounded-collection';
@@ -73,4 +77,3 @@ class AppLink {
   static const formSample = '/form-sample';
   static const cardCollection = '/card-collection';
 }
-

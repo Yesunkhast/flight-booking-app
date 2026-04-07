@@ -1,11 +1,12 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/app/controllers.dart';
+import 'package:flight_app/app/controller/location_controller.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/utils/custom_tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flight_app/constants/app_const.dart';
+import 'package:flight_app/app/constants/app_const.dart';
 import 'package:flight_app/widgets/action_header/home_action_group.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -17,6 +18,7 @@ class HomeHeader extends StatelessWidget {
 
   final bool isFixed;
   final LocationController controller = Get.put(LocationController());
+  final UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +40,25 @@ class HomeHeader extends StatelessWidget {
         },
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundImage: NetworkImage(userDummy.avatar),
+            Obx(
+              () => CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage(
+                    userController.user.value?.image ?? userDummy.image),
+              ),
             ),
             SizedBox(width: spacingUnit(1)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  userDummy.name,
-                  style: ThemeText.title2.copyWith(
-                    color:
-                        isFixed ? colorScheme(context).onSurface : Colors.white,
+                Obx(
+                  () => Text(
+                    userController.user.value?.username ?? 'Quest user',
+                    style: ThemeText.title2.copyWith(
+                      color: isFixed
+                          ? colorScheme(context).onSurface
+                          : Colors.white,
+                    ),
                   ),
                 ),
                 Container(

@@ -20,18 +20,17 @@ class PromoListSlider extends StatelessWidget {
       promoList[11],
       promoList[12],
     ];
-  
+
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
         child: TitleAction(
-          title: 'The Latest Promos',
-          desc: 'Check out the latest promos just for you',
-          textAction: 'See All',
-          onTap: () {
-            Get.toNamed(AppLink.promo);
-          }
-        ),
+            title: 'The Latest Promos',
+            desc: 'Check out the latest promos just for you',
+            textAction: 'See All',
+            onTap: () {
+              Get.toNamed(AppLink.promo);
+            }),
       ),
       const VSpaceShort(),
       SizedBox(
@@ -44,23 +43,24 @@ class PromoListSlider extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(left: index == 0 ? 4 : 0),
               child: Column(children: [
-                SizedBox(width: 300, height: cardHeight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(AppLink.promoDetail);
-                      },
-                      child: PromoCard(
-                        thumb: item.thumb,
-                        title: item.name,
-                        liked: false,
-                        point: item.price,
-                        time: item.date,
+                SizedBox(
+                    width: 300,
+                    height: cardHeight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppLink.promoDetail);
+                        },
+                        child: PromoCard(
+                          thumb: item.thumb,
+                          title: item.name,
+                          liked: false,
+                          point: item.price,
+                          time: item.date,
+                        ),
                       ),
-                    ),
-                  )
-                ),
+                    )),
               ]),
             );
           }),

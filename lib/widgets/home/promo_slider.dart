@@ -2,7 +2,7 @@ import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/route_manager.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -47,61 +47,57 @@ class _PromoSliderState extends State<PromoSlider> {
           Get.toNamed('/promo-detail');
         },
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          child: Stack(
-            children: <Widget>[
-              Image.network(
-                item,
-                fit: BoxFit.cover,
-                width: 1000,
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const ShimmerPreloader();
-                },
-              ),
-            ],
-          )
-        ),
+            borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+            child: Stack(
+              children: <Widget>[
+                Image.network(
+                  item,
+                  fit: BoxFit.cover,
+                  width: 1000,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const ShimmerPreloader();
+                  },
+                ),
+              ],
+            )),
       );
     }).toList();
-  
+
     return Column(children: [
       /// TITLE
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
         child: TitleAction(
-          title: 'Latest Promotions',
-          textAction: 'See All',
-          onTap: () {
-            Get.toNamed('/promos');
-          }
-        ),
+            title: 'Latest Promotions',
+            textAction: 'See All',
+            onTap: () {
+              Get.toNamed('/promos');
+            }),
       ),
       const VSpaceShort(),
-      
+
       /// CAROUSEL SLIDER IMAGES
       SizedBox(
-        height: _getSliderHeight(context),
-        child: CarouselSlider(
-          items: imageSliders,
-          carouselController: _sliderRef,
-          options: CarouselOptions(
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 10),
-            initialPage: 0,
-            autoPlayCurve: Curves.fastOutSlowIn,
-            enlargeCenterPage: true,
-            aspectRatio: 2.0,
-            pauseAutoPlayOnTouch: true,
-            height: _getSliderHeight(context),
-            onPageChanged: (index, reason) {
-              setState(() {
-                _current = index;
-              });
-            }
-          )
-        )
-      ),
+          height: _getSliderHeight(context),
+          child: CarouselSlider(
+              items: imageSliders,
+              carouselController: _sliderRef,
+              options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 10),
+                  initialPage: 0,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  pauseAutoPlayOnTouch: true,
+                  height: _getSliderHeight(context),
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }))),
 
       /// SLIDER PAGINATION
       const VSpaceShort(),
@@ -110,18 +106,19 @@ class _PromoSliderState extends State<PromoSlider> {
         children: imgList.asMap().entries.map((entry) {
           int curSlide = entry.key;
           return GestureDetector(
-            onTap: () => _sliderRef.animateToPage(curSlide),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-              width: _current == curSlide ? 30 : 12,
-              height: 12.0,
-              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-              decoration: BoxDecoration(
-                borderRadius: ThemeRadius.big,
-                color: ThemePalette.primaryMain.withValues(alpha: _current == curSlide ? 0.9 : 0.2)),
-            )
-          );
+              onTap: () => _sliderRef.animateToPage(curSlide),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                width: _current == curSlide ? 30 : 12,
+                height: 12.0,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                    borderRadius: ThemeRadius.big,
+                    color: ThemePalette.primaryMain
+                        .withValues(alpha: _current == curSlide ? 0.9 : 0.2)),
+              ));
         }).toList(),
       )
     ]);

@@ -1,0 +1,12 @@
+{
+    "status": "SUCCESS",
+    "code": 0,
+    "result": {
+        "auth_token": "OTg2ODQ3",
+        "surname": null,
+        "name": null,
+        "email": null,
+        "phone": "94290065",
+        "is_operator": false
+    }
+}

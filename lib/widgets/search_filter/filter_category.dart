@@ -68,20 +68,20 @@ class _FilterCategoryState extends State<FilterCategory> {
 
   void openCategoryPicker(BuildContext context) {
     openRadioPicker(
-      context: context,
-      options: categoryOptions,
-      title: 'Choose Category',
-      initialValue: categoryTemp,
-      onSelected: (value) {
-        if (value != null) {
-          String result = categoryOptions.firstWhere((e) => e.value == value).value;
-          setState(() {
-            categoryTemp = result;
-            widget.onChangeCategory(result);
-          });
-        }
-      }
-    );
+        context: context,
+        options: categoryOptions,
+        title: 'Choose Category',
+        initialValue: categoryTemp,
+        onSelected: (value) {
+          if (value != null) {
+            String result =
+                categoryOptions.firstWhere((e) => e.value == value).value;
+            setState(() {
+              categoryTemp = result;
+              widget.onChangeCategory(result);
+            });
+          }
+        });
   }
 
   @override
@@ -92,20 +92,22 @@ class _FilterCategoryState extends State<FilterCategory> {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle buttonStyle = ThemeButton.btnSmall.merge(ThemeButton.tonalSecondary(context));
-    
+    ButtonStyle buttonStyle =
+        ThemeButton.btnSmall.merge(ThemeButton.tonalSecondary(context));
+
     return FilledButton(
-      onPressed: () {
-        openCategoryPicker(context);
-      },
-      style: buttonStyle,
-      child: Row(children: [
-        const Icon(Icons.grid_view_outlined, size: 16),
-        const SizedBox(width: 2),
-        Text('Category: ${categoryTemp.toCapitalCase()}', style: ThemeText.caption),
-        const SizedBox(width: 2),
-        Icon(Icons.arrow_drop_down, color: colorScheme(context).onSurface, size: 16),
-      ])
-    );
+        onPressed: () {
+          openCategoryPicker(context);
+        },
+        style: buttonStyle,
+        child: Row(children: [
+          const Icon(Icons.grid_view_outlined, size: 16),
+          const SizedBox(width: 2),
+          Text('Category: ${categoryTemp.toCapitalCase()}',
+              style: ThemeText.caption),
+          const SizedBox(width: 2),
+          Icon(Icons.arrow_drop_down,
+              color: colorScheme(context).onSurface, size: 16),
+        ]));
   }
 }

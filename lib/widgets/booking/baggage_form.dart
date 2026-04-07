@@ -80,7 +80,8 @@ class _BaggageFormState extends State<BaggageForm> {
                 title: Row(children: [
                   Expanded(
                       child: Text(
-                          '${passengerList[index].title} ${passengerList[index].name}',
+                          passengerList[index]
+                              .username, //${passengerList[index].title}
                           style: ThemeText.headline.copyWith(
                               color: colorScheme(context).onSurface))),
                   Text('${_baggageGroup[index]} Kg',

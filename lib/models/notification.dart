@@ -1,4 +1,4 @@
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 
 class NotificationModel {
   final String type;
@@ -33,11 +33,10 @@ final List<NotificationModel> notifList = [
     image: ImgApi.photo[2],
   ),
   NotificationModel(
-    type: 'warning',
-    title: 'Pellentesque ultrices mattis odio',
-    subtitle: 'Vestibulum rutrum rutrum neque. Aenean auctor gravida sem',
-    date: '15 Apr'
-  ),
+      type: 'warning',
+      title: 'Pellentesque ultrices mattis odio',
+      subtitle: 'Vestibulum rutrum rutrum neque. Aenean auctor gravida sem',
+      date: '15 Apr'),
   NotificationModel(
     type: 'error',
     title: 'Duis at velit eu est',
@@ -63,7 +62,8 @@ final List<NotificationModel> notifList = [
   NotificationModel(
     type: 'success',
     title: 'Nullam molestie nibh in lectus',
-    subtitle: 'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
+    subtitle:
+        'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
     date: 'Long time ago',
     isRead: true,
   ),

@@ -1,5 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/constants/img_api.dart';
+import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -28,11 +28,7 @@ class TicketList extends StatelessWidget {
             padding: EdgeInsets.all(spacingUnit(2)),
             child: const Wrap(
               alignment: WrapAlignment.center,
-              children: [
-                VSpace(),
-                GrabberIcon(),
-                ChoosePassengger()
-              ],
+              children: [VSpace(), GrabberIcon(), ChoosePassengger()],
             ),
           );
         }),
@@ -44,53 +40,57 @@ class TicketList extends StatelessWidget {
       );
     }
 
-    return bookingList.isNotEmpty ? ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-      physics: const ClampingScrollPhysics(),
-      itemCount: bookingList.length,
-      itemBuilder: ((BuildContext context, int index) {
-        Booking item = bookingList[index];
-        return Padding(
-          padding: EdgeInsets.only(bottom: spacingUnit(2)),
-          child: wideScreen ? TicketWideCard(
-            from: item.from,
-            to: item.to,
-            plane: item.plane,
-            price: item.price,
-            depart: item.depart,
-            arrival: item.arrival,
-            transit: 1,
-            status: item.status,
-            timeLeft: '2d 11h',
-            bookingCode: 'ABCDE${item.id}',
-            showDetail: () {
-              Get.toNamed(AppLink.ticketDetail);
-            },
-            showBoardingPass: () {
-              showPassengerList();
-            },
-          ) : TicketCard(
-            from: item.from,
-            to: item.to,
-            plane: item.plane,
-            price: item.price,
-            depart: item.depart,
-            arrival: item.arrival,
-            transit: 1,
-            status: item.status,
-            timeLeft: '2d 11h',
-            bookingCode: 'ABCDE${item.id}',
-            showDetail: () {
-              Get.toNamed(AppLink.ticketDetail);
-            },
-            showBoardingPass: () {
-              showPassengerList();
-            },
-          ),
-        );
-      }),
-    ) : _emptyList(context);
+    return bookingList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+            physics: const ClampingScrollPhysics(),
+            itemCount: bookingList.length,
+            itemBuilder: ((BuildContext context, int index) {
+              Booking item = bookingList[index];
+              return Padding(
+                padding: EdgeInsets.only(bottom: spacingUnit(2)),
+                child: wideScreen
+                    ? TicketWideCard(
+                        from: item.from,
+                        to: item.to,
+                        plane: item.plane,
+                        price: item.price,
+                        depart: item.depart,
+                        arrival: item.arrival,
+                        transit: 1,
+                        status: item.status,
+                        timeLeft: '2d 11h',
+                        bookingCode: 'ABCDE${item.id}',
+                        showDetail: () {
+                          Get.toNamed(AppLink.ticketDetail);
+                        },
+                        showBoardingPass: () {
+                          showPassengerList();
+                        },
+                      )
+                    : TicketCard(
+                        from: item.from,
+                        to: item.to,
+                        plane: item.plane,
+                        price: item.price,
+                        depart: item.depart,
+                        arrival: item.arrival,
+                        transit: 1,
+                        status: item.status,
+                        timeLeft: '2d 11h',
+                        bookingCode: 'ABCDE${item.id}',
+                        showDetail: () {
+                          Get.toNamed(AppLink.ticketDetail);
+                        },
+                        showBoardingPass: () {
+                          showPassengerList();
+                        },
+                      ),
+              );
+            }),
+          )
+        : _emptyList(context);
   }
 
   Widget _emptyList(BuildContext context) {

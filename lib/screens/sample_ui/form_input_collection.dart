@@ -47,7 +47,8 @@ class _FormInputCollectionState extends State<FormInputCollection> {
       title: 'Choose Hobby',
       onSelected: (value) {
         if (value != null) {
-          String result = hobbyOptions.firstWhere((e) => e.value == value).label;
+          String result =
+              hobbyOptions.firstWhere((e) => e.value == value).label;
           _chooseRef.text = result;
         }
         setState(() {
@@ -60,12 +61,11 @@ class _FormInputCollectionState extends State<FormInputCollection> {
 
   Future<void> _selectTime() async {
     TimeOfDay? time = await showTimePicker(
-      context: context,
-      initialTime: const TimeOfDay(hour: 7, minute: 30),
-      orientation: Orientation.portrait,
-      initialEntryMode: TimePickerEntryMode.dial
-    );
-  
+        context: context,
+        initialTime: const TimeOfDay(hour: 7, minute: 30),
+        orientation: Orientation.portrait,
+        initialEntryMode: TimePickerEntryMode.dial);
+
     setState(() {
       _timePickerRef.text = time!.format(context);
     });
@@ -84,74 +84,80 @@ class _FormInputCollectionState extends State<FormInputCollection> {
         targetRef.text = picked.toString().split(" ")[0];
       });
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Form Input Collection', style: ThemeText.subtitle,),
-        centerTitle: true,
-        leading: BackIconButton(onTap: () {
-          Get.back();
-        }),
-      ),
-      body: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: [
-        AppTextField(
-          label: 'Text Field',
-          onChanged: (_) => {},
+        appBar: AppBar(
+          title: const Text(
+            'Form Input Collection',
+            style: ThemeText.subtitle,
+          ),
+          centerTitle: true,
+          leading: BackIconButton(onTap: () {
+            Get.back();
+          }),
         ),
-        const VSpace(),
-        AppTextField(
-          controller: _chooseRef,
-          label: 'Select Bottomsheet',
-          onChanged: (_) {},
-          onTap: () {
-            openPicker(context);
-          },
-          suffix: const Icon(Icons.arrow_drop_down),
-        ),
-        const VSpace(),
-        Row(children: [
-          Expanded(child: AppTextField(
-            controller: _dateFromRef,
-            readOnly: true,
-            prefixIcon: Icons.date_range,
-            label: 'Date from',
+        body: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: [
+          AppTextField(
+            label: 'Text Field',
+            onChanged: (_) => {},
+          ),
+          const VSpace(),
+          AppTextField(
+            controller: _chooseRef,
+            label: 'Select Bottomsheet',
             onChanged: (_) {},
             onTap: () {
-              _selectDate2(_dateFromRef);
+              openPicker(context);
             },
-          )),
-          const SizedBox(width: 4,),
-          Expanded(child: AppTextField(
-            controller: _dateToRef,
+            suffix: const Icon(Icons.arrow_drop_down),
+          ),
+          const VSpace(),
+          Row(children: [
+            Expanded(
+                child: AppTextField(
+              controller: _dateFromRef,
+              readOnly: true,
+              prefixIcon: Icons.date_range,
+              label: 'Date from',
+              onChanged: (_) {},
+              onTap: () {
+                _selectDate2(_dateFromRef);
+              },
+            )),
+            const SizedBox(
+              width: 4,
+            ),
+            Expanded(
+                child: AppTextField(
+              controller: _dateToRef,
+              readOnly: true,
+              prefixIcon: Icons.date_range,
+              label: 'Date to',
+              onChanged: (_) {},
+              onTap: () {
+                _selectDate2(_dateToRef);
+              },
+            ))
+          ]),
+          const VSpace(),
+          AppTextField(
+            controller: _timePickerRef,
             readOnly: true,
-            prefixIcon: Icons.date_range,
-            label: 'Date to',
+            prefixIcon: Icons.access_time,
+            label: 'Time Picker',
             onChanged: (_) {},
-            onTap: () {
-              _selectDate2(_dateToRef);
-            },
-          ))
-        ]),
-        const VSpace(),
-        AppTextField(
-          controller: _timePickerRef,
-          readOnly: true,
-          prefixIcon: Icons.access_time,
-          label: 'Time Picker',
-          onChanged: (_) {},
-          onTap: _selectTime,
-        ),
-        const VSpace(),
-        AppTextField(
-          label: 'Text Area',
-          maxLines: 8,
-          onChanged: (_) => {},
-        ),
-        const VSpace(),
-      ])
-    );
+            onTap: _selectTime,
+          ),
+          const VSpace(),
+          AppTextField(
+            label: 'Text Area',
+            maxLines: 8,
+            onChanged: (_) => {},
+          ),
+          const VSpace(),
+        ]));
   }
 }

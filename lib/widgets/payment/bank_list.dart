@@ -29,37 +29,39 @@ class _BankListState extends State<BankList> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      primary: true,
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      padding: EdgeInsets.all(spacingUnit(2)),
-      itemCount: _banks.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: ThemeBreakpoints.smUp(context) ? 4 : 2,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        childAspectRatio: 2,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            setState(() {
-              _selected = _banks[index].value;
-            });
-          },
-          child: Container(
-            padding: EdgeInsets.all(spacingUnit(1)),
-            decoration: BoxDecoration(
-              borderRadius: ThemeRadius.small,
-              border: Border.all(
-                width: 2,
-                color: _selected == _banks[index].value ? ThemePalette.primaryMain : colorScheme(context).outline
-              )
+        primary: true,
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        padding: EdgeInsets.all(spacingUnit(2)),
+        itemCount: _banks.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: ThemeBreakpoints.smUp(context) ? 4 : 2,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 2,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              setState(() {
+                _selected = _banks[index].value;
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.all(spacingUnit(1)),
+              decoration: BoxDecoration(
+                  borderRadius: ThemeRadius.small,
+                  border: Border.all(
+                      width: 2,
+                      color: _selected == _banks[index].value
+                          ? ThemePalette.primaryMain
+                          : colorScheme(context).outline)),
+              child: Image.asset(
+                _banks[index].thumb,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-            child: Image.asset(_banks[index].thumb, fit: BoxFit.fitWidth,),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

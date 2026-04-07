@@ -13,7 +13,10 @@ class TicketSettingsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(Icons.more_horiz, size: 32, color: whiteIcon ? Colors.white : colorScheme(context).onSurfaceVariant),
+      icon: Icon(Icons.more_horiz,
+          size: 32,
+          color:
+              whiteIcon ? Colors.white : colorScheme(context).onSurfaceVariant),
       elevation: 5,
       shadowColor: Colors.black.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(
@@ -23,7 +26,9 @@ class TicketSettingsPopup extends StatelessWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Widget>>[
         PopupMenuItem<Widget>(
           child: ListTile(
-            leading: Transform.flip(flipX: true, child: Icon(Icons.reply, color: colorScheme(context).primary)),
+            leading: Transform.flip(
+                flipX: true,
+                child: Icon(Icons.reply, color: colorScheme(context).primary)),
             title: const Text('Share'),
           ),
         ),
@@ -42,19 +47,24 @@ class TicketSettingsPopup extends StatelessWidget {
         const PopupMenuDivider(),
         PopupMenuItem<Widget>(
           child: ListTile(
-            leading: Icon(CupertinoIcons.question_circle, color: colorScheme(context).primary),
+            leading: Icon(CupertinoIcons.question_circle,
+                color: colorScheme(context).primary),
             title: const Text('Ask for supports'),
           ),
         ),
         PopupMenuItem<Widget>(
           child: ListTile(
-            leading: Icon(CupertinoIcons.time, color: colorScheme(context).primary),
+            leading:
+                Icon(CupertinoIcons.time, color: colorScheme(context).primary),
             title: const Text('Reschedule'),
           ),
         ),
         PopupMenuItem<Widget>(
           child: ListTile(
-            leading: Icon(CupertinoIcons.arrow_uturn_left, color: colorScheme(context).primary,),
+            leading: Icon(
+              CupertinoIcons.arrow_uturn_left,
+              color: colorScheme(context).primary,
+            ),
             title: const Text('Request for refund'),
           ),
         ),
@@ -71,16 +81,25 @@ class TicketSettingsList extends StatelessWidget {
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-        child: const TitleBasic(title: 'Other Options', size: 'small',),
+        child: const TitleBasic(
+          title: 'Other Options',
+          size: 'small',
+        ),
       ),
       SizedBox(height: spacingUnit(2)),
       GestureDetector(
         onTap: () {},
         child: Row(children: [
           SizedBox(width: spacingUnit(2)),
-          Icon(CupertinoIcons.question_circle, color: colorScheme(context).primary),
+          Icon(CupertinoIcons.question_circle,
+              color: colorScheme(context).primary),
           const SizedBox(width: 4),
-          Text('Ask for support', style: ThemeText.paragraph.copyWith(color: colorScheme(context).primary, fontWeight: FontWeight.w500),)
+          Text(
+            'Ask for support',
+            style: ThemeText.paragraph.copyWith(
+                color: colorScheme(context).primary,
+                fontWeight: FontWeight.w500),
+          )
         ]),
       ),
       const VSpaceShort(),
@@ -90,7 +109,12 @@ class TicketSettingsList extends StatelessWidget {
           SizedBox(width: spacingUnit(2)),
           Icon(CupertinoIcons.time, color: colorScheme(context).primary),
           const SizedBox(width: 4),
-          Text('Reschedule', style: ThemeText.paragraph.copyWith(color: colorScheme(context).primary, fontWeight: FontWeight.w500),)
+          Text(
+            'Reschedule',
+            style: ThemeText.paragraph.copyWith(
+                color: colorScheme(context).primary,
+                fontWeight: FontWeight.w500),
+          )
         ]),
       ),
       const VSpaceShort(),
@@ -98,9 +122,15 @@ class TicketSettingsList extends StatelessWidget {
         onTap: () {},
         child: Row(children: [
           SizedBox(width: spacingUnit(2)),
-          Icon(CupertinoIcons.arrow_uturn_left, color: colorScheme(context).primary),
+          Icon(CupertinoIcons.arrow_uturn_left,
+              color: colorScheme(context).primary),
           const SizedBox(width: 4),
-          Text('Request for refund', style: ThemeText.paragraph.copyWith(color: colorScheme(context).primary, fontWeight: FontWeight.w500),)
+          Text(
+            'Request for refund',
+            style: ThemeText.paragraph.copyWith(
+                color: colorScheme(context).primary,
+                fontWeight: FontWeight.w500),
+          )
         ]),
       ),
     ]);
@@ -117,7 +147,9 @@ class TicketSettingsBottomSheet extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       children: [
         ListTile(
-          leading: Transform.flip(flipX: true, child: Icon(Icons.reply, color: ThemePalette.primaryMain)),
+          leading: Transform.flip(
+              flipX: true,
+              child: Icon(Icons.reply, color: ThemePalette.primaryMain)),
           title: const Text('Share'),
         ),
         ListTile(
@@ -130,7 +162,8 @@ class TicketSettingsBottomSheet extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          leading: Icon(CupertinoIcons.question_circle, color: ThemePalette.primaryMain),
+          leading: Icon(CupertinoIcons.question_circle,
+              color: ThemePalette.primaryMain),
           title: const Text('Ask for supports'),
         ),
         ListTile(
@@ -138,7 +171,8 @@ class TicketSettingsBottomSheet extends StatelessWidget {
           title: const Text('Reschedule'),
         ),
         ListTile(
-          leading: Icon(CupertinoIcons.arrow_uturn_left, color: ThemePalette.primaryMain),
+          leading: Icon(CupertinoIcons.arrow_uturn_left,
+              color: ThemePalette.primaryMain),
           title: const Text('Request for refund'),
         ),
         const VSpace()

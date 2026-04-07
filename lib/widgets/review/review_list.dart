@@ -9,23 +9,22 @@ class ReviewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: spacingUnit(2), vertical: 0),
-      itemCount: ratingList.length,
-      itemBuilder: ((context, index) {
-        Rating item = ratingList[index];
-        return Padding(
-          padding: EdgeInsets.symmetric(vertical: spacingUnit(1)),
-          child: RatingCard(
-            avatar: item.avatar,
-            name: item.name,
-            date: item.date,
-            description: item.description,
-            rating: item.rating,
-          ),
-        );
-      })
-    );
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: spacingUnit(2), vertical: 0),
+        itemCount: ratingList.length,
+        itemBuilder: ((context, index) {
+          Rating item = ratingList[index];
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: spacingUnit(1)),
+            child: RatingCard(
+              avatar: item.avatar,
+              name: item.name,
+              date: item.date,
+              description: item.description,
+              rating: item.rating,
+            ),
+          );
+        }));
   }
 }
