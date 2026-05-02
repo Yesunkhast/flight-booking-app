@@ -106,16 +106,16 @@ class _FlightDetailPackageState extends State<FlightDetailPackage> {
                     from: cityList[0],
                     to: cityList[6],
                     price: price,
-                    discount: discount,
-                    label: 'Discount $discount%',
-                    plane: planeList[0],
+                    // discount: discount,
+                    // label: 'Discount $discount%',
+                    plane: planeList[0], fromCode: '', toCode: '',
                   )
                 : FlightSummary(
-                    from: cityList[0],
-                    to: cityList[6],
+                    from: cityList[0].name,
+                    to: cityList[6].name,
                     price: price,
-                    discount: discount,
-                    label: 'Discount $discount%',
+                    // discount: discount,
+                    // label: 'Discount $discount%',
                     plane: planeList[0],
                   ),
             wideScreen

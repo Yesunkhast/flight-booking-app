@@ -75,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
             Text(localization.login, style: ThemeText.title),
             SizedBox(height: spacingUnit(1)),
             Text(
-              '✨ Welcome back! Please login to your account.',
+              localization.loginFormPrag,
               style: ThemeText.headline.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),

@@ -1,12 +1,17 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/img_api.dart';
-import 'package:flight_app/models/trip.dart';
+import 'package:flight_app/app/controller/fligth_detail_controller.dart';
+import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
+import 'package:flight_app/models/realModel/flight.dart';
+// import 'package:flight_app/models/trip.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/utils/no_data.dart';
 import 'package:flight_app/widgets/cards/flight_card.dart';
 import 'package:flight_app/widgets/cards/flight_wide_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 
 class FlightTripList extends StatelessWidget {
@@ -14,15 +19,24 @@ class FlightTripList extends StatelessWidget {
       {super.key,
       this.withEdit = false,
       this.scrollRef,
+      required this.roundTrip,
       required this.flightData});
 
   final bool withEdit;
+  final bool roundTrip;
   final ScrollController? scrollRef;
-  final List<Trip> flightData;
+  final List<FlightInfo> flightData;
+  void onEdit() {
+    print("Edit flight");
+    // Implement your edit functionality here
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool wideScreen = ThemeBreakpoints.smUp(context);
+    final localization = AppLocalizations.of(context)!;
+    final detailController = Get.find<FlightDetailController>();
+
+    // bool wideScreen = ThemeBreakpoints.smUp(context);
 
     return flightData.isNotEmpty
         ? ListView.builder(
@@ -31,39 +45,40 @@ class FlightTripList extends StatelessWidget {
                 horizontal: spacingUnit(2), vertical: spacingUnit(1)),
             itemCount: flightData.length,
             itemBuilder: (context, index) {
-              Trip item = flightData[index];
+              FlightInfo item = flightData[index];
 
               return Padding(
                 padding: EdgeInsets.only(bottom: spacingUnit(2)),
                 child: GestureDetector(
                   onTap: () {
+                    detailController.setFlight(item);
+                    print(
+                        "clicked :${localization.selectedFlight} ${item.flightSegment.last.dptCityNameEng}");
                     Get.toNamed(AppLink.flightDetail);
                   },
-                  child: wideScreen
-                      ? FlightWideCard(
-                          from: item.from,
-                          to: item.to,
-                          plane: item.plane,
-                          price: item.price,
-                          depart: item.depart,
-                          arrival: item.arrival,
-                          transit: item.transit,
-                          discount: item.discount,
-                          label: item.label,
-                          withEdit: withEdit,
-                        )
-                      : FlightCard(
-                          from: item.from,
-                          to: item.to,
-                          plane: item.plane,
-                          price: item.price,
-                          depart: item.depart,
-                          arrival: item.arrival,
-                          transit: item.transit,
-                          discount: item.discount,
-                          label: item.label,
-                          withEdit: withEdit,
-                        ),
+                  child:
+                      // wideScreen
+                      //     ? FlightWideCard(
+                      //         from: item.from,
+                      //         to: item.to,
+                      //         plane: item.plane,
+                      //         price: item.price,
+                      //         depart: item.depart,
+                      //         arrival: item.arrival,
+                      //         transit: item.transit,
+                      //         discount: item.discount,
+                      //         label: item.label,
+                      //         withEdit: withEdit,
+                      //         onEdit: onEdit,
+                      //       )
+                      //     :
+                      FlightCard(
+                    index: index + 1,
+                    flightInfo: item, // item is now FlightInfo
+                    withEdit: withEdit,
+                    roundTrip: roundTrip,
+                    onEdit: onEdit,
+                  ),
                 ),
               );
             },
@@ -72,14 +87,15 @@ class FlightTripList extends StatelessWidget {
   }
 
   Widget _emptyList(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return NoData(
       image: ImgApi.emptyTrip,
-      title: 'Destination Not Found',
-      desc: 'Nulla condimentum pulvinar arcu a pellentesque.',
+      title: localization.notFound,
+      desc: '',
       primaryAction: () {
         Get.toNamed(AppLink.searchFlight);
       },
-      primaryTxtBtn: 'SEARCH ANOTHER DESTINATION',
+      primaryTxtBtn: localization.searchAnotherDestination,
     );
   }
 }

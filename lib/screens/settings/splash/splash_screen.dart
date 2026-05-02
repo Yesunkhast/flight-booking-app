@@ -12,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    final locationController = Get.put(LocationController());
+    final locationController = Get.find<LocationController>();
     locationController.fetchLocation();
     super.initState();
     _checkAuth();

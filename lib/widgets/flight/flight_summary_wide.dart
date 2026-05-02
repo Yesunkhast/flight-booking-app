@@ -14,19 +14,19 @@ class FlightSummaryWide extends StatelessWidget {
       {super.key,
       required this.from,
       required this.to,
-      this.label,
-      this.discount = 0,
       required this.price,
       this.roundTrip = false,
       this.bordered = false,
       this.depart,
       this.arrival,
-      this.plane});
+      this.plane,
+      required this.fromCode,
+      required this.toCode});
 
   final City from;
   final City to;
-  final String? label;
-  final double discount;
+  final String fromCode;
+  final String toCode;
   final double price;
   final bool roundTrip;
   final bool bordered;
@@ -201,54 +201,54 @@ class FlightSummaryWide extends StatelessWidget {
 
           /// PRICE AND LABEL
           SizedBox(width: spacingUnit(2)),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                          borderRadius: ThemeRadius.xsmall,
-                          color: colorScheme(context).secondaryContainer),
-                      child: label != null
-                          ? Text(label!,
-                              style: ThemeText.paragraph.copyWith(
-                                  color: colorScheme(context).onSurface))
-                          : Container(),
-                    ),
-                    const SizedBox(width: 4),
-                    Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          borderRadius: ThemeRadius.xsmall,
-                          color: colorScheme(context).tertiaryContainer),
-                      child: Icon(CupertinoIcons.arrow_uturn_left,
-                          color: colorScheme(context).tertiary, size: 16),
-                    ),
-                  ]),
-                  const VSpaceShort(),
-                  discount > 0
-                      ? Text('\$$price',
-                          textAlign: TextAlign.end,
-                          style: ThemeText.headline.copyWith(
-                              color: colorScheme(context).onSurfaceVariant,
-                              height: 1,
-                              decoration: TextDecoration.lineThrough))
-                      : Container(),
-                  SizedBox(
-                    width: spacingUnit(1),
-                  ),
-                  Text('\$${price - price * discount / 100}',
-                      textAlign: TextAlign.end,
-                      style: ThemeText.title.copyWith(
-                          color: colorScheme(context).primary,
-                          height: 1,
-                          fontWeight: FontWeight.bold)),
-                ]),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
+          //   child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.end,
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Row(children: [
+          //           Container(
+          //             padding: const EdgeInsets.symmetric(horizontal: 4),
+          //             decoration: BoxDecoration(
+          //                 borderRadius: ThemeRadius.xsmall,
+          //                 color: colorScheme(context).secondaryContainer),
+          //             child: label != null
+          //                 ? Text(label!,
+          //                     style: ThemeText.paragraph.copyWith(
+          //                         color: colorScheme(context).onSurface))
+          //                 : Container(),
+          //           ),
+          //           const SizedBox(width: 4),
+          //           Container(
+          //             padding: const EdgeInsets.all(2),
+          //             decoration: BoxDecoration(
+          //                 borderRadius: ThemeRadius.xsmall,
+          //                 color: colorScheme(context).tertiaryContainer),
+          //             child: Icon(CupertinoIcons.arrow_uturn_left,
+          //                 color: colorScheme(context).tertiary, size: 16),
+          //           ),
+          //         ]),
+          //         const VSpaceShort(),
+          //         discount > 0
+          //             ? Text('\$$price',
+          //                 textAlign: TextAlign.end,
+          //                 style: ThemeText.headline.copyWith(
+          //                     color: colorScheme(context).onSurfaceVariant,
+          //                     height: 1,
+          //                     decoration: TextDecoration.lineThrough))
+          //             : Container(),
+          //         SizedBox(
+          //           width: spacingUnit(1),
+          //         ),
+          //         Text('\$${price - price * discount / 100}',
+          //             textAlign: TextAlign.end,
+          //             style: ThemeText.title.copyWith(
+          //                 color: colorScheme(context).primary,
+          //                 height: 1,
+          //                 fontWeight: FontWeight.bold)),
+          //       ]),
+          // ),
         ],
       ),
     );

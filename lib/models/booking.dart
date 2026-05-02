@@ -3,11 +3,11 @@ import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/models/user.dart';
 
 final List<String> bookingSteps = [
-  'Passenggers',
-  'Facilities',
-  'Checkout',
-  'Payment',
-  'Done'
+  'passengers',
+  'facilities',
+  'checkout',
+  'payment',
+  'done'
 ];
 
 final List<User> passengerList = [

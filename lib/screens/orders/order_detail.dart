@@ -205,29 +205,29 @@ class _OrderDetailState extends State<OrderDetail> {
                       thickness: 10, color: colorScheme(context).surfaceDim),
 
                   /// FLIGHT SUMMARY
-                  wideScreen
-                      ? FlightSummaryWide(
-                          from: cityList[0],
-                          to: cityList[6],
-                          price: price,
-                          discount: discount,
-                          label: 'Discount $discount%',
-                          bordered: true,
-                          depart: DateTime.parse('2025-07-20 20:18:00'),
-                          arrival: DateTime.parse('2025-07-21 20:18:00'),
-                          plane: planeList[0],
-                        )
-                      : FlightSummary(
-                          from: cityList[0],
-                          to: cityList[6],
-                          price: price,
-                          discount: discount,
-                          label: 'Discount $discount%',
-                          bordered: true,
-                          depart: DateTime.parse('2025-07-20 20:18:00'),
-                          arrival: DateTime.parse('2025-07-21 20:18:00'),
-                          plane: planeList[0],
-                        ),
+                  // wideScreen
+                  //     ? FlightSummaryWide(
+                  //         from: cityList[0],
+                  //         to: cityList[6],
+                  //         price: price,
+                  //         discount: discount,
+                  //         label: 'Discount $discount%',
+                  //         bordered: true,
+                  //         depart: DateTime.parse('2025-07-20 20:18:00'),
+                  //         arrival: DateTime.parse('2025-07-21 20:18:00'),
+                  //         plane: planeList[0],
+                  //       )
+                  //     : FlightSummary(
+                  //         from: cityList[0],
+                  //         to: cityList[6],
+                  //         price: price,
+                  //         discount: discount,
+                  //         label: 'Discount $discount%',
+                  //         bordered: true,
+                  //         depart: DateTime.parse('2025-07-20 20:18:00'),
+                  //         arrival: DateTime.parse('2025-07-21 20:18:00'),
+                  //         plane: planeList[0],
+                  //       ),
                   const VSpaceShort(),
 
                   /// FLIGHT TIMELINE

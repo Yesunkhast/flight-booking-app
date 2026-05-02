@@ -1,6 +1,7 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 // import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/widgets/action_header/home_action_group.dart';
@@ -30,6 +31,7 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final userController = Get.find<UserController>();
+    final localization = AppLocalizations.of(context)!;
     final showItem = shrinkOffset < 50;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraint) {
@@ -85,7 +87,7 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
                       ),
                       SizedBox(width: spacingUnit(1)),
                       Text(
-                          userController.user.value?.username ??
+                          userController.user.value?.firstName ??
                               userDummy.username,
                           style: ThemeText.title2),
                     ]),
@@ -152,8 +154,8 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
                         opacity: showItem ? 1 : 0,
                         duration: const Duration(milliseconds: 300),
                         child: Text(
-                            userController.user.value?.username ??
-                                userDummy.username,
+                            userController.user.value?.firstName ??
+                                localization.guestUser,
                             style: ThemeText.title),
                       ),
 

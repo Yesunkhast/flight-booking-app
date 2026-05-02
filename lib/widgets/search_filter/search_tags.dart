@@ -1,14 +1,20 @@
+import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
+import 'package:flight_app/models/airport.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/utils/expanded_section.dart';
+import 'package:get/get.dart';
 
 class TagHistory extends StatelessWidget {
   const TagHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final List tagsList = ['Tokyo', 'Bandung', 'Singapore', 'London', 'Mecca'];
 
     return Padding(
@@ -16,7 +22,7 @@ class TagHistory extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Search History',
+          Text(localization.searchHistory,
               style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold)),
           SizedBox(height: spacingUnit(1)),
           Wrap(
@@ -45,30 +51,16 @@ class TagHistory extends StatelessWidget {
 }
 
 class TagTrending extends StatelessWidget {
-  const TagTrending({super.key});
+  const TagTrending({super.key, this.argument});
+
+  final String? argument;
 
   @override
   Widget build(BuildContext context) {
-    final List<String> tagsList = [
-      'New York',
-      'London',
-      'Jakarta',
-      'Singapore',
-      'Beijing',
-      'Tokyo',
-      'Hong Kong',
-      'Sydney',
-      'Paris',
-      'Dubai',
-      'Bangkok',
-      'Los Angeles',
-      'Seoul',
-      'Moscow',
-      'Rome',
-      'Istanbul',
-      'Barcelona',
-    ];
+    final localization = AppLocalizations.of(context)!;
 
+    final List<Airport> tagsList = airportList.take(7).toList();
+    final searchController = Get.find<FlightSearchController>();
     // final visibleTags = tagsList.take(6).toList();
     // final remainingCount = tagsList.length - visibleTags.length;
 
@@ -78,7 +70,7 @@ class TagTrending extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Trending Search',
+            localization.trendingSearch,
             style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: spacingUnit(1)),
@@ -86,7 +78,20 @@ class TagTrending extends StatelessWidget {
               alignment: WrapAlignment.start,
               children: tagsList
                   .map((item) => InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          argument == "from"
+                              ? {
+                                  searchController.fromCode.value = item.code,
+                                  searchController.fromLocation.value =
+                                      item.location
+                                }
+                              : {
+                                  searchController.toCode.value = item.code,
+                                  searchController.toLocation.value =
+                                      item.location
+                                };
+                          Get.back();
+                        },
                         child: Container(
                           margin: const EdgeInsets.all(4),
                           padding: const EdgeInsets.symmetric(
@@ -99,7 +104,7 @@ class TagTrending extends StatelessWidget {
                           child: Row(mainAxisSize: MainAxisSize.min, children: [
                             const Icon(Icons.trending_up),
                             const SizedBox(width: 2),
-                            Text(item, style: ThemeText.paragraph)
+                            Text(item.location, style: ThemeText.paragraph)
                           ]),
                         ),
                       ))
@@ -113,9 +118,9 @@ class TagTrending extends StatelessWidget {
 class TagChina extends StatefulWidget {
   const TagChina({
     super.key,
-    this.tagsList,
+    this.argument,
   });
-  final List<String>? tagsList;
+  final String? argument;
 
   @override
   State<TagChina> createState() => _TagChinaState();
@@ -130,40 +135,33 @@ class _TagChinaState extends State<TagChina> {
     });
   }
 
-  late List<String> listCity = [
-    'Shanghai',
-    'Beijing',
-    'Guangzhou',
-    'Shenzhen',
-    'Chengdu',
-    'Hangzhou',
-    'Wuhan',
-    'Xi\'an',
-    'Nanjing',
-    'Tianjin',
-    'Chongqing',
-    'Suzhou',
-    'Qingdao',
-    'Dalian',
-    'Zhengzhou',
-    'Shenyang',
-    'Harbin',
-    'Changsha',
-    'Kunming',
-    'Fuzhou'
-  ];
+  late List<Airport> listCity = domesticAirportList.toList();
 
-  @override
-  void initState() {
-    super.initState();
-    listCity = widget.tagsList ?? listCity;
-  }
+  final searchController = Get.find<FlightSearchController>();
 
-  List<String> get visibleTags => listCity.take(6).toList();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   listCity = widget.tagsList ?? listCity;
+  // }
 
-  Widget _buildChip(BuildContext context, String item) {
+  // List<String> get visibleTags => airportList.take(7).toList();
+
+  Widget _buildChip(BuildContext context, Airport item) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        print(" argument to or from: ${widget.argument}");
+        widget.argument == "from"
+            ? {
+                searchController.fromCode.value = item.code,
+                searchController.fromLocation.value = item.location
+              }
+            : {
+                searchController.toCode.value = item.code,
+                searchController.toLocation.value = item.location
+              };
+        Get.back();
+      },
       child: Container(
         margin: const EdgeInsets.all(4),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -176,7 +174,7 @@ class _TagChinaState extends State<TagChina> {
           children: [
             const Icon(Icons.trending_up),
             const SizedBox(width: 2),
-            Text(item, style: ThemeText.paragraph),
+            Text(item.location, style: ThemeText.paragraph),
           ],
         ),
       ),
@@ -185,6 +183,8 @@ class _TagChinaState extends State<TagChina> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final remainingCities = listCity.skip(6).toList();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
@@ -192,14 +192,14 @@ class _TagChinaState extends State<TagChina> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'China\'s Popular Cities',
+            localization.chinaPopularCities,
             style: ThemeText.subtitle.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: spacingUnit(1)),
           Wrap(
             children: [
               // first 6 always visible
-              ...visibleTags.map((item) => _buildChip(context, item)),
+              ...listCity.take(6).map((item) => _buildChip(context, item)),
 
               // extra cities
               ExpandedSection(

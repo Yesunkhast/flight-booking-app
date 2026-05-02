@@ -1,10 +1,11 @@
 CREATE TABLE user (
   id TEXT PRIMARY KEY,
-  username TEXT,
+  token TEXT,
+  surname TEXT,
+  name TEXT,
   image TEXT,
   idCard TEXT,
   dateOfBirth TEXT,
   phone TEXT,
   email TEXT,
-  country TEXT
 );

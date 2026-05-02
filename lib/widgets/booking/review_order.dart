@@ -47,22 +47,24 @@ class ReviewOrder extends StatelessWidget {
         children: [
           /// FLIGHT SUMMARY
           withFlightDetail ? SizedBox(height: spacingUnit(2)) : Container(),
-          withFlightDetail
-              ? Padding(
-                  padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-                  child: FlightCard(
-                    from: cityList[1],
-                    to: cityList[2],
-                    plane: item.plane,
-                    price: 700,
-                    depart: item.depart,
-                    arrival: item.arrival,
-                    transit: item.transit,
-                    discount: 10,
-                    label: '10% OFF',
-                  ),
-                )
-              : Container(),
+          // withFlightDetail
+          //     ? Padding(
+          //         padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+          //         child:
+          //          FlightCard(
+          //           from: cityList[1],
+          //           to: cityList[2],
+          //           plane: item.plane,
+          //           price: 700,
+          //           depart: item.depart,
+          //           arrival: item.arrival,
+          //           transit: item.transit,
+          //           discount: 10,
+          //           label: '10% OFF',
+          //         ),
+          //       )
+          //     :
+          Container(),
 
           /// PASSENGGER LIST
           const LineSpace(),

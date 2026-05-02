@@ -16,6 +16,129 @@ class Airport {
   });
 }
 
+final List<Airport> domesticAirportList = [
+  Airport(
+      id: '1',
+      photo: ImgApi.photo[111],
+      code: 'PVG',
+      name: 'Shanghai Pudong International Airport',
+      location: 'Shanghai'),
+  Airport(
+      id: '2',
+      photo: ImgApi.photo[112],
+      code: 'PEK',
+      name: 'Beijing Capital International Airport',
+      location: 'Beijing'),
+  Airport(
+      id: '3',
+      photo: ImgApi.photo[113],
+      code: 'CAN',
+      name: 'Guangzhou Baiyun International Airport',
+      location: 'Guangzhou'),
+  Airport(
+      id: '4',
+      photo: ImgApi.photo[114],
+      code: 'SZX',
+      name: 'Shenzhen Bao’an International Airport',
+      location: 'Shenzhen'),
+  Airport(
+      id: '5',
+      photo: ImgApi.photo[115],
+      code: 'CTU',
+      name: 'Chengdu Shuangliu International Airport',
+      location: 'Chengdu'),
+  Airport(
+      id: '6',
+      photo: ImgApi.photo[116],
+      code: 'HGH',
+      name: 'Hangzhou Xiaoshan International Airport',
+      location: 'Hangzhou'),
+  Airport(
+      id: '7',
+      photo: ImgApi.photo[117],
+      code: 'WUH',
+      name: 'Wuhan Tianhe International Airport',
+      location: 'Wuhan'),
+  Airport(
+      id: '8',
+      photo: ImgApi.photo[118],
+      code: 'XIY',
+      name: 'Xi’an Xianyang International Airport',
+      location: 'Xi\'an'),
+  Airport(
+      id: '9',
+      photo: ImgApi.photo[119],
+      code: 'NKG',
+      name: 'Nanjing Lukou International Airport',
+      location: 'Nanjing'),
+  Airport(
+      id: '10',
+      photo: ImgApi.photo[120],
+      code: 'TSN',
+      name: 'Tianjin Binhai International Airport',
+      location: 'Tianjin'),
+  Airport(
+      id: '11',
+      photo: ImgApi.photo[121],
+      code: 'CKG',
+      name: 'Chongqing Jiangbei International Airport',
+      location: 'Chongqing'),
+  Airport(
+      id: '12',
+      photo: ImgApi.photo[122],
+      code: 'SZV',
+      name: 'Suzhou Guangfu Airport',
+      location: 'Suzhou'),
+  Airport(
+      id: '13',
+      photo: ImgApi.photo[123],
+      code: 'TAO',
+      name: 'Qingdao Jiaodong International Airport',
+      location: 'Qingdao'),
+  Airport(
+      id: '14',
+      photo: ImgApi.photo[124],
+      code: 'DLC',
+      name: 'Dalian Zhoushuizi International Airport',
+      location: 'Dalian'),
+  Airport(
+      id: '15',
+      photo: ImgApi.photo[125],
+      code: 'CGO',
+      name: 'Zhengzhou Xinzheng International Airport',
+      location: 'Zhengzhou'),
+  Airport(
+      id: '16',
+      photo: ImgApi.photo[126],
+      code: 'SHE',
+      name: 'Shenyang Taoxian International Airport',
+      location: 'Shenyang'),
+  Airport(
+      id: '17',
+      photo: ImgApi.photo[127],
+      code: 'HRB',
+      name: 'Harbin Taiping International Airport',
+      location: 'Harbin'),
+  Airport(
+      id: '18',
+      photo: ImgApi.photo[128],
+      code: 'CSX',
+      name: 'Changsha Huanghua International Airport',
+      location: 'Changsha'),
+  Airport(
+      id: '19',
+      photo: ImgApi.photo[129],
+      code: 'KMG',
+      name: 'Kunming Changshui International Airport',
+      location: 'Kunming'),
+  Airport(
+      id: '20',
+      photo: ImgApi.photo[130],
+      code: 'FOC',
+      name: 'Fuzhou Changle International Airport',
+      location: 'Fuzhou'),
+];
+
 final List<Airport> airportList = [
   Airport(
       id: '1',
@@ -198,5 +321,10 @@ final List<Airport> airportList = [
       photo: ImgApi.photo[130],
       code: 'BDO',
       name: 'Husein Sastranegara International Airport',
-      location: 'Bandung')
+      location: 'Bandung'),
+  Airport(
+      id: "31",
+      code: 'SHA',
+      name: "Shanghai Hongqiao International Airport",
+      location: 'Shanghai')
 ];

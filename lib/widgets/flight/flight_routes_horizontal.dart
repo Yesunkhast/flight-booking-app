@@ -38,9 +38,11 @@ class FlightRoutesHorizontal extends StatelessWidget {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width * 0.33,
                     child: FlightRouteCard(
-                      airport: item.airport,
                       time: DateFormat.jm().format(item.time),
                       type: item.type,
+                      location: '',
+                      name: '',
+                      code: '',
                     ),
                   );
                 })),

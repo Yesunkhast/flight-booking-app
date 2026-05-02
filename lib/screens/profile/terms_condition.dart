@@ -1,3 +1,4 @@
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_shadow.dart';
@@ -5,6 +6,7 @@ import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
+import 'package:get/utils.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
 String markdownData = """
@@ -112,15 +114,15 @@ class TermsCondition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: ThemeSize.md
-        ),
+        constraints: BoxConstraints(maxWidth: ThemeSize.md),
         child: Column(children: [
-          Expanded(child: Padding(
+          Expanded(
+              child: Padding(
             padding: EdgeInsets.all(spacingUnit(2)),
-            child: buildMarkdown(),
+            child: buildMarkdown(localization.termsContent),
           )),
           Container(
             padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
@@ -131,18 +133,17 @@ class TermsCondition extends StatelessWidget {
             height: 90,
             child: Center(
               child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: ThemeSize.sm
-                ),
+                constraints: BoxConstraints(maxWidth: ThemeSize.sm),
                 height: 50,
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  style: ThemeButton.btnBig.merge(ThemeButton.outlinedInvert(context)),
-                  child: Text('AGREE TERMS & CONDITION', style: ThemeText.subtitle2)
-                ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    style: ThemeButton.btnBig
+                        .merge(ThemeButton.outlinedInvert(context)),
+                    child: Text(localization.agreeTerms,
+                        style: ThemeText.subtitle2)),
               ),
             ),
           ),
@@ -151,20 +152,18 @@ class TermsCondition extends StatelessWidget {
     );
   }
 
-  Widget buildMarkdown() => MarkdownWidget(
-    data: markdownData,
-    shrinkWrap: true,
-    selectable: true,
-    
-    config: MarkdownConfig(configs: [
-      H1Config(
-        style: const TextStyle(fontSize: 24), 
-      ),
-      LinkConfig(
-        onTap: (url) {
-          debugPrint('url: $url');
-        },
-      )
-    ])
-  );
+  Widget buildMarkdown(dynamic data) => MarkdownWidget(
+      data: data,
+      shrinkWrap: true,
+      selectable: true,
+      config: MarkdownConfig(configs: [
+        H1Config(
+          style: const TextStyle(fontSize: 24),
+        ),
+        LinkConfig(
+          onTap: (url) {
+            debugPrint('url: $url');
+          },
+        )
+      ]));
 }

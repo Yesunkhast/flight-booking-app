@@ -1,16 +1,19 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/app/controller/fligth_detail_controller.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
-import 'package:flight_app/widgets/booking/baggage_form.dart';
+// import 'package:flight_app/widgets/booking/baggage_form.dart';
+import 'package:flight_app/widgets/booking/baggage_info.dart';
 import 'package:flight_app/widgets/booking/plane_info.dart';
-import 'package:flight_app/widgets/booking/seat_form.dart';
+// import 'package:flight_app/widgets/booking/seat_form.dart';
+import 'package:flight_app/widgets/booking/tqn_info.dart';
 import 'package:flight_app/widgets/stepper/step_progress.dart';
-import 'package:flight_app/models/city.dart';
+// import 'package:flight_app/models/city.dart';
 import 'package:flight_app/widgets/flight/info_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,20 +22,23 @@ import 'package:get/get.dart';
 class BookingFacilites extends StatelessWidget {
   BookingFacilites({super.key});
 
-  final controller = Get.put(FlightSearchController());
+  final searchController = Get.find<FlightSearchController>();
+  final detailController = Get.find<FlightDetailController>();
 
   @override
   Widget build(BuildContext context) {
-    const int passengers = 3;
+    // const int passengers = 3;
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: InfoHeader(
-          date: 'Fri, Oct 20',
-          from: cityList[1].code,
-          to: cityList[2].code,
-          passengers: passengers,
+          date: searchController.dateTo.value.isNotEmpty
+              ? '${searchController.dateFrom.value} - ${searchController.dateTo.value}'
+              : searchController.dateFrom.value,
+          from: searchController.fromCode.value,
+          to: searchController.toCode.value,
+          passengers: searchController.totalPassenger(),
         ),
       ),
       body: Column(children: [
@@ -40,7 +46,8 @@ class BookingFacilites extends StatelessWidget {
         const Divider(),
         ConstrainedBox(
             constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-            child: PlaneInfo(plane: planeList[1])),
+            child: PlaneInfo(
+                plane: planeList[1], info: detailController.flightInfo.value)),
         Expanded(
             child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: ThemeSize.sm),
@@ -49,13 +56,9 @@ class BookingFacilites extends StatelessWidget {
               child: ListView(
                 children: const [
                   VSpace(),
-                  BaggageForm(
-                    totalPassengers: 3,
-                  ),
+                  BaggageInfo(),
                   VSpaceBig(),
-                  SeatForm(
-                    totalPassengers: 3,
-                  ),
+                  TgqInfoWidget(),
                   VSpace(),
                 ],
               )),

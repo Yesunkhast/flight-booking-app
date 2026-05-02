@@ -1,12 +1,14 @@
+import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 
 class InfoHeader extends StatelessWidget {
-  const InfoHeader({
+  InfoHeader({
     super.key,
     this.roundTrip = false,
     required this.date,
@@ -15,6 +17,8 @@ class InfoHeader extends StatelessWidget {
     required this.passengers,
     this.withEdit = true,
   });
+
+  final controller = Get.find<FlightSearchController>();
 
   final bool roundTrip;
   final String date;
@@ -31,6 +35,7 @@ class InfoHeader extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new),
         onPressed: () {
+          // controller.reset();
           Get.back();
         },
       ),
@@ -40,22 +45,37 @@ class InfoHeader extends StatelessWidget {
           Text(from, style: ThemeText.headline),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-            child: roundTrip ? const Icon(CupertinoIcons.arrow_right_arrow_left, size: 14) : const Icon(CupertinoIcons.arrow_right, size: 14),
+            child: roundTrip
+                ? const Icon(CupertinoIcons.arrow_right_arrow_left, size: 14)
+                : const Icon(CupertinoIcons.arrow_right, size: 14),
           ),
           Text(to, style: ThemeText.headline),
-          SizedBox(width: spacingUnit(1),),
-          Text(passengers.toString(), style: ThemeText.headline.copyWith(color: colorScheme(context).onSurfaceVariant)),
-          Icon(Icons.person_outline, size: 16, color: colorScheme(context).onSurfaceVariant),
+          SizedBox(
+            width: spacingUnit(1),
+          ),
+          Text(passengers.toString(),
+              style: ThemeText.headline
+                  .copyWith(color: colorScheme(context).onSurfaceVariant)),
+          Icon(Icons.person_outline,
+              size: 16, color: colorScheme(context).onSurfaceVariant),
         ]),
-        Text(date, style: ThemeText.caption.copyWith(color: colorScheme(context).onSurfaceVariant),)
+        Text(
+          date,
+          style: ThemeText.caption
+              .copyWith(color: colorScheme(context).onSurfaceVariant),
+        )
       ]),
       actions: <Widget>[
-        withEdit ? IconButton(
-          icon: const Icon(Icons.edit_note_outlined, size: 32),
-          onPressed: () {
-            Get.toNamed('/search-flight');
-          },
-        ) : const SizedBox(width: 20,),
+        withEdit
+            ? IconButton(
+                icon: const Icon(Icons.edit_note_outlined, size: 32),
+                onPressed: () {
+                  Get.toNamed('/search-flight');
+                },
+              )
+            : const SizedBox(
+                width: 20,
+              ),
       ],
     );
   }

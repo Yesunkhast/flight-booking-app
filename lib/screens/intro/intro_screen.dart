@@ -1,4 +1,5 @@
 import 'package:flight_app/app/constants/img_api.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
@@ -23,22 +24,26 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final List<Widget> introList = [
       _contentIntro(
-          context,
-          'Lorem ipsum dolor sit amet',
-          'Integer sem massa, interdum commodo leo ac, posuere molestie.',
-          ImgApi.intro[0]),
+        context,
+        '${localization.introCheapTitle}!',
+        localization.introCheapDesc,
+        ImgApi.intro[0],
+      ),
       _contentIntro(
-          context,
-          'Donec ultrices vestibulum nibh elementum eget',
-          'Donec blandit turpis nulla, nec bibendum urna elementum eget. Fusce et sagittis risus.',
-          ImgApi.intro[1]),
+        context,
+        localization.introEasyTitle,
+        localization.introEasyDesc,
+        ImgApi.intro[1],
+      ),
       _contentIntro(
-          context,
-          'Vivamus dui tortor',
-          'Nullam felis mauris, egestas eu velit ut, porttitor fermentum dolor. Ut iaculis sapien sit amet quam convallis.',
-          ImgApi.intro[2]),
+        context,
+        localization.introSafeTitle,
+        localization.introSafeDesc,
+        ImgApi.intro[2],
+      ),
     ];
 
     return Scaffold(
@@ -106,7 +111,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 onPressed: () {
                   widget.saveIntroStatus();
                 },
-                child: Text('SKIP',
+                child: Text(localization.skip.toUpperCase(),
                     style: ThemeText.subtitle.copyWith(color: Colors.white))),
 
             /// NEXT BUTTON
@@ -116,7 +121,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         .merge(ThemeButton.tonalPrimary(context)),
                     onPressed: () => _sliderRef.nextPage(),
                     child: Row(children: [
-                      const Text('NEXT', style: ThemeText.subtitle),
+                      Text(localization.next.toUpperCase(),
+                          style: ThemeText.subtitle),
                       const SizedBox(width: 4),
                       Icon(Icons.arrow_forward_ios,
                           size: 16,
@@ -129,7 +135,8 @@ class _IntroScreenState extends State<IntroScreen> {
                       widget.saveIntroStatus();
                     },
                     child: Row(children: [
-                      const Text('CONTINUE', style: ThemeText.subtitle),
+                      Text(localization.continueText.toUpperCase(),
+                          style: ThemeText.subtitle),
                       const SizedBox(width: 4),
                       Icon(Icons.arrow_forward_ios,
                           size: 16,

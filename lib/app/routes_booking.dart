@@ -13,7 +13,7 @@ const int pageTransitionDuration = 200;
 final List<GetPage> routesBooking = [
   GetPage(
     name: AppLink.bookingStep1,
-    page: () => const GeneralLayout(content: BookingPassengers()),
+    page: () => GeneralLayout(content: BookingPassengers()),
   ),
   GetPage(
       name: AppLink.bookingStep2,

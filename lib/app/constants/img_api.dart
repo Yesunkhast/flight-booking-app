@@ -170,7 +170,8 @@ class ImgApi {
   ];
 
   /// STATIC IMG ASSETS
-  static String homeBanner = 'assets/images/home_banner.jpg';
+  // static String homeBanner = 'assets/images/banner_image.jpg';
+  static String homeBanner = 'assets/images/banner_image.jpg';
   static String searchBanner = 'assets/images/search_banner.jpg';
   static String myTicketBanner = 'assets/images/my_ticket_banner.png';
   static String welcomeBg = 'assets/images/welcome_bg.png';

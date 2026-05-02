@@ -1,5 +1,7 @@
-// import 'package:flight_app/l10n/app_localizations.dart';
+import 'package:flight_app/app/controller/passenger_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/list_item.dart';
+// import 'package:flight_app/models/realModel/passenger.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -10,7 +12,7 @@ import 'package:flight_app/widgets/app_button/back_icon_button.dart';
 import 'package:flight_app/widgets/app_input/app_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class AddPassengger extends StatefulWidget {
   const AddPassengger({super.key});
@@ -20,216 +22,234 @@ class AddPassengger extends StatefulWidget {
 }
 
 class _AddPassenggerState extends State<AddPassengger> {
-  // final localizations = AppLocalizations.of(context)!;
   final _addPassenggerKey = GlobalKey<FormState>();
-  bool _isNotValid = false;
+  final _passengerController = Get.find<PassengerController>();
 
-  String? type;
-  String? idType;
-  final TextEditingController _chooseType = TextEditingController();
-  final TextEditingController _chooseId = TextEditingController();
-  final TextEditingController _datePickerRef = TextEditingController();
+  // ── Text Controllers ─────────────────────────────────────────────────────────
+  final TextEditingController _lastNameRef = TextEditingController();
+  final TextEditingController _firstNameRef = TextEditingController();
+  final TextEditingController _passportIdRef = TextEditingController();
+  final TextEditingController _birthdayRef = TextEditingController();
+  final TextEditingController _passportValidRef = TextEditingController();
+  final TextEditingController _genderRef = TextEditingController();
 
-  List<ListItem> typeOptions = [
-    ListItem(
-      value: 'adult',
-      label: 'Adult',
-      text: 'Age 12 and over',
-    ),
-    ListItem(
-      value: 'child',
-      label: 'Child',
-      text: 'Age 2-11',
-    ),
-    ListItem(
-      value: 'infant',
-      label: 'Infant',
-      text: 'Below age 2',
-    ),
-  ];
+  String? _gender;
 
-  List<ListItem> idOptions = [
-    ListItem(
-      value: 'id_card',
-      label: 'Identity Card',
-    ),
-    ListItem(
-      value: 'passport',
-      label: 'Pasport',
-    ),
-    ListItem(
-      value: 'driving_license',
-      label: 'Diriving License',
-    ),
-  ];
+  // final List<String> genderValues = ['M', 'F'];
 
-  void openTypePicker(BuildContext context) {
-    // final localizations = AppLocalizations.of(context)!;
-    openRadioPicker(
-      context: context,
-      options: typeOptions,
-      title: 'Choose Type',
-      onSelected: (value) {
-        if (value != null) {
-          String result = typeOptions.firstWhere((e) => e.value == value).label;
-          _chooseType.text = result;
-        }
-        setState(() {
-          type = value;
-        });
-      },
-      initialValue: type,
-    );
+//   ListItem(value: 'M', label: localization.male),
+// ListItem(value: 'F', label: localization.female),
+
+  @override
+  void dispose() {
+    _lastNameRef.dispose();
+    _firstNameRef.dispose();
+    _passportIdRef.dispose();
+    _birthdayRef.dispose();
+    _passportValidRef.dispose();
+    _genderRef.dispose();
+    super.dispose();
   }
 
-  void openIdPicker(BuildContext context) {
-    openRadioPicker(
+  // ── Date picker ──────────────────────────────────────────────────────────────
+  Future _selectDate(
+    TextEditingController targetRef, {
+    DateTime? firstDate,
+    DateTime? lastDate,
+    DateTime? initialDate,
+  }) async {
+    final picked = await showDatePicker(
       context: context,
-      options: idOptions,
-      title: 'Choose ID Type',
-      onSelected: (value) {
-        if (value != null) {
-          String result = idOptions.firstWhere((e) => e.value == value).label;
-          _chooseId.text = result;
-        }
-        setState(() {
-          idType = value;
-        });
-      },
-      initialValue: idType,
+      initialDate: initialDate ?? DateTime(2000),
+      firstDate: firstDate ?? DateTime(1900),
+      lastDate: lastDate ?? DateTime.now(),
     );
-  }
-
-  Future _selectDate(TextEditingController targetRef) async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime(1990),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2015),
-    );
-
-    if (picked != null) {
+    if (picked != null && mounted) {
       setState(() {
-        targetRef.text = picked.toString().split(" ")[0];
+        targetRef.text =
+            '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
       });
     }
   }
 
+  // ── Gender picker ────────────────────────────────────────────────────────────
+  void _openGenderPicker({required String title}) {
+    final localization = AppLocalizations.of(context)!;
+
+    final genderOptions = [
+      ListItem(value: 'M', label: localization.male),
+      ListItem(value: 'F', label: localization.female),
+    ];
+    openRadioPicker(
+      context: context,
+      options: genderOptions,
+      title: title,
+      onSelected: (value) {
+        if (value != null) {
+          final label = genderOptions.firstWhere((e) => e.value == value).label;
+          setState(() {
+            _gender = value;
+            _genderRef.text = label;
+          });
+        }
+      },
+      initialValue: _gender,
+    );
+  }
+
+  // ── Save ─────────────────────────────────────────────────────────────────────
+  Future<void> _onSave() async {
+    if (!_addPassenggerKey.currentState!.validate()) return;
+
+    await _passengerController.addPassenger(
+      lastName: _lastNameRef.text.trim(),
+      firstName: _firstNameRef.text.trim(),
+      idCard: _passportIdRef.text.trim(),
+      birthday: _birthdayRef.text.trim(),
+      passportValidDate: _passportValidRef.text.trim(),
+      gender: _gender ?? '',
+    );
+
+    if (mounted) Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text('Add New Passengger', style: ThemeText.subtitle),
-          leading: BackIconButton(onTap: () {
-            Get.back();
-          }),
-          centerTitle: true,
-        ),
-        body: Form(
-          key: _addPassenggerKey,
-          child: Column(children: [
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(localization.addNewPassengger, style: ThemeText.subtitle),
+        leading: BackIconButton(onTap: () => Get.back()),
+        centerTitle: true,
+      ),
+      body: Form(
+        key: _addPassenggerKey,
+        child: Column(
+          children: [
             Expanded(
-                child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-              child: ListView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+                child: ListView(
                   padding: EdgeInsets.all(spacingUnit(2)),
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   children: [
-                    const AlertInfo(
-                        type: AlertType.info,
-                        text:
-                            'Please fill the data information for new passenges.'),
+                    AlertInfo(
+                      type: AlertType.info,
+                      text: localization.enterThePassengerCorrectInfo,
+                    ),
                     const VSpaceShort(),
+
+                    // ── Surname ───────────────────────────────────────────
                     AppTextField(
-                      label: 'Full Name',
-                      initialValue: '',
+                      label: localization.lastName,
+                      controller: _lastNameRef,
                       onChanged: (_) {},
                       validator: FormBuilderValidators.required(),
-                      errorText:
-                          _isNotValid ? 'Please fill passengger name' : null,
                     ),
                     const VSpace(),
+
+                    // ── Name ─────────────────────────────────────────────
                     AppTextField(
-                      controller: _chooseType,
-                      label: 'Choose type',
+                      label: localization.firstName,
+                      controller: _firstNameRef,
                       onChanged: (_) {},
                       validator: FormBuilderValidators.required(),
-                      errorText:
-                          _isNotValid ? 'Please fill passengger type' : null,
-                      onTap: () {
-                        openTypePicker(context);
-                      },
-                      suffix: const Icon(Icons.arrow_drop_down),
                     ),
                     const VSpace(),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Expanded(
-                        child: AppTextField(
-                          controller: _chooseId,
-                          label: 'Choose ID Type',
-                          onChanged: (_) {},
-                          onTap: () {
-                            openIdPicker(context);
-                          },
-                          suffix: const Icon(Icons.arrow_drop_down),
-                          validator: FormBuilderValidators.required(),
-                          errorText: _isNotValid ? 'Please fill ID type' : null,
-                        ),
-                      ),
-                      SizedBox(width: spacingUnit(1)),
-                      Expanded(
-                        child: AppTextField(
-                          label: 'ID Number',
-                          initialValue: '',
-                          onChanged: (_) {},
-                          validator: FormBuilderValidators.required(),
-                          errorText:
-                              _isNotValid ? 'Please fill id number' : null,
-                        ),
-                      ),
-                    ]),
-                    const VSpace(),
+
+                    // ── Passport ID ───────────────────────────────────────
                     AppTextField(
-                      controller: _datePickerRef,
+                      label: localization.passportID,
+                      controller: _passportIdRef,
+                      onChanged: (_) {},
+                      validator: FormBuilderValidators.required(),
+                    ),
+                    const VSpace(),
+
+                    // ── Birthday ─────────────────────────────────────────
+                    AppTextField(
+                      controller: _birthdayRef,
                       readOnly: true,
                       prefixIcon: Icons.date_range,
-                      label: 'Date of birth',
+                      label: localization.dateOfBirth,
                       onChanged: (_) {},
-                      onTap: () {
-                        _selectDate(_datePickerRef);
-                      },
+                      validator: FormBuilderValidators.required(),
+                      onTap: () => _selectDate(
+                        _birthdayRef,
+                        lastDate: DateTime.now(),
+                      ),
                     ),
-                  ]),
-            )),
+                    const VSpace(),
+
+                    // ── Passport valid date ───────────────────────────────
+                    AppTextField(
+                      controller: _passportValidRef,
+                      readOnly: true,
+                      prefixIcon: Icons.date_range,
+                      label: localization.passportValidDate,
+                      onChanged: (_) {},
+                      validator: FormBuilderValidators.required(),
+                      onTap: () => _selectDate(
+                        _passportValidRef,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2100),
+                        initialDate: DateTime.now().add(
+                          const Duration(days: 365),
+                        ),
+                      ),
+                    ),
+                    const VSpace(),
+
+                    // ── Gender ────────────────────────────────────────────
+                    AppTextField(
+                      controller: _genderRef,
+                      label: localization.gender,
+                      readOnly: true,
+                      onChanged: (_) {},
+                      validator: FormBuilderValidators.required(),
+                      suffix: Icon(Icons.arrow_drop_down),
+                      onTap: () => _openGenderPicker(
+                        title: localization.chooseGender,
+                      ),
+                    ),
+                    const VSpace(),
+                  ],
+                ),
+              ),
+            ),
+
+            // ── Save button ───────────────────────────────────────────────
             Center(
               child: Container(
                 constraints: BoxConstraints(maxWidth: ThemeSize.sm),
                 padding: EdgeInsets.only(
-                    left: spacingUnit(2),
-                    right: spacingUnit(2),
-                    top: spacingUnit(1),
-                    bottom: spacingUnit(4)),
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: FilledButton(
-                      onPressed: () {
-                        if (_addPassenggerKey.currentState!.validate()) {
-                          Get.back();
-                        } else {
-                          setState(() {
-                            _isNotValid = true;
-                          });
-                        }
-                      },
-                      style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                      child: const Text('SAVE', style: ThemeText.subtitle2)),
+                  left: spacingUnit(2),
+                  right: spacingUnit(2),
+                  top: spacingUnit(1),
+                  bottom: spacingUnit(4),
                 ),
+                child: Obx(() => SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: FilledButton(
+                        onPressed: _passengerController.isLoading.value
+                            ? null // ✅ disable while saving
+                            : _onSave,
+                        style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                        child: _passengerController.isLoading.value
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
+                            : const Text('ХАДГАЛАХ',
+                                style: ThemeText.subtitle2),
+                      ),
+                    )),
               ),
-            )
-          ]),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

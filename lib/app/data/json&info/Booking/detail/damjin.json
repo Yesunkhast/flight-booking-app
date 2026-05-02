@@ -1,0 +1,64 @@
+{
+    "status": "SUCCESS",
+    "code": 0,
+    "message": "",
+    "result": {
+        "btime": "18:15",
+        "etime": "10:10",
+        "correct": "",
+        "distance": 690,
+        "code": "G589W2B",
+        "date": "2026-04-16",
+        "arrCode": "PKX",
+        "dptCode": "ERL",
+        "carrier": "G5",
+        "vendors": [
+            {
+                "bookingUrl": "/booking/?depCode=ERL&arrCode=PKX&code=G589W2B&date=2026-04-16&carrier=G5&btime=18:15&tag=OPL9",
+                "price": 811,
+                "tax": 170,
+                "totalPrice": 981,
+                "childPrice": null,
+                "cabin": "W",
+                "cabinCount": "A",
+                "limitRule": "",
+                "limitType": "",
+                "luggage": "",
+                "luggageMore": "",
+                "pType": "1",
+                "tag": "OPL9",
+                "businessExtMap": {
+                    "isSupportChild": 1,
+                    "childBuyAdult": 0,
+                    "childPrice": 920.0,
+                    "childCabin": "W",
+                    "cardType": "0",
+                    "bookingParamKey": "f_domestic_uniform_booking_G589W2B_OPL9_6eeafadd-cd59-4da2-a743-8e03d4e8543e"
+                }
+            },
+            {
+                "bookingUrl": "/booking/?depCode=ERL&arrCode=PKX&code=G589W2B&date=2026-04-16&carrier=G5&btime=18:15&tag=OPL33",
+                "price": 811,
+                "tax": 170,
+                "totalPrice": 981,
+                "childPrice": null,
+                "cabin": "W",
+                "cabinCount": "A",
+                "limitRule": "",
+                "limitType": "",
+                "luggage": "",
+                "luggageMore": "",
+                "pType": "1",
+                "tag": "OPL33",
+                "businessExtMap": {
+                    "isSupportChild": 1,
+                    "childBuyAdult": 0,
+                    "childPrice": 920.0,
+                    "childCabin": "W",
+                    "cardType": "0",
+                    "bookingParamKey": "f_domestic_uniform_booking_G589W2B_OPL33_6eeafadd-cd59-4da2-a743-8e03d4e8543e"
+                }
+            }
+        ]
+    }
+}

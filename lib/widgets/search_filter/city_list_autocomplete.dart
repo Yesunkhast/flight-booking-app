@@ -9,11 +9,19 @@ import 'package:get/get.dart';
 // import 'package:get/route_manager.dart';
 
 class CityListAutocomplete extends StatelessWidget {
-  const CityListAutocomplete(
-      {super.key, required this.keyword, required this.type});
+  CityListAutocomplete({
+    super.key,
+    required this.keyword,
+    required this.type,
+  });
 
   final String keyword;
   final String type;
+
+  final controller = Get.find<FlightSearchController>();
+
+  List<Airport> get airportLists =>
+      controller.domestic.value ? domesticAirportList : airportList;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +29,9 @@ class CityListAutocomplete extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.all(spacingUnit(1)),
-      itemCount: airportList.length,
+      itemCount: airportLists.length,
       itemBuilder: (context, index) {
-        final Airport item = airportList[index];
+        final Airport item = airportLists[index];
         final String location = '${item.location}, ${item.name}';
         if (!location.toLowerCase().contains(keyword.toLowerCase())) {
           return const SizedBox.shrink();
@@ -43,9 +51,13 @@ class CityListAutocomplete extends StatelessWidget {
           ), // Replace with actual data
           onTap: () {
             if (type == "from") {
-              controller.from.value = item.location;
+              controller.fromCode.value = item.code;
+              controller.fromLocation.value = item.location;
+              controller.fromName.value = item.name;
             } else {
-              controller.to.value = item.location;
+              controller.toCode.value = item.code;
+              controller.toLocation.value = item.location;
+              controller.toName.value = item.name;
             }
             Get.toNamed(AppLink.home);
           },

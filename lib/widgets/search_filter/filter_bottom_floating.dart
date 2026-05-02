@@ -1,5 +1,4 @@
 import 'package:flight_app/models/list_item.dart';
-import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/utils/picker.dart';
 import 'package:flight_app/widgets/search_filter/filter_flight_form.dart';
@@ -11,28 +10,29 @@ import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:get/route_manager.dart';
 
 class FilterBottomFloating extends StatefulWidget {
-  const FilterBottomFloating(
-      {super.key,
-      // Sorter Function
-      required this.onSortBest,
-      required this.onSortCheapest,
-      required this.onSortTransits,
-      required this.onSortDiscount,
-      required this.onSortPlaneName,
-      required this.onSortDepart,
-      required this.onSortArrival,
+  const FilterBottomFloating({
+    super.key,
+    // Sorter functions
+    required this.onSortBest,
+    required this.onSortCheapest,
+    required this.onSortTransits,
+    required this.onSortDiscount,
+    required this.onSortPlaneName,
+    required this.onSortDepart,
+    required this.onSortArrival,
+    // Filter functions
+    required this.onChangePrice,
+    required this.onUpdateAirlines, // String instead of Plane
+    required this.onUpdateTransit,
+    required this.onChangeDuration,
+    // Filter values
+    required this.priceRange,
+    required this.selectedAirlines, // List<String> instead of List<Plane>
+    required this.transits,
+    required this.duration,
+  });
 
-      // Filter Function
-      required this.onChangePrice,
-      required this.onUpdateAirlines,
-      required this.onUpdateTransit,
-      required this.onChangeDuration,
-      required this.priceRange,
-      required this.selectedAirlines,
-      required this.transits,
-      required this.duration});
-
-  // Sorter Function
+  // Sorter functions
   final Function() onSortBest;
   final Function() onSortCheapest;
   final Function() onSortTransits;
@@ -41,15 +41,15 @@ class FilterBottomFloating extends StatefulWidget {
   final Function() onSortDepart;
   final Function() onSortArrival;
 
-  // Filter Function
-  // Function
+  // Filter functions
   final Function(RangeValues) onChangePrice;
-  final Function(String, Plane) onUpdateAirlines;
-  final Function(String, int) onUpdateTransit;
+  final Function(String type, String airlineCode) onUpdateAirlines; // ← changed
+  final Function(String type, int) onUpdateTransit;
   final Function(double) onChangeDuration;
-  // Variables
+
+  // Filter values
   final RangeValues priceRange;
-  final List<Plane> selectedAirlines;
+  final List<String> selectedAirlines; // ← changed from List<Plane>
   final List<int> transits;
   final double duration;
 
@@ -63,7 +63,7 @@ class _FilterBottomFloatingState extends State<FilterBottomFloating> {
 
   @override
   Widget build(BuildContext context) {
-    List<ListItem> sortOptions = [
+    final List<ListItem> sortOptions = [
       ListItem(
           value: 'best_value',
           label: 'Best Value',
@@ -87,7 +87,7 @@ class _FilterBottomFloatingState extends State<FilterBottomFloating> {
       ListItem(
           value: 'discount',
           label: 'Discount',
-          text: 'Sort by the biggest dicount'),
+          text: 'Sort by the biggest discount'),
       ListItem(
           value: 'name',
           label: 'Airline Name',
@@ -96,80 +96,76 @@ class _FilterBottomFloatingState extends State<FilterBottomFloating> {
 
     void showOrderSheet(BuildContext context) {
       openRadioPicker(
-          context: context,
-          options: sortOptions,
-          title: 'Sort By',
-          initialValue: _sortByTemp,
-          onSelected: (value) {
-            if (value != null) {
-              String result =
-                  sortOptions.firstWhere((e) => e.value == value).value;
-              setState(() {
-                _sortByTemp = result;
-              });
-              switch (result) {
-                case 'best_value':
-                  widget.onSortBest();
-                  break;
-                case 'cheapest':
-                  widget.onSortCheapest();
-                  break;
-                case 'depart':
-                  widget.onSortDepart();
-                  break;
-                case 'arrival':
-                  widget.onSortArrival();
-                  break;
-                case 'transit':
-                  widget.onSortTransits();
-                  break;
-                case 'discount':
-                  widget.onSortDiscount();
-                  break;
-                case 'name':
-                  widget.onSortPlaneName();
-                  break;
-                default:
-                  break;
-              }
+        context: context,
+        options: sortOptions,
+        title: 'Sort By',
+        initialValue: _sortByTemp,
+        onSelected: (value) {
+          if (value != null) {
+            final result =
+                sortOptions.firstWhere((e) => e.value == value).value;
+            setState(() => _sortByTemp = result);
+            switch (result) {
+              case 'best_value':
+                widget.onSortBest();
+                break;
+              case 'cheapest':
+                widget.onSortCheapest();
+                break;
+              case 'depart':
+                widget.onSortDepart();
+                break;
+              case 'arrival':
+                widget.onSortArrival();
+                break;
+              case 'transit':
+                widget.onSortTransits();
+                break;
+              case 'discount':
+                widget.onSortDiscount();
+                break;
+              case 'name':
+                widget.onSortPlaneName();
+                break;
             }
-          });
+          }
+        },
+      );
     }
 
-    void showFilterSheet() async {
+    void showFilterSheet() {
       Get.bottomSheet(
-        StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-          return Wrap(children: [
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: FilterFlightForm(
-                  priceRange: widget.priceRange,
-                  selectedAirlines: widget.selectedAirlines,
-                  transits: widget.transits,
-                  duration: widget.duration,
-                  onChangePrice: (RangeValues range) {
-                    setState(() {
-                      widget.onChangePrice(range);
-                    });
-                  },
-                  onUpdateAirlines: (String type, Plane item) {
-                    setState(() {
-                      widget.onUpdateAirlines(type, item);
-                    });
-                  },
-                  onUpdateTransit: (String type, int item) {
-                    setState(() {
-                      widget.onUpdateTransit(type, item);
-                    });
-                  },
-                  onChangeDuration: (double val) {
-                    setState(() {
-                      widget.onChangeDuration(val);
-                    });
-                  },
-                ))
-          ]);
-        }),
+        StatefulBuilder(
+          builder: (BuildContext context, StateSetter setSheetState) {
+            return Wrap(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  child: FilterFlightForm(
+                    allFlights: [],
+                    priceRange: widget.priceRange,
+                    selectedAirlines: widget.selectedAirlines, // List<String>
+                    transits: widget.transits,
+                    duration: widget.duration,
+                    onChangePrice: (RangeValues range) {
+                      setSheetState(() => widget.onChangePrice(range));
+                    },
+                    onUpdateAirlines: (String type, String airlineCode) {
+                      setSheetState(() => widget.onUpdateAirlines(
+                          type, airlineCode)); // ← changed
+                    },
+                    onUpdateTransit: (String type, int item) {
+                      setSheetState(() => widget.onUpdateTransit(type, item));
+                    },
+                    onChangeDuration: (double val) {
+                      setSheetState(() => widget.onChangeDuration(val));
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -180,11 +176,7 @@ class _FilterBottomFloatingState extends State<FilterBottomFloating> {
 
     return Container(
       color: Colors.transparent,
-      margin: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        bottom: 16,
-      ),
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: BottomAppBar(
         color: Colors.transparent,
         height: 100,
@@ -198,49 +190,48 @@ class _FilterBottomFloatingState extends State<FilterBottomFloating> {
               margin: EdgeInsets.all(spacingUnit(2)),
               padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
               decoration: BoxDecoration(
-                  color: colorScheme(context).primaryContainer,
-                  borderRadius: ThemeRadius.big,
-                  boxShadow: [ThemeShade.shadeSoft(context)]),
+                color: colorScheme(context).primaryContainer,
+                borderRadius: ThemeRadius.big,
+                boxShadow: [ThemeShade.shadeSoft(context)],
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                      onPressed: () {
-                        showOrderSheet(context);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.import_export,
-                              color: _isDark
-                                  ? ThemePalette.tertiaryMain
-                                  : ThemePalette.primaryMain),
-                          const SizedBox(width: 4),
-                          Text('Order',
-                              style: ThemeText.subtitle2.copyWith(
-                                  color: colorScheme(context).onSurface))
-                        ],
-                      )),
+                    onPressed: () => showOrderSheet(context),
+                    child: Row(
+                      children: [
+                        Icon(Icons.import_export,
+                            color: _isDark
+                                ? ThemePalette.tertiaryMain
+                                : ThemePalette.primaryMain),
+                        const SizedBox(width: 4),
+                        Text('Order',
+                            style: ThemeText.subtitle2.copyWith(
+                                color: colorScheme(context).onSurface)),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(spacingUnit(1)),
                     child: VerticalDivider(
                         color: colorScheme(context).outlineVariant),
                   ),
                   TextButton(
-                      onPressed: () {
-                        showFilterSheet();
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.tune,
-                              color: _isDark
-                                  ? ThemePalette.tertiaryMain
-                                  : ThemePalette.primaryMain),
-                          const SizedBox(width: 4),
-                          Text('Filter',
-                              style: ThemeText.subtitle2.copyWith(
-                                  color: colorScheme(context).onSurface))
-                        ],
-                      )),
+                    onPressed: showFilterSheet,
+                    child: Row(
+                      children: [
+                        Icon(Icons.tune,
+                            color: _isDark
+                                ? ThemePalette.tertiaryMain
+                                : ThemePalette.primaryMain),
+                        const SizedBox(width: 4),
+                        Text('Filter',
+                            style: ThemeText.subtitle2.copyWith(
+                                color: colorScheme(context).onSurface)),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

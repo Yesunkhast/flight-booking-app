@@ -1,27 +1,53 @@
+import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/widgets/app_button/tag_button.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FilterDateSlider extends StatefulWidget {
-  const FilterDateSlider({super.key});
+  const FilterDateSlider({
+    super.key,
+    this.dayCount = 30, // configurable, defaults to 30
+    this.startFromToday = true,
+    required this.fetchDateByFlight, // start from today or day 0
+  });
+
+  final int dayCount;
+  final bool startFromToday;
+  final Future Function() fetchDateByFlight;
 
   @override
   State<FilterDateSlider> createState() => _FilterDateSliderState();
 }
 
 class _FilterDateSliderState extends State<FilterDateSlider> {
+  final controller = Get.find<FlightSearchController>();
   final _scrollController = ScrollController();
   final double stepWidth = 35;
+  final DateTime currentDate = DateTime.now();
 
-  int _currentDate = 9;
+  int _currentDate = 0;
+
+  // Generate date list dynamically from today
+  late final List<DateTime> _dates = List.generate(
+    widget.dayCount,
+    (i) => currentDate.add(Duration(days: i)),
+  );
+
+  String _formatDate(DateTime date, List month) {
+    return '${month[date.month - 1]} ${date.day} ';
+  }
 
   @override
   void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) =>
-        _scrollController.animateTo(_currentDate * stepWidth - 16,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastOutSlowIn));
     super.initState();
+    SchedulerBinding.instance
+        .addPostFrameCallback((_) => _scrollController.animateTo(
+              _currentDate * stepWidth - 16,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn,
+            ));
   }
 
   @override
@@ -30,50 +56,61 @@ class _FilterDateSliderState extends State<FilterDateSlider> {
     super.dispose();
   }
 
-  void _onDateSelected(int index) {
-    setState(() {
-      _currentDate = index;
-    });
+  void _onDateSelected(int index) async {
+    setState(() => _currentDate = index);
+
+    controller.departureDate.value =
+        "${_dates[index].year}-${_dates[index].month.toString().padLeft(2, '0')}-${_dates[index].day.toString().padLeft(2, '0')}";
+
+    controller.dateFrom.value = controller.departureDate.value;
+
+    _scrollController.animateTo(
+      index * stepWidth - 16,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
+
+    await widget.fetchDateByFlight();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> dateList = [
-      '13 Oct',
-      '14 Oct',
-      '15 Oct',
-      '16 Oct',
-      '17 Oct',
-      '18 Oct',
-      '19 Oct',
-      '20 Oct',
-      '21 Oct',
-      '22 Oct',
-      '23 Oct',
-      '24 Oct',
-      '25 Oct',
-      '26 Oct'
+    final localization = AppLocalizations.of(context)!;
+    List<String> month = [
+      localization.monthJan,
+      localization.monthFeb,
+      localization.monthMar,
+      localization.monthApr,
+      localization.monthMay,
+      localization.monthJun,
+      localization.monthJul,
+      localization.monthAug,
+      localization.monthSep,
+      localization.monthOct,
+      localization.monthNov,
+      localization.monthDec
     ];
-
+    // print(
+    //     "Selected date: ${_dates[_currentDate].year}-${_dates[_currentDate].month.toString().padLeft(2, '0')}-${_dates[_currentDate].day.toString().padLeft(2, '0')}");
     return SizedBox(
       height: 24,
-      child: ListView(
+      child: ListView.builder(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         controller: _scrollController,
-        children: List.generate(14, (index) {
+        itemCount: _dates.length,
+        itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2),
             child: TagButton(
-                size: BtnSize.medium,
-                text: dateList[index],
-                selected: index == _currentDate,
-                onPressed: () {
-                  _onDateSelected(index);
-                }),
+              size: BtnSize.medium,
+              text: _formatDate(_dates[index], month),
+              selected: index == _currentDate,
+              onPressed: () => _onDateSelected(index),
+            ),
           );
-        }),
+        },
       ),
     );
   }

@@ -30,10 +30,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
     if (!isValid) return;
 
-    final formData = _registerKey.currentState!.value;
-    final name = (formData['name'] ?? '').toString().trim();
-    final mailOrPhone = (formData['mailOrPhone'] ?? '').toString().trim();
-    final password = (formData['password'] ?? '').toString().trim();
+    // final formData = _registerKey.currentState!.value;
+    // final name = (formData['name'] ?? '').toString().trim();
+    // final mailOrPhone = (formData['mailOrPhone'] ?? '').toString().trim();
+    // final password = (formData['password'] ?? '').toString().trim();
 
     // await emailAuthController.register(
     //   name: name,
@@ -56,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
           const VSpace(),
           Text(localization.register.toUpperCase(), style: ThemeText.title),
           SizedBox(height: spacingUnit(1)),
-          Text('👋 Very nice to meet you! Create new account for free.',
+          Text(localization.registerFormPrag,
               style: ThemeText.headline
                   .copyWith(color: colorScheme.onSurfaceVariant)),
           const VSpace(),
@@ -138,7 +138,6 @@ class _RegisterFormState extends State<RegisterForm> {
             initialValue: false,
             onChanged: (value) {
               value == true ? Get.toNamed(AppLink.terms) : null;
-              // TermsCondition()
             },
             title: Text(localization.agreewithOurTermsAndConditions),
             validator: FormBuilderValidators.equal(

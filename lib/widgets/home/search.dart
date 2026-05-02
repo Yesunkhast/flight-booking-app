@@ -1,10 +1,11 @@
+import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_shadow.dart';
 // import 'package:flight_app/ui/themes/theme_text.dart';
-import 'package:flight_app/utils/custom_tooltip.dart';
+// import 'package:flight_app/utils/custom_tooltip.dart';
 // import 'package:flight_app/utils/expanded_section.dart';
 import 'package:flight_app/widgets/app_button/tag_button.dart';
 import 'package:flight_app/widgets/search_filter/search_flight_form.dart';
@@ -12,8 +13,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/home/banner.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/state_manager.dart';
 // import 'package:get/route_manager.dart';
-import 'package:overlay_tooltip/overlay_tooltip.dart';
+// import 'package:overlay_tooltip/overlay_tooltip.dart';
 
 class SearchHome extends StatefulWidget {
   const SearchHome({super.key});
@@ -24,8 +28,7 @@ class SearchHome extends StatefulWidget {
 
 class _SearchHomeState extends State<SearchHome> {
   // bool _expand = false;
-  bool _roundTrip = false;
-  bool _isDomestic = true;
+  final controller = Get.find<FlightSearchController>();
   // final bool _isDark = Get.isDarkMode;
 
   // void _setExpand(bool value) {
@@ -35,40 +38,28 @@ class _SearchHomeState extends State<SearchHome> {
   // }
 
   void _setDomestic(bool value) {
-    setState(() {
-      _isDomestic = value;
-    });
+    controller.domestic.value = value;
   }
 
   void _setRoundTrip(bool value) {
-    setState(() {
-      _roundTrip = value;
-    });
+    controller.roundTrip.value = value;
   }
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     // print("soligdson hel :${localizations?.bookFlight}");
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        const Positioned(top: 0, child: HomeBanner()),
-        SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              SizedBox(height: ThemeBreakpoints.mdUp(context) ? 200 : 260),
-              OverlayTooltipItem(
-                displayIndex: 0,
-                tooltip: (controller) => Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: MTooltip(
-                    title: 'Search and Create Your Trip Plan',
-                    controller: controller,
-                  ),
-                ),
-                child: Container(
+    return Obx(
+      () => Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          const Positioned(top: 0, child: HomeBanner()),
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                SizedBox(height: ThemeBreakpoints.mdUp(context) ? 200 : 260),
+                Container(
                   constraints: BoxConstraints(maxWidth: ThemeSize.sm),
                   margin: EdgeInsets.all(spacingUnit(2)),
                   decoration: BoxDecoration(
@@ -102,11 +93,13 @@ class _SearchHomeState extends State<SearchHome> {
                                     Expanded(
                                       child: FilledButton(
                                         style: FilledButton.styleFrom(
-                                          backgroundColor: _isDomestic
-                                              ? colorScheme(context).primary
-                                              : colorScheme(context)
-                                                  .primaryContainer,
-                                          foregroundColor: _isDomestic
+                                          backgroundColor:
+                                              controller.domestic.value
+                                                  ? colorScheme(context).primary
+                                                  : colorScheme(context)
+                                                      .primaryContainer,
+                                          foregroundColor: controller
+                                                  .domestic.value
                                               ? colorScheme(context).onPrimary
                                               : colorScheme(context)
                                                   .onPrimaryContainer,
@@ -121,8 +114,9 @@ class _SearchHomeState extends State<SearchHome> {
                                           elevation: 0,
                                         ),
                                         onPressed: () {
-                                          // _setExpand(true);
+                                          print("Domestic flight selected");
                                           _setDomestic(true);
+                                          _setRoundTrip(false);
                                         },
                                         child: Text(
                                           localizations.domesticFlight,
@@ -136,11 +130,13 @@ class _SearchHomeState extends State<SearchHome> {
                                     Expanded(
                                       child: FilledButton(
                                         style: FilledButton.styleFrom(
-                                          backgroundColor: !_isDomestic
-                                              ? colorScheme(context).primary
-                                              : colorScheme(context)
-                                                  .primaryContainer,
-                                          foregroundColor: !_isDomestic
+                                          backgroundColor:
+                                              !controller.domestic.value
+                                                  ? colorScheme(context).primary
+                                                  : colorScheme(context)
+                                                      .primaryContainer,
+                                          foregroundColor: !controller
+                                                  .domestic.value
                                               ? colorScheme(context).onPrimary
                                               : colorScheme(context)
                                                   .onPrimaryContainer,
@@ -190,21 +186,31 @@ class _SearchHomeState extends State<SearchHome> {
                         ),
                         child: Row(
                           children: [
-                            TagButton(
-                              text: localizations.oneWay,
-                              selected: !_roundTrip,
-                              onPressed: () {
-                                _setRoundTrip(false);
-                              },
-                            ),
-                            SizedBox(width: spacingUnit(1)),
-                            TagButton(
-                              text: localizations.roundTrip,
-                              selected: _roundTrip,
-                              onPressed: () {
-                                _setRoundTrip(true);
-                              },
-                            ),
+                            !controller.domestic.value
+                                ? Row(children: [
+                                    TagButton(
+                                      text: localizations.oneWay,
+                                      selected: !controller.roundTrip.value,
+                                      onPressed: () {
+                                        _setRoundTrip(false);
+                                      },
+                                    ),
+                                    SizedBox(width: spacingUnit(1)),
+                                    TagButton(
+                                      text: localizations.roundTrip,
+                                      selected: controller.roundTrip.value,
+                                      onPressed: () {
+                                        _setRoundTrip(true);
+                                      },
+                                    ),
+                                  ])
+                                : TagButton(
+                                    text: localizations.oneWay,
+                                    selected: !controller.roundTrip.value,
+                                    onPressed: () {
+                                      _setRoundTrip(false);
+                                    },
+                                  ),
                             const Spacer(),
                             // SizedBox(
                             //   width: 32,
@@ -233,7 +239,8 @@ class _SearchHomeState extends State<SearchHome> {
                       SizedBox(height: spacingUnit(2)),
 
                       SearchFlightForm(
-                        roundTrip: _roundTrip,
+                        roundTrip: controller.roundTrip.value,
+                        domestic: controller.domestic.value,
                       )
                       // ExpandedSection(
                       //   expand: _expand,
@@ -244,11 +251,11 @@ class _SearchHomeState extends State<SearchHome> {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

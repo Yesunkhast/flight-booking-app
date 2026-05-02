@@ -53,14 +53,14 @@ class CardCollection extends StatelessWidget {
               name: 'Soekarno-Hatta', code: 'JKT', location: 'Jakarta'),
           const VSpace(),
           const Text('Flight Card', style: ThemeText.subtitle2),
-          FlightCard(
-              from: cityList[0],
-              to: cityList[2],
-              plane: planeList[4],
-              price: 2000,
-              depart: DateTime.parse('2025-07-20 20:18:00'),
-              arrival: DateTime.parse('2025-07-21 20:18:00'),
-              transit: 1),
+          // FlightCard(
+          //     from: cityList[0],
+          //     to: cityList[2],
+          //     plane: planeList[4],
+          //     price: 2000,
+          //     depart: DateTime.parse('2025-07-20 20:18:00'),
+          //     arrival: DateTime.parse('2025-07-21 20:18:00'),
+          //     transit: 1),
           const VSpace(),
           const Text('Flight Portrait Card', style: ThemeText.subtitle2),
           Row(
@@ -81,7 +81,9 @@ class CardCollection extends StatelessWidget {
           FlightRouteCard(
             time: '22 Jun 2026',
             type: RouteType.arrival,
-            airport: airportList[0],
+            location: '',
+            name: '',
+            code: '',
           ),
           const VSpace(),
           const Text('News Card', style: ThemeText.subtitle2),

@@ -10,12 +10,16 @@ enum RouteType { depart, arrival, transit }
 class FlightRouteCard extends StatelessWidget {
   const FlightRouteCard(
       {super.key,
-      this.airport,
+      required this.location,
+      required this.name,
+      required this.code,
       required this.time,
       required this.type,
       this.mini = false});
 
-  final Airport? airport;
+  final String location;
+  final String name;
+  final String code;
   final String time;
   final RouteType type;
   final bool mini;
@@ -52,8 +56,8 @@ class FlightRouteCard extends StatelessWidget {
           Text(time, style: ThemeText.headline),
         ],
       ),
-      subtitle: airport != null
-          ? Text('${airport!.location} - ${airport!.name} (${airport!.code})',
+      subtitle: location != ""
+          ? Text('$location - $name ($code)',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: ThemeText.paragraph)

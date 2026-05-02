@@ -1,8 +1,11 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/payment_controller.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/utils/col_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/models/booking.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -11,9 +14,17 @@ import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/widgets/stepper/step_progress.dart';
 import 'package:flight_app/widgets/title/title_basic.dart';
+import 'package:intl/intl.dart';
 
-class PaymentStatus extends StatelessWidget {
+class PaymentStatus extends StatefulWidget {
   const PaymentStatus({super.key});
+
+  @override
+  State<PaymentStatus> createState() => _PaymentStatusState();
+}
+
+class _PaymentStatusState extends State<PaymentStatus> {
+  final paymentController = Get.find<PaymentController>();
 
   Color statusColor(String status) {
     switch (status) {
@@ -29,7 +40,16 @@ class PaymentStatus extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    paymentController.startPaymentCheck(paymentController.oid.value);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final formatter = NumberFormat("#,###");
+    print(
+        "order no by order response:${paymentController.orderResponse.value?.result?.orderNo}");
     return Scaffold(
         appBar: AppBar(
           forceMaterialTransparency: true,
@@ -102,56 +122,60 @@ class PaymentStatus extends StatelessWidget {
                   primary: true,
                   padding: EdgeInsets.symmetric(
                       vertical: spacingUnit(1), horizontal: spacingUnit(2)),
-                  children: const [
-                    VSpaceShort(),
-                    TitleBasicSmall(title: 'Detail Transaction'),
-                    VSpaceShort(),
-                    Row(
+                  children: [
+                    const VSpaceShort(),
+                    const TitleBasicSmall(title: 'Detail Transaction'),
+                    const VSpaceShort(),
+                    const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Date:'),
                           Text('22 Jun 2025',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ]),
-                    LineList(
+                    const LineList(
                       spacing: 8,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Transaction Number:'),
-                          Text('A1234567890SSR',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const Text('Transaction Number:'),
+                          Text(
+                              paymentController
+                                  .orderResponse.value!.result.orderNo,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ]),
-                    LineList(
+                    const LineList(
                       spacing: 8,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Price:'),
-                          Text('\$630',
+                          Text(
+                              "${formatter.format(paymentController.orderResponse.value!.result.amount)} ₮",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ]),
-                    LineList(
-                      spacing: 8,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Tax 12%:'),
-                          Text('\$75.6',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ]),
-                    LineList(
-                      spacing: 8,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Total:', style: ThemeText.subtitle),
-                          Text('\$705.6', style: ThemeText.subtitle),
-                        ]),
+                    // const LineList(
+                    //   spacing: 8,
+                    // ),
+                    // const Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Text('Tax 12%:'),
+                    //       Text('\$75.6',
+                    //           style: TextStyle(fontWeight: FontWeight.bold)),
+                    //     ]),
+                    // const LineList(
+                    //   spacing: 8,
+                    // ),
+                    // const Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Text('Total:', style: ThemeText.subtitle),
+                    //       Text('\$705.6', style: ThemeText.subtitle),
+                    //     ]),
                   ]),
             ),
           ),

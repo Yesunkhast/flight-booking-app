@@ -1,5 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/app/controller/payment_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -16,9 +17,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SearchFlightForm extends StatefulWidget {
-  const SearchFlightForm({super.key, required this.roundTrip});
+  const SearchFlightForm(
+      {super.key, required this.roundTrip, required this.domestic});
 
   final bool roundTrip;
+  final bool domestic;
 
   @override
   State<SearchFlightForm> createState() => _SearchFlightFormState();
@@ -30,27 +33,35 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
   final TextEditingController _dateFromRef = TextEditingController(
     text: DateFormat('yyyy-MM-dd').format(DateTime.now()),
   );
-  final TextEditingController _dateToRef = TextEditingController(
+  final TextEditingController _dateReturnRef = TextEditingController(
     text:
-        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 7))),
+        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 1))),
   );
   final TextEditingController _passengerClassRef = TextEditingController();
 
   int _adults = 1;
   int _children = 0;
   int _infants = 0;
+  // String _tempContainer = '';
 
   final TextEditingController _fromRef = TextEditingController();
   final TextEditingController _toRef = TextEditingController();
 
-  final controller = Get.put(FlightSearchController());
+  final controller = Get.find<FlightSearchController>();
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    setFrom(controller.from.value);
-    setTo(controller.to.value);
+  void initState() {
+    super.initState();
+    // controller.reset();
+    // print("initState");
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   setFrom("${controller.fromCode.value} ${controller.fromLocation.value}");
+  //   setTo("${controller.toCode.value} ${controller.toLocation.value}");
+  // }
 
   void setFrom(String city) {
     setState(() {
@@ -160,14 +171,14 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
   }
 
   void _selectDate(TextEditingController controller) async {
-    final isReturnDate = controller == _dateToRef;
+    final isReturnDate = controller == _dateReturnRef;
 
     DateTime firstDate = DateTime.now();
 
     if (isReturnDate && _dateFromRef.text.isNotEmpty) {
       final departureDate = DateFormat('yyyy-MM-dd').parse(_dateFromRef.text);
       firstDate = departureDate
-          .add(Duration(days: 7)); // return must be after departure
+          .add(Duration(days: 1)); // return must be after departure
     }
 
     // initialDate must never be before firstDate
@@ -187,21 +198,21 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
       controller.text = DateFormat('yyyy-MM-dd').format(picked);
       if (controller == _dateFromRef) {
         // Clear return date if it's now before the new departure date
-        _dateToRef.clear();
+        _dateReturnRef.clear();
         _formKey.currentState?.validate();
       }
     }
   }
 
-  @override
-  void dispose() {
-    _dateFromRef.dispose();
-    _dateToRef.dispose();
-    _passengerClassRef.dispose();
-    _fromRef.dispose();
-    _toRef.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _dateFromRef.dispose();
+  //   _dateReturnRef.dispose();
+  //   _passengerClassRef.dispose();
+  //   _fromRef.dispose();
+  //   _toRef.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -221,31 +232,30 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: AppTextField(
-                    // validator: FormBuilderValidators.compose(
-                    //     [FormBuilderValidators.required()]),
+                Expanded(child: Obx(() {
+                  _fromRef.text =
+                      "${controller.fromCode.value} ${controller.fromLocation.value}";
+                  return AppTextField(
                     label: localizations.flyingFrom,
                     controller: _fromRef,
                     readOnly: true,
-                    onChanged: (_) {},
                     onTap: () {
-                      Get.toNamed(
-                        AppLink.searchList,
-                        arguments: "from",
-                      );
+                      Get.toNamed(AppLink.searchList, arguments: "from");
                     },
                     prefixIcon: FontAwesomeIcons.planeDeparture,
-                  ),
-                ),
+                    onChanged: (_) {},
+                  );
+                })),
                 SizedBox(width: spacingUnit(1)),
                 InkWell(
                   onTap: () {
-                    controller.to.value = _fromRef.text;
-                    controller.from.value = _toRef.text;
-                    _fromRef.text = controller.from.value;
-                    _toRef.text = controller.to.value;
-                    setState(() {});
+                    final tempLocation = controller.fromLocation.value;
+                    controller.fromLocation.value = controller.toLocation.value;
+                    controller.toLocation.value = tempLocation;
+
+                    final tempCode = controller.fromCode.value;
+                    controller.fromCode.value = controller.toCode.value;
+                    controller.toCode.value = tempCode;
                   },
                   child: Container(
                     width: 50,
@@ -265,18 +275,20 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
               ],
             ),
             SizedBox(height: spacingUnit(2)),
-            AppTextField(
-              // validator: FormBuilderValidators.compose(
-              //     [FormBuilderValidators.required()]),
-              label: localizations.flyingTo,
-              controller: _toRef,
-              readOnly: true,
-              onChanged: (_) {},
-              onTap: () {
-                Get.toNamed(AppLink.searchList, arguments: "to");
-              },
-              prefixIcon: FontAwesomeIcons.planeArrival,
-            ),
+            Obx(() {
+              _toRef.text =
+                  "${controller.toCode.value} ${controller.toLocation.value}";
+              return AppTextField(
+                label: localizations.flyingTo,
+                controller: _toRef,
+                readOnly: true,
+                onTap: () {
+                  Get.toNamed(AppLink.searchList, arguments: "to");
+                },
+                prefixIcon: FontAwesomeIcons.planeArrival,
+                onChanged: (_) {},
+              );
+            }),
             SizedBox(height: spacingUnit(2)),
             AppTextField(
               label: localizations.departureDate,
@@ -296,7 +308,7 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                     child: AppTextField(
                       label: localizations.returnDate,
                       onChanged: (_) {},
-                      controller: _dateToRef,
+                      controller: _dateReturnRef,
                       readOnly: true,
                       prefixIcon: FontAwesomeIcons.calendar,
                       validator: (value) {
@@ -308,7 +320,7 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                         final departureText = _dateFromRef.text;
                         if (departureText.isNotEmpty) {
                           final dateFormat =
-                              DateFormat('dd/MM/yyyy'); // adjust to your format
+                              DateFormat('dd-MM-yyyy'); // date format
                           final departureDate = dateFormat.parse(departureText);
                           final returnDate = dateFormat.parse(value);
 
@@ -324,15 +336,15 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                         return null;
                       },
                       onTap: () {
-                        _selectDate(_dateToRef);
+                        _selectDate(_dateReturnRef);
                       },
                     ),
                   )
                 : Container(),
             SizedBox(height: spacingUnit(2)),
             AppTextField(
-              // validator: FormBuilderValidators.compose(
-              //     [FormBuilderValidators.required()]),
+              validator: FormBuilderValidators.compose(
+                  [FormBuilderValidators.required()]),
               label: localizations.passenger,
               onChanged: (_) {},
               prefixIcon: FontAwesomeIcons.user,
@@ -345,19 +357,26 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    controller.from.value = _fromRef.text;
-                    controller.to.value = _toRef.text;
-                    controller.departureDate.value = _dateFromRef.text;
-                    controller.returnDate.value = _dateToRef.text;
-                    setFrom("");
-                    setTo("");
-                    if (widget.roundTrip) {
-                      Get.toNamed(AppLink.flightListRoundTrip);
-                    } else {
-                      Get.toNamed(AppLink.flightList);
-                    }
-                  }
+                  if (!_formKey.currentState!.validate()) return;
+
+                  // Save all values to controller
+                  controller.departureDate.value = _dateFromRef.text;
+                  controller.dateFrom.value = _dateFromRef.text;
+                  controller.roundTrip.value = widget.roundTrip;
+                  controller.returnDate.value =
+                      widget.roundTrip ? _dateReturnRef.text : '';
+
+                  // Debug print
+                  print('=== SEARCH ===');
+                  print('dpt: ${controller.fromCode.value}');
+                  print('arr: ${controller.toCode.value}');
+                  print('date: ${controller.departureDate.value}');
+                  print('backDate: ${controller.returnDate.value}');
+                  print('domestic: ${widget.domestic}');
+                  print('roundTrip: ${widget.roundTrip}');
+
+                  // Navigate
+                  Get.toNamed(AppLink.flightList);
                 },
                 style: ThemeButton.btnBig.merge(ThemeButton.primary),
                 child: Text(

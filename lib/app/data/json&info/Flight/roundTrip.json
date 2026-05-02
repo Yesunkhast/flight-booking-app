@@ -1,8 +1,4 @@
 {
-    "status": "SUCCESS",
-    "code": 0,
-    "message": "",
-    "result": {
         "flightInfos": [
             {
                 "flightSegment": [
@@ -45639,5 +45635,5 @@
             }
         ],
         "cheapPrice": 2051400.0
-    }
 }
+

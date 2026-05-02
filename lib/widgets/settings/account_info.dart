@@ -1,6 +1,9 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/app/constants/app_const.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
@@ -13,10 +16,12 @@ class AccountInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    final userController = Get.find<UserController>();
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       const GrabberIcon(),
       const VSpace(),
-      Text('Account Info',
+      Text(localization.accountInfo,
           style: ThemeText.title2.copyWith(fontWeight: FontWeight.bold)),
       const VSpaceShort(),
 
@@ -29,33 +34,33 @@ class AccountInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(children: [
-                    Text('Name',
+                    Text(localization.name,
                         style: ThemeText.subtitle
                             .copyWith(fontWeight: FontWeight.bold)),
                     const Spacer(),
-                    Text(userDummy.username),
+                    Text(userController.user.value?.lastName ?? 'Guest'),
                   ]),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: spacingUnit(2)),
                     child: const LineList(),
                   ),
                   Row(children: [
-                    Text('Email',
+                    Text(localization.email,
                         style: ThemeText.subtitle
                             .copyWith(fontWeight: FontWeight.bold)),
                     const Spacer(),
-                    const Text('name@mail.com'),
+                    Text(userController.user.value?.email ?? 'guest@mail.com'),
                   ]),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: spacingUnit(2)),
                     child: const LineList(),
                   ),
                   Row(children: [
-                    Text('Phone Number/WhatsApp',
+                    Text(localization.phoneNumber,
                         style: ThemeText.subtitle
                             .copyWith(fontWeight: FontWeight.bold)),
                     const Spacer(),
-                    const Text('+621234567890'),
+                    Text(userController.user.value?.phone ?? '+12345678'),
                   ]),
                   const VSpaceBig(),
                   SizedBox(
@@ -66,7 +71,7 @@ class AccountInfo extends StatelessWidget {
                           Get.toNamed(AppLink.editProfile);
                         },
                         style: ThemeButton.outlinedPrimary(context),
-                        child: const Text('Change Profile',
+                        child: Text(localization.editProfile,
                             style: ThemeText.subtitle)),
                   ),
                   const VSpaceShort(),
@@ -88,7 +93,7 @@ class AccountInfo extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.lock, color: Colors.red.shade300),
-                              const Text('Change Password',
+                              Text(localization.changePassword,
                                   style: ThemeText.subtitle),
                             ])),
                   ),

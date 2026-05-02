@@ -1,10 +1,12 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/app_const.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/widgets/app_button/back_icon_button.dart';
 import 'package:flight_app/widgets/search_filter/search_input_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/models/faq.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
@@ -22,6 +24,7 @@ class FaqList extends StatefulWidget {
 
 class _FaqListState extends State<FaqList> {
   bool _showSearch = false;
+  final userController = Get.find<UserController>();
 
   void toggleSearch() {
     setState(() {
@@ -86,7 +89,8 @@ class _FaqListState extends State<FaqList> {
                           fontWeight: FontWeight.normal, color: Colors.black),
                       children: [
                     TextSpan(
-                        text: userDummy.username,
+                        text: userController.user.value?.firstName ??
+                            userDummy.username,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: colorScheme(context).primary))

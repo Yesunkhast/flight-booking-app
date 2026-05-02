@@ -35,6 +35,7 @@ class AppLink {
   static const bookingStep2 = '/booking-facility';
   static const bookingStep3 = '/booking-checkout';
   static const addPassengger = '/add_passenger';
+  static const checkout = '/checkout';
 
   // PAYMENT
   static const payment = '/payment';
@@ -59,6 +60,7 @@ class AppLink {
   static const profile = '/profile';
   static const reward = '/reward';
   static const detailPoint = '/detail-point';
+  static const profileDetail = '/account-info';
   static const editProfile = '/edit-profile';
   static const editPassword = '/edit-password';
 

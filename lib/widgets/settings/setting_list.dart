@@ -177,56 +177,56 @@ class SettingList extends StatelessWidget {
           const VSpace(),
 
           // /// ACCOUNT SETTING
-          // const TitleBasicSmall(title: 'Help and Account'),
-          // PaperCard(
-          //     content: Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Column(children: [
-          //     ListTile(
-          //       leading: const Icon(Icons.person),
-          //       title: const Text('Account Information'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         showModalBottomSheet(
-          //             context: context,
-          //             isScrollControlled: true,
-          //             builder: (BuildContext context) {
-          //               return const Wrap(
-          //                 children: [AccountInfo()],
-          //               );
-          //             });
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       onTap: () {
-          //         Get.toNamed('/faq');
-          //       },
-          //       leading: const Icon(Icons.help_outline),
-          //       title: const Text('FAQ'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       onTap: () {
-          //         Get.toNamed('/contact');
-          //       },
-          //       leading: const Icon(Icons.message_outlined),
-          //       title: const Text('Contact Admin'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       onTap: () {
-          //         Get.toNamed('/terms-conditions');
-          //       },
-          //       leading: const Icon(Icons.insert_drive_file_outlined),
-          //       title: const Text('Terms and Conditions'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //     ),
-          //   ]),
-          // )),
-          // const VSpace(),
+          const TitleBasicSmall(title: 'Help and Account'),
+          PaperCard(
+              content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Account Information'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return const Wrap(
+                          children: [AccountInfo()],
+                        );
+                      });
+                },
+              ),
+              const LineList(),
+              ListTile(
+                onTap: () {
+                  Get.toNamed('/faq');
+                },
+                leading: const Icon(Icons.help_outline),
+                title: const Text('FAQ'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+              ),
+              const LineList(),
+              ListTile(
+                onTap: () {
+                  Get.toNamed('/contact');
+                },
+                leading: const Icon(Icons.message_outlined),
+                title: const Text('Contact Admin'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+              ),
+              const LineList(),
+              ListTile(
+                onTap: () {
+                  Get.toNamed('/terms-conditions');
+                },
+                leading: const Icon(Icons.insert_drive_file_outlined),
+                title: const Text('Terms and Conditions'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+              ),
+            ]),
+          )),
+          const VSpace(),
 
           // /// GENERAL PAGES
           // const TitleBasicSmall(title: 'General Pages'),
@@ -291,75 +291,75 @@ class SettingList extends StatelessWidget {
           // const VSpace(),
 
           // /// PAGE FLIGHT LIST
-          // const TitleBasicSmall(title: 'Flights'),
-          // PaperCard(
-          //     content: Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Column(children: [
-          //     ListTile(
-          //       leading: const Icon(Icons.list_alt_outlined),
-          //       title: const Text('Flight List'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.flightList);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.list_alt_outlined),
-          //       title: const Text('Flight List Round Trip'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.flightListRoundTrip);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.flight),
-          //       title: const Text('Flight Detail'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.flightDetail);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.flight_takeoff_sharp),
-          //       title: const Text('Flight Package Detail'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.flightDetailPackage);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.explore_outlined),
-          //       title: const Text('Explore'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.explore);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.airplanemode_inactive_rounded),
-          //       title: const Text('Flight Not Found'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.flightNotFound);
-          //       },
-          //     ),
-          //     const LineList(),
-          //     ListTile(
-          //       leading: const Icon(Icons.label_off_rounded),
-          //       title: const Text('Package Not Found'),
-          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-          //       onTap: () {
-          //         Get.toNamed(AppLink.packageNotFound);
-          //       },
-          //     ),
-          //   ]),
-          // )),
+          const TitleBasicSmall(title: 'Flights'),
+          PaperCard(
+              content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              ListTile(
+                leading: const Icon(Icons.list_alt_outlined),
+                title: const Text('Flight List'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.flightList);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.list_alt_outlined),
+                title: const Text('Flight List Round Trip'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.flightListRoundTrip);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.flight),
+                title: const Text('Flight Detail'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.flightDetail);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.flight_takeoff_sharp),
+                title: const Text('Flight Package Detail'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.flightDetailPackage);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.explore_outlined),
+                title: const Text('Explore'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.explore);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.airplanemode_inactive_rounded),
+                title: const Text('Flight Not Found'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.flightNotFound);
+                },
+              ),
+              const LineList(),
+              ListTile(
+                leading: const Icon(Icons.label_off_rounded),
+                title: const Text('Package Not Found'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Get.toNamed(AppLink.packageNotFound);
+                },
+              ),
+            ]),
+          )),
           // const VSpace(),
 
           // /// BOOKING

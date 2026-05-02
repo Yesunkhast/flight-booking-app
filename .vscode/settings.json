@@ -1,3 +1,4 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "C:/Users/asus/Desktop/coding/diplom/bookmytix_v120/bookmytix/flight_app/windows"
 }

@@ -17,12 +17,13 @@ import 'package:flight_app/screens/profile/terms_condition.dart';
 import 'package:flight_app/screens/promo/promo_detail.dart';
 import 'package:flight_app/screens/promo/promo_main.dart';
 import 'package:flight_app/screens/promo/voucher_detail.dart';
-import 'package:flight_app/screens/search/search_flight.dart';
+// import 'package:flight_app/screens/search/search_flight.dart';
 import 'package:flight_app/screens/search/search_list.dart';
 import 'package:flight_app/screens/settings/language_list.dart';
-import 'package:flight_app/screens/splash/splash_screen.dart';
+import 'package:flight_app/screens/settings/splash/splash_screen.dart';
 import 'package:flight_app/ui/layouts/general_layout.dart';
 import 'package:flight_app/ui/layouts/home_layout.dart';
+import 'package:flight_app/widgets/booking/check_info_terms.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/app/app_link.dart';
 
@@ -63,6 +64,9 @@ final List<GetPage> appRoutes = [
     name: AppLink.notFound,
     page: () => const GeneralLayout(content: NotFound()),
   ),
+  GetPage(
+      name: AppLink.checkout,
+      page: () => const GeneralLayout(content: CheckoutTermsCondition())),
 
   // MY TICKET
   GetPage(
@@ -76,10 +80,10 @@ final List<GetPage> appRoutes = [
   ),
 
   /// SEARCH
-  GetPage(
-    name: AppLink.searchFlight,
-    page: () => const GeneralLayout(content: SearchFlight()),
-  ),
+  // GetPage(
+  //   name: AppLink.searchFlight,
+  //   page: () => const GeneralLayout(content: SearchFlight()),
+  // ),
   GetPage(
     name: AppLink.searchList,
     page: () => const GeneralLayout(content: SearchList()),

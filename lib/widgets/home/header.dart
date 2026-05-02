@@ -1,6 +1,7 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/location_controller.dart';
 import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/utils/custom_tooltip.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,12 @@ class HomeHeader extends StatelessWidget {
   HomeHeader({super.key, this.isFixed = false});
 
   final bool isFixed;
-  final LocationController controller = Get.put(LocationController());
-  final UserController userController = Get.put(UserController());
+  final LocationController controller = Get.find<LocationController>();
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       toolbarHeight: 60,
@@ -53,7 +55,8 @@ class HomeHeader extends StatelessWidget {
               children: [
                 Obx(
                   () => Text(
-                    userController.user.value?.username ?? 'Quest user',
+                    userController.user.value?.firstName ??
+                        localization.guestUser,
                     style: ThemeText.title2.copyWith(
                       color: isFixed
                           ? colorScheme(context).onSurface
@@ -100,27 +103,40 @@ class HomeHeader extends StatelessWidget {
         ),
       ),
       actions: [
-        OverlayTooltipItem(
-          displayIndex: 2,
-          tooltip: (controller) => Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: MTooltip(
-              title: 'Check messages, the best deals, or notification here.',
-              controller: controller,
-            ),
-          ),
-          child: Badge.count(
-            backgroundColor: Colors.red,
-            count: 3,
-            offset: const Offset(0, -1),
-            child: iconBtn(
-              context,
-              Icons.notifications,
-              isFixed,
-              () {
-                Get.toNamed(AppLink.notification);
-              },
-            ),
+        // OverlayTooltipItem(
+        //   displayIndex: 2,
+        //   tooltip: (controller) => Padding(
+        //     padding: const EdgeInsets.only(right: 15),
+        //     child: MTooltip(
+        //       title: 'Check messages, the best deals, or notification here.',
+        //       controller: controller,
+        //     ),
+        //   ),
+        //   child: Badge.count(
+        //     backgroundColor: Colors.red,
+        //     count: 3,
+        //     offset: const Offset(0, -1),
+        //     child: iconBtn(
+        //       context,
+        //       Icons.notifications,
+        //       isFixed,
+        //       () {
+        //         Get.toNamed(AppLink.notification);
+        //       },
+        //     ),
+        //   ),
+        // ),
+        Badge.count(
+          backgroundColor: Colors.red,
+          count: 3,
+          offset: const Offset(0, -1),
+          child: iconBtn(
+            context,
+            Icons.notifications,
+            isFixed,
+            () {
+              Get.toNamed(AppLink.notification);
+            },
           ),
         ),
         iconBtn(

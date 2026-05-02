@@ -1,4 +1,5 @@
 import 'package:flight_app/app/constants/img_api.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -10,6 +11,7 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Stack(
       children: [
         Container(
@@ -24,14 +26,21 @@ class HomeBanner extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.only(top: 45),
             child: Text(
-              'Where do you want to go?',
+              localization.whereToGo,
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  shadows: const [
+                    Shadow(
+                      color: Colors.black,
+                      offset: Offset(1, 1),
+                      blurRadius: 2,
+                    )
+                  ]),
             ),
           ),
         ),

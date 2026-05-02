@@ -204,7 +204,7 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
         RoundTripTab(setTabMenu: _setTabMenu, tabMenuIndex: _tabMenuIndex),
 
         /// DATE PICKER
-        const FilterDateSlider(),
+        // const FilterDateSlider(),
         Divider(
           color: colorScheme(context).outline,
         ),
@@ -243,7 +243,7 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
             },
             priceRange: _priceRange,
             duration: _duration,
-            selectedAirlines: _selectedAirlines,
+            selectedAirlines: [],
             transits: _stopTransits,
             onChangePrice: (RangeValues val) {
               changePrice(val);
@@ -254,8 +254,8 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
             onUpdateTransit: (String type, int val) {
               selectTransits(type, val);
             },
-            onUpdateAirlines: (String type, Plane item) {
-              selectAirlines(type, item);
+            onUpdateAirlines: (String type, String code) {
+              // selectAirlines(type, code);
             },
           )),
     );
@@ -275,6 +275,6 @@ class _FlightListRoundtripState extends State<FlightListRoundtrip> {
       );
     }
     return FlightTripList(
-        scrollRef: _scrollController, flightData: resultFlight);
+        roundTrip: true, scrollRef: _scrollController, flightData: []);
   }
 }
