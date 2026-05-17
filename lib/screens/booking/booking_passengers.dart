@@ -4,6 +4,8 @@ import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/app/controller/fligth_detail_controller.dart';
 import 'package:flight_app/app/controller/passenger_controller.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/app/service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
@@ -36,7 +38,9 @@ class _BookingPassengersState extends State<BookingPassengers> {
   final searchController = Get.find<FlightSearchController>();
   final detailController = Get.find<FlightDetailController>();
   final passengerController = Get.find<PassengerController>();
+  final userController = Get.find<UserController>();
   final bookingController = Get.find<BookingController>();
+  final paymentController = Get.find<PaymentController>();
 
   final Vendor flight = Get.arguments as Vendor;
   // bookingController.flight = flight;
@@ -45,10 +49,13 @@ class _BookingPassengersState extends State<BookingPassengers> {
   void initState() {
     super.initState();
 
-    bookingController.flight.value = flight;
+    // print(flight.tag);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      fetchBooking();
+    bookingController.flight.value = flight;
+    bookingController.getExchangeRate();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await fetchBooking();
     });
   }
 
@@ -59,10 +66,20 @@ class _BookingPassengersState extends State<BookingPassengers> {
     );
   }
 
+  Future<void> createOrder() async {
+    await paymentController.createOrder(
+        bid: bookingController.bookingResult.value!.bookingStrId,
+        contactMob: userController.user.value?.phone ?? '',
+        email: userController.user.value?.email ?? '',
+        passengers: passengerController.passengers,
+        nctype: bookingController.bookingResult.value!.nctype,
+        flightType: "3",
+        tag: flight.tag);
+  }
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final paymentController = Get.find<PaymentController>();
 
     print("uldsen time:${paymentController.remainingSeconds.value}");
 
@@ -130,32 +147,54 @@ class _BookingPassengersState extends State<BookingPassengers> {
               child: SizedBox(
                 height: 50,
                 width: double.infinity,
-                child: FilledButton(
-                  onPressed: () {
-                    if (passengerController.passengersSelected.value) {
-                      Get.toNamed(AppLink.bookingStep2);
-                      passengerController.selectedPassenger.value = null;
-                      passengerController.passengersSelected.value = true;
-                    } else {
-                      passengerController.passengersSelected.value = false;
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ScaffoldMessenger.of(Get.context!).showSnackBar(
-                          SnackBar(
-                            content: Text(localization.enterPassengerInfo),
-                            duration: Duration(seconds: 2),
-                            backgroundColor:
-                                colorScheme(context).onPrimaryContainer,
-                          ),
-                        );
-                      });
-                    }
-                  },
-                  style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                  child: Text(
-                    localization.continueText,
-                    style: ThemeText.subtitle2,
-                  ),
-                ),
+                child: Obx(() {
+                  return FilledButton(
+                    onPressed: paymentController.isLoading.value
+                        ? null
+                        : () async {
+                            if (passengerController.passengersSelected.value) {
+                              passengerController.selectedPassenger.value = [];
+                              passengerController.passengersSelected.value =
+                                  true;
+
+                              await createOrder();
+                              if (paymentController.orderNo.value.isNotEmpty) {
+                                Get.toNamed(AppLink.bookingStep2);
+                              } else {
+                                Get.snackbar(
+                                  'Алдаа',
+                                  'Order үүсгэхэд алдаа гарлаа',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              }
+                            } else {
+                              passengerController.passengersSelected.value =
+                                  false;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                      Text(localization.enterPassengerInfo),
+                                  duration: const Duration(seconds: 2),
+                                  backgroundColor:
+                                      colorScheme(context).onPrimaryContainer,
+                                ),
+                              );
+                            }
+                          },
+                    style: ThemeButton.btnBig.merge(ThemeButton.primary),
+                    child: paymentController.isLoading.value
+                        ? const SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Text(localization.continueText,
+                            style: ThemeText.subtitle2),
+                  );
+                }),
               ),
             ),
           ],

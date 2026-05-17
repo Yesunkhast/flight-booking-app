@@ -1,5 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/app/controller/passenger_controller.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
@@ -46,6 +47,8 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
 
   final TextEditingController _fromRef = TextEditingController();
   final TextEditingController _toRef = TextEditingController();
+
+  final passengerController = Get.find<PassengerController>();
 
   final controller = Get.find<FlightSearchController>();
 
@@ -236,6 +239,13 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                   _fromRef.text =
                       "${controller.fromCode.value} ${controller.fromLocation.value}";
                   return AppTextField(
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(errorText: 'Required'),
+                      // (value) {
+                      //   _fromRef.text = 'Please select passengers';
+                      //   return 'Please select passengers';
+                      // },
+                    ]),
                     label: localizations.flyingFrom,
                     controller: _fromRef,
                     readOnly: true,
@@ -279,6 +289,8 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
               _toRef.text =
                   "${controller.toCode.value} ${controller.toLocation.value}";
               return AppTextField(
+                validator: FormBuilderValidators.compose(
+                    [FormBuilderValidators.required()]),
                 label: localizations.flyingTo,
                 controller: _toRef,
                 readOnly: true,
@@ -343,8 +355,19 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                 : Container(),
             SizedBox(height: spacingUnit(2)),
             AppTextField(
-              validator: FormBuilderValidators.compose(
-                  [FormBuilderValidators.required()]),
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.required(
+                  errorText: 'Please select passengers',
+                ),
+                // Add custom validator if needed
+                (value) {
+                  if (value == null || value.isEmpty) {
+                    _passengerClassRef.text = 'Please select passengers';
+                    return 'Please select passengers';
+                  }
+                  return null;
+                },
+              ]),
               label: localizations.passenger,
               onChanged: (_) {},
               prefixIcon: FontAwesomeIcons.user,
@@ -376,6 +399,8 @@ class _SearchFlightFormState extends State<SearchFlightForm> {
                   print('roundTrip: ${widget.roundTrip}');
 
                   // Navigate
+                  passengerController.bookingPassengers.value = [];
+                  
                   Get.toNamed(AppLink.flightList);
                 },
                 style: ThemeButton.btnBig.merge(ThemeButton.primary),

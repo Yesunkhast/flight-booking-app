@@ -1,3 +1,4 @@
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -8,6 +9,7 @@ import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/utils/picker.dart';
 import 'package:flight_app/widgets/app_input/app_textfield.dart';
+import 'package:timezone/timezone.dart';
 
 class MessageForm extends StatefulWidget {
   const MessageForm({super.key});
@@ -22,10 +24,10 @@ class _MessageFormState extends State<MessageForm> {
   final _messageKey = GlobalKey<FormBuilderState>();
 
   List<ListItem> categoryOptions = [
-    ListItem(
-      value: 'promotion',
-      label: 'Promotion',
-    ),
+    // ListItem(
+    //   value: 'promotion',
+    //   label: 'Promotion',
+    // ),
     ListItem(
       value: 'event',
       label: 'Event',
@@ -48,11 +50,11 @@ class _MessageFormState extends State<MessageForm> {
     ),
   ];
 
-  void openPicker(BuildContext context) {
+  void openPicker(BuildContext context, String title) {
     openRadioPicker(
       context: context,
       options: categoryOptions,
-      title: 'Choose Category',
+      title: title,
       initialValue: categoryTemp,
       onSelected: (value) {
         if (value != null) {
@@ -73,6 +75,7 @@ class _MessageFormState extends State<MessageForm> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: ThemeSize.sm),
@@ -80,20 +83,19 @@ class _MessageFormState extends State<MessageForm> {
           key: _messageKey,
           child: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: [
             const VSpaceShort(),
-            const Text(
-                'Contact us below if you need help / want to activate the promo',
-                style: ThemeText.headline),
+            Text(localization.contactUsReport, style: ThemeText.headline),
             const VSpace(),
             FormBuilderField(
               name: 'topic',
               builder: (FormFieldState<dynamic> field) {
                 return AppTextField(
                   controller: _chooseRef,
-                  label: 'Choose Topic',
+                  label: localization.chooseTopic,
                   onChanged: (value) => field.didChange(value),
-                  errorText: field.hasError ? 'Please choose a topic' : null,
+                  errorText:
+                      field.hasError ? localization.plsChooseTopic : null,
                   onTap: () {
-                    openPicker(context);
+                    openPicker(context, localization.chooseCategory);
                   },
                   suffix: const Icon(Icons.arrow_drop_down),
                 );
@@ -105,7 +107,7 @@ class _MessageFormState extends State<MessageForm> {
                 name: 'subject',
                 builder: (FormFieldState<dynamic> field) {
                   return AppTextField(
-                    label: 'Subject',
+                    label: localization.subject,
                     onChanged: (value) => field.didChange(value),
                   );
                 }),
@@ -114,11 +116,11 @@ class _MessageFormState extends State<MessageForm> {
               name: 'description',
               builder: (FormFieldState<dynamic> field) {
                 return AppTextField(
-                  label: 'Description',
+                  label: localization.description,
                   maxLines: 5,
                   onChanged: (value) => field.didChange(value),
                   errorText:
-                      field.hasError ? 'Please write mssage description' : null,
+                      field.hasError ? localization.plsWriteMessageDesc : null,
                 );
               },
               validator: FormBuilderValidators.required(),
@@ -133,7 +135,7 @@ class _MessageFormState extends State<MessageForm> {
                   }
                 },
                 style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                child: const Text('SUBMIT MESSAGE'),
+                child: Text(localization.subRep.toUpperCase()),
               ),
             )
           ]),

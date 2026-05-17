@@ -1,39 +1,39 @@
 class Passenger {
   final int? id;
-  final String idCard;
-  final String lastName;
-  final String firstName;
+  final String idcard;
+  final String lastname;
+  final String firstname;
   final String birthday;
-  final String passportValidDate;
+  final String passportvaliddate;
   final String gender;
   final String type; // "ADU" or "CHD" (child)
 
   Passenger({
     this.id,
-    required this.idCard,
-    required this.lastName,
-    required this.firstName,
+    required this.idcard,
+    required this.lastname,
+    required this.firstname,
     required this.birthday,
-    required this.passportValidDate,
+    required this.passportvaliddate,
     required this.gender,
     this.type = 'ADU', // default adult
   });
 
   static Future<Passenger> create({
-    required String idCard,
-    required String lastName,
-    required String firstName,
+    required String idcard,
+    required String lastname,
+    required String firstname,
     required String birthday,
-    required String passportValidDate,
+    required String passportvaliddate,
     required String gender,
     String type = 'ADU',
   }) async {
     return Passenger(
-      idCard: idCard,
-      lastName: lastName,
-      firstName: firstName,
+      idcard: idcard,
+      lastname: lastname,
+      firstname: firstname,
       birthday: birthday,
-      passportValidDate: passportValidDate,
+      passportvaliddate: passportvaliddate,
       gender: gender,
       type: type,
     );
@@ -42,11 +42,11 @@ class Passenger {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'idCard': idCard,
-      'lastName': lastName,
-      'firstName': firstName,
+      'idcard': idcard,
+      'lastname': lastname,
+      'firstname': firstname,
       'birthday': birthday,
-      'passportValidDate': passportValidDate,
+      'passportvaliddate': passportvaliddate,
       'gender': gender,
       'type': type,
     };
@@ -55,27 +55,27 @@ class Passenger {
   factory Passenger.fromMap(Map<String, dynamic> map) {
     return Passenger(
       id: map['id'],
-      idCard: map['idCard'] ?? '',
-      lastName: map['lastName'] ?? '',
-      firstName: map['firstName'] ?? '',
+      idcard: map['idcard'] ?? '',
+      lastname: map['lastname'] ?? '',
+      firstname: map['firstname'] ?? '',
       birthday: map['birthday'] ?? '',
-      passportValidDate: map['passportValidDate'] ?? '',
+      passportvaliddate: map['passportvaliddate'] ?? '',
       gender: map['gender'] ?? '',
       type: map['type'] ?? 'ADU',
     );
   }
 
-  String get fullName => '$firstName $lastName';
+  String get fullName => '$firstname $lastname';
 
   @override
   String toString() =>
-      'Passenger(id: $id, name: $fullName, passport: $idCard, type: $type)';
+      'Passenger(id: $id, name: $fullName, passport: $idcard, type: $type)';
 }
 
 final Passenger passengerInit = Passenger(
-    idCard: '',
-    lastName: '',
-    firstName: '',
+    idcard: '',
+    lastname: '',
+    firstname: '',
     birthday: '',
-    passportValidDate: '',
+    passportvaliddate: '',
     gender: '');

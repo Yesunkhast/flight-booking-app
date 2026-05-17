@@ -1,5 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -31,6 +32,7 @@ class PaymentTransfer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final paymentController = Get.find<PaymentController>();
     print("payment status: ${paymentController.paymentStatus.value}");
     final formatter = NumberFormat("#,###");
@@ -53,7 +55,7 @@ class PaymentTransfer extends StatelessWidget {
               // ── Title ──────────────────────────────────────────────────
               Center(
                 child: Text(
-                  'Төлбөрийн мэдээлэл',
+                  localization.paymentInfo,
                   style: ThemeText.subtitle.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -88,7 +90,7 @@ class PaymentTransfer extends StatelessWidget {
 
               // ── Info rows ───────────────────────────────────────────────
               _InfoRow(
-                label: 'Нийт дүн',
+                label: localization.totalAmount,
                 value: formattedPrice,
                 valuePrimary: true,
                 copyable: true,
@@ -98,7 +100,7 @@ class PaymentTransfer extends StatelessWidget {
               SizedBox(height: spacingUnit(1) + 4),
 
               _InfoRow(
-                label: 'Гүйлгээний утга',
+                label: localization.transactionValue,
                 value: transferCode,
                 valuePrimary: true,
                 copyable: true,
@@ -108,7 +110,7 @@ class PaymentTransfer extends StatelessWidget {
               SizedBox(height: spacingUnit(1) + 4),
 
               _InfoRow(
-                label: 'Банк',
+                label: localization.bank,
                 value: bankName,
                 valuePrimary: true,
                 context: context,
@@ -126,7 +128,7 @@ class PaymentTransfer extends StatelessWidget {
               SizedBox(height: spacingUnit(1) + 4),
 
               _InfoRow(
-                label: 'Данс эзэмшигч',
+                label: localization.accountHolder,
                 value: accountName,
                 valuePrimary: true,
                 context: context,
@@ -134,23 +136,23 @@ class PaymentTransfer extends StatelessWidget {
 
               SizedBox(height: spacingUnit(2)),
 
-              // ── QR placeholder ──────────────────────────────────────────
-              Center(
-                child: Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: colorScheme(context).outlineVariant, width: 2),
-                    borderRadius: ThemeRadius.small,
-                  ),
-                  child: Icon(
-                    Icons.qr_code_2,
-                    size: 40,
-                    color: colorScheme(context).onSurfaceVariant,
-                  ),
-                ),
-              ),
+              // // ── QR placeholder ──────────────────────────────────────────
+              // Center(
+              //   child: Container(
+              //     width: 56,
+              //     height: 56,
+              //     decoration: BoxDecoration(
+              //       border: Border.all(
+              //           color: colorScheme(context).outlineVariant, width: 2),
+              //       borderRadius: ThemeRadius.small,
+              //     ),
+              //     child: Icon(
+              //       Icons.qr_code_2,
+              //       size: 40,
+              //       color: colorScheme(context).onSurfaceVariant,
+              //     ),
+              //   ),
+              // ),
 
               SizedBox(height: spacingUnit(2)),
 
@@ -163,7 +165,7 @@ class PaymentTransfer extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
-                    TextSpan(text: 'Дуусах цаг: '),
+                    TextSpan(text: '${localization.expiryTime}: '),
                     TextSpan(
                       text:
                           paymentController.formattedTime, // ✅ use Rx properly
@@ -191,7 +193,7 @@ class PaymentTransfer extends StatelessWidget {
                         borderRadius: ThemeRadius.small,
                       ),
                       child: Text(
-                        paymentController.message.value ?? "...",
+                        paymentController.message.value,
                         style: ThemeText.paragraph.copyWith(
                           color: colorScheme(context).primary,
                         ),
@@ -208,7 +210,7 @@ class PaymentTransfer extends StatelessWidget {
                         borderRadius: ThemeRadius.small,
                       ),
                       child: Text(
-                        "Уучлаарай төлбөр төлөх цаг өнгөрсөн байна",
+                        localization.paymentExpiredWarning,
                         style: ThemeText.paragraph.copyWith(
                           color: colorScheme(context).primary,
                         ),
@@ -221,7 +223,7 @@ class PaymentTransfer extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Нийт дүн',
+                    localization.totalAmount,
                     style: ThemeText.paragraph.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -252,7 +254,7 @@ class PaymentTransfer extends StatelessWidget {
                               "SUCCESS") {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Tulbur amjilttai'),
+                                content: Text(localization.paymentSuccess),
                                 duration: const Duration(seconds: 3),
                                 behavior: SnackBarBehavior.floating,
                               ),
@@ -263,8 +265,8 @@ class PaymentTransfer extends StatelessWidget {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             ScaffoldMessenger.of(Get.context!).showSnackBar(
                               SnackBar(
-                                content:
-                                    Center(child: Text("tulbur tuluguudui bn")),
+                                content: Center(
+                                    child: Text(localization.paymentNotPaid)),
                                 duration: Duration(seconds: 2),
                                 backgroundColor: colorScheme(context).primary,
                               ),
@@ -280,7 +282,7 @@ class PaymentTransfer extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Төлбөр Шалгах',
+                          localization.checkPayment,
                           style: ThemeText.subtitle.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -303,7 +305,7 @@ class PaymentTransfer extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Go Home',
+                          localization.backToHome,
                           style: ThemeText.subtitle.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -316,7 +318,7 @@ class PaymentTransfer extends StatelessWidget {
 
               // ── Notice text ─────────────────────────────────────────────
               Text(
-                'ХЭРЭВ ТА ТӨЛБӨРӨӨ ТӨЛСӨН БОЛ ТАНЫ УТАС БОЛОН ИМЭЙЛ-Д БИЛЕТ ЗАХИАЛГА НЬ АМЖИЛТТАЙ БАТАЛГААЖСАН МЭДЭЭ ИРСНЭЭР ТАНЫ ЗАХИАЛГА АМЖИЛТТАЙ ДУУСНА. ХЭРЭВ ТИЙМ МЭДЭЭ ХҮЛЭЭЖ АВААГҮЙ БОЛ ХОЛБОО БАРИХ ХЭСГЭЭР БИДЭНТЭЙ ХОЛБОГДОНО УУ',
+                localization.paymentInstructions,
                 style: ThemeText.paragraph.copyWith(
                   color: colorScheme(context).onSurfaceVariant,
                   fontSize: 10,
@@ -354,6 +356,7 @@ class _InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
+    final localization = AppLocalizations.of(context)!;
     return Row(
       children: [
         SizedBox(
@@ -382,7 +385,7 @@ class _InfoRow extends StatelessWidget {
               Clipboard.setData(ClipboardData(text: copyText ?? value));
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('$label хуулагдлаа'),
+                  content: Text('$label ${localization.copied}'),
                   duration: const Duration(seconds: 1),
                   behavior: SnackBarBehavior.floating,
                 ),

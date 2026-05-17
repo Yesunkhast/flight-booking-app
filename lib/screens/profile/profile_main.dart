@@ -27,12 +27,10 @@ class _ProfileMainState extends State<ProfileMain> {
         ),
         SliverToBoxAdapter(
           child: Align(
-            alignment: Alignment.center,
-            child: Container(
-              constraints: BoxConstraints(maxWidth: ThemeSize.sm),
-              child: SettingList()
-            )
-          ),
+              alignment: Alignment.center,
+              child: Container(
+                  constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+                  child: SettingList())),
         ),
         SliverPadding(padding: EdgeInsets.only(bottom: spacingUnit(10)))
       ],

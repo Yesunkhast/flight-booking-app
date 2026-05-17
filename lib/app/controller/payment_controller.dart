@@ -10,7 +10,7 @@ class PaymentController extends GetxController {
 
   final orderNo = ''.obs;
   final oid = ''.obs;
-  final accountInfo = Rx<AccountInfo?>(null);
+  final Rxn<AccountInfo> accountInfo = Rxn<AccountInfo>();
   final isLoading = false.obs;
   final Rxn<CreateOrderResponse> orderResponse = Rxn<CreateOrderResponse>();
 
@@ -55,13 +55,13 @@ class PaymentController extends GetxController {
         'tag': tag,
         'passengers': passengers
             .map((p) => {
-                  'cardNo': p.idCard,
-                  'surname': p.lastName,
-                  'name': p.firstName,
+                  'cardNo': p.idcard,
+                  'surname': p.lastname,
+                  'name': p.firstname,
                   'type': p.type,
                   'sex': p.gender == 'M' ? '1' : '0',
                   'birthday': p.birthday,
-                  'expire': p.passportValidDate,
+                  'expire': p.passportvaliddate,
                 })
             .toList(),
       };
@@ -73,7 +73,7 @@ class PaymentController extends GetxController {
       if (resData['status'] == 'SUCCESS') {
         orderNo.value = resData['result']['orderNo'] ?? '';
         oid.value = (resData['result']['oid'] ?? 0).toString();
-        print("order created");
+        print("order created oid is: ${oid.value}");
       } else {
         throw Exception(resData['message']);
       }
@@ -162,7 +162,7 @@ class PaymentController extends GetxController {
 
       tick++;
 
-      // ✅ API every 5 sec only
+      // check API every 5 sec only
       if (tick % 5 == 0) {
         await checkPayment(orderNo);
       }
@@ -175,6 +175,7 @@ class PaymentController extends GetxController {
     // if (isRequesting.value) return;
 
     try {
+      print("Checking payment for order: $orderNo");
       final res = await _dio.get('/checkPayment/$orderNo/mn/');
       final data = res.data;
 

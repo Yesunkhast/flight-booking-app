@@ -103,7 +103,8 @@ class _FlightsState extends State<Flights> {
             vendor: flight,
             onBook: () {
               // handle booking
-              print('Booking URL: ${flight.bookingParamKey}');
+              print(
+                  'Booking URL: ${flight.bookingParamKey} + user is available: ${userController.userIsAvailable}');
               userController.userIsAvailable
                   ? Get.toNamed(AppLink.bookingStep1, arguments: flight)
                   : Get.toNamed(AppLink.login);

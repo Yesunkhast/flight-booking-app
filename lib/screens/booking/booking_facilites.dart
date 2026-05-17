@@ -1,6 +1,8 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/app/controller/fligth_detail_controller.dart';
+import 'package:flight_app/app/controller/passenger_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
@@ -24,11 +26,14 @@ class BookingFacilites extends StatelessWidget {
 
   final searchController = Get.find<FlightSearchController>();
   final detailController = Get.find<FlightDetailController>();
+  final passengerController = Get.find<PassengerController>();
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     // const int passengers = 3;
-
+    print(
+        "selected passenger value ${passengerController.passengers.first.firstname}");
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -78,7 +83,8 @@ class BookingFacilites extends StatelessWidget {
                   Get.toNamed(AppLink.bookingStep3);
                 },
                 style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                child: const Text('CONTINUE', style: ThemeText.subtitle2)),
+                child: Text(localization.continueText,
+                    style: ThemeText.subtitle2)),
           ),
         )
       ]),

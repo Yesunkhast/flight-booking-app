@@ -1,6 +1,7 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/app/controller/fligth_detail_controller.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/flight_route.dart';
 import 'package:flight_app/models/plane.dart';
@@ -42,6 +43,17 @@ class _FlightDetailState extends State<FlightDetail> {
   double? get flightPrice => detailController.ext?.price.toDouble();
   String? get ifHas2Segment => detailController.ext?.flightType;
   bool get isRoundTrip => searchController.roundTrip.value;
+  final userController = Get.find<UserController>();
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  Future<void> getUser() async {
+    await userController.getUserFromDb();
+  }
 
   List<FlightDetail> allData = [];
 
@@ -49,7 +61,7 @@ class _FlightDetailState extends State<FlightDetail> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     bool wideScreen = ThemeBreakpoints.smUp(context);
-    print(searchController.roundTrip.value);
+    print(" user is available:${userController.userIsAvailable}");
 
     return Scaffold(
         appBar: AppBar(

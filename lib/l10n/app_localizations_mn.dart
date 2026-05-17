@@ -63,7 +63,7 @@ class AppLocalizationsMn extends AppLocalizations {
   String get orders => 'Захиалгууд';
 
   @override
-  String get profile => 'Пропайл';
+  String get profile => 'Профайл';
 
   @override
   String get passenger => 'Зорчигч';
@@ -506,22 +506,19 @@ class AppLocalizationsMn extends AppLocalizations {
   String get warning => 'Анхааруулга';
 
   @override
-  String get warningInvalid => 'Зөрвөл ашиглагдах боломжгүй болно!!!!';
-
-  @override
   String get passportInfo => 'Гадаад паспорт дээрх мэдээллээс';
 
   @override
   String get passportFields => 'Үг, үсэг, тоо, хүйс';
 
   @override
+  String get warningInvalid => 'Зөрвөл ашиглагдах боломжгүй болно!!!!';
+
+  @override
   String get passport => 'Паспорт';
 
   @override
   String get flightTermsTitle => 'Нислэгийн Тийз Захиалгын Үйлчилгээний Нөхцөл';
-
-  @override
-  String get birthDate => 'Date of Birth';
 
   @override
   String get expiryDate => 'Хүчинтэй хугацаа';
@@ -535,4 +532,343 @@ class AppLocalizationsMn extends AppLocalizations {
 
   @override
   String get backToHome => 'Үндсэн цэсрүү буцах';
+
+  @override
+  String get checkPayment => 'Төлбөр Шалгах';
+
+  @override
+  String get totalAmount => 'Нийт дүн';
+
+  @override
+  String get transactionValue => 'Гүйлгээний утга';
+
+  @override
+  String get bank => 'Банк';
+
+  @override
+  String get accountHolder => 'Данс эзэмшигч';
+
+  @override
+  String get expiryTime => 'Дуусах цаг';
+
+  @override
+  String get copied => 'хуулагдлаа';
+
+  @override
+  String get date => 'Огноо';
+
+  @override
+  String get transactionNumber => 'Нислэгийн дугаар';
+
+  @override
+  String get orderHistory => 'Захиалгын түүх';
+
+  @override
+  String get share => 'Хуваалцах';
+
+  @override
+  String get showETicket => 'E-тийз харуулах';
+
+  @override
+  String get goToMyTicket => 'Тийз харах';
+
+  @override
+  String get eTicket => 'E-тийз';
+
+  @override
+  String get paymentExpiredWarning =>
+      'Уучлаарай төлбөр төлөх цаг өнгөрсөн байна';
+
+  @override
+  String get paymentInstructions =>
+      'ХЭРЭВ ТА ТӨЛБӨРӨӨ ТӨЛСӨН БОЛ ТАНЫ УТАС БОЛОН ИМЭЙЛ-Д БИЛЕТ ЗАХИАЛГА НЬ АМЖИЛТТАЙ БАТАЛГААЖСАН МЭДЭЭ ИРСНЭЭР ТАНЫ ЗАХИАЛГА АМЖИЛТТАЙ ДУУСНА. ХЭРЭВ ТИЙМ МЭДЭЭ ХҮЛЭЭЖ АВААГҮЙ БОЛ ХОЛБОО БАРИХ ХЭСГЭЭР БИДЭНТЭЙ ХОЛБОГДОНО УУ.';
+
+  @override
+  String get warningTitle => 'АНХААРУУЛАХ САНАМЖ';
+
+  @override
+  String get paymentSuccess => 'Төлбөр амжилттай';
+
+  @override
+  String get warningPassportResponsibility =>
+      'Зорчигч паспортын мэдээллээс өөрөө буруу оруулах болон онгоцноос хоцрох тохиодолд гарах эрсдэлийг зорчигч өөрөө хариуцна.';
+
+  @override
+  String get warningTransitFlight =>
+      'Хэрвээ та дамжин нислэгтэй бол дамжих дэлгэрэнгүй мэдээллийг 96961414, 90901550 лавлаж тодруулах.';
+
+  @override
+  String get warningArrivalTime =>
+      'Зорчигч нислэг эхлэхээс 3 цагийн өмнө нисэх буудалд ирж зорчигчийн билет ба тээшийн бүртгэл болон паспортын шалгалтанд орох.';
+
+  @override
+  String get warningScheduleChanges =>
+      'Нислэгийн цагийн хуваарийн өөрчлөлтийн мэдээллийг тухай бүр таны манай системд бүртгүүлсэн гар утасны дугаараар болон и-мэйл хаягаар илгээгдэж байгааг анхаарна уу!';
+
+  @override
+  String get warningFlightChanges =>
+      'Эйрлайн буюу нислэг үйлдэж буй авиа компани нь Цаг агаар болон бусад давагдашгүй хүчин зүйлийн улмаас нислэгийг цуцлах/хойшлуулах эрхтэй байдаг. Хэрэв ийм нөхцөл үүссэн тохиолдолд цаашид гарах үр дагаварыг ECHINA.MN нь хариуцлага хүлээхгүйг анхаарна уу.';
+
+  @override
+  String get transactionDetail => 'Төлбөр дэлгэрэнгүй';
+
+  @override
+  String get paymentNotPaid => 'Төлбөр төлөгдөөгүй байна';
+
+  @override
+  String get userDemo => 'Хэрэглэгчийн Демо';
+
+  @override
+  String get forgetPassword => 'Нууц үг мартсан';
+
+  @override
+  String get boardingTime => 'Онгоцонд суух цаг';
+
+  @override
+  String get checkAllNews => 'Бүх мэдээ үзэх';
+
+  @override
+  String get search => 'Хайх';
+
+  @override
+  String get levelProgressIndicator => 'Түвшний явц';
+
+  @override
+  String get gold => 'Алтан';
+
+  @override
+  String get darkMode => 'Харанхуй горим';
+
+  @override
+  String get lightMode => 'Цайвар горим';
+
+  @override
+  String get language => 'Хэл';
+
+  @override
+  String get uiSettings => 'UI тохиргоо';
+
+  @override
+  String get auth => 'Нэвтрэх ба бүртгэл';
+
+  @override
+  String get welcomePage => 'Тавтай морил';
+
+  @override
+  String get resetPassword => 'Нууц үг сэргээх';
+
+  @override
+  String get helpAndAccount => 'Тусламж ба бүртгэл';
+
+  @override
+  String get accountInformation => 'Бүртгэлийн мэдээлэл';
+
+  @override
+  String get contactAdmin => 'Админтай холбогдох';
+
+  @override
+  String get faq => 'Түгээмэл асуулт';
+
+  @override
+  String get termsAndConditions => 'Үйлчилгээний нөхцөл';
+
+  @override
+  String get auto => 'Авто';
+
+  @override
+  String get registerNow => 'Бүртгүүлэх';
+
+  @override
+  String get bookingNotificationTitle => 'Захиалга үүслээ';
+
+  @override
+  String get bookingNotificationBody =>
+      'Таны захиалга үүслээ. Та төлбөрөө  дараах дансруу хийнэ үү?';
+
+  @override
+  String get reminder => 'Анхааруулга!';
+
+  @override
+  String get save => 'Хадгалах';
+
+  @override
+  String get bookingTimeUp =>
+      'Сайн уу! Төлбөр хийх хугацаа дуусах ойртож байна. Төлбөрөө төлөхөө бүү мартаарай.';
+
+  @override
+  String get bookingCode => 'Захиалгын код';
+
+  @override
+  String get orderNotFound => 'Захиалга байхгүй байна';
+
+  @override
+  String get orderNotFoundDesc => 'Танд захиалга байхгүй байна.';
+
+  @override
+  String get notification => 'Мэдэгдэл';
+
+  @override
+  String get messages => 'Зурвас';
+
+  @override
+  String get chat => 'Чат';
+
+  @override
+  String get allYourOrders => 'Таны захиалга мөрөөдлын тань эхлэл';
+
+  @override
+  String get myOrders => 'Таны захиалгууд';
+
+  @override
+  String get contact => 'Холбогдох';
+
+  @override
+  String get contactUs => 'Бидэнтэй холбогдох';
+
+  @override
+  String get report => 'Тайлагнах';
+
+  @override
+  String get contactUsReport =>
+      'Хэрэв танд тусламж хэрэгтэй эсвэл асуудлыг мэдээлэхийг хүсвэл доор бидэнтэй холбогдоно уу.';
+
+  @override
+  String get chooseTopic => 'Сэдэв сонгох';
+
+  @override
+  String get subject => 'Гарчиг';
+
+  @override
+  String get description => 'Тайлбар';
+
+  @override
+  String get plsChooseTopic => 'Сэдэв сонгоно уу';
+
+  @override
+  String get plsWriteMessageDesc => 'Та тайлбар оруулна уу';
+
+  @override
+  String get subRep => 'Тайлан илгээх';
+
+  @override
+  String get chooseCategory => 'Сэдэв сонгох';
+
+  @override
+  String get contactUsDesc =>
+      'Хэрэв та манай байгууллагтай хамтран ажиллах, холбогдох тусламж хэрэгтэй бол доорх холбоосоос сонгож бидэнтэй холбогдоно уу.';
+
+  @override
+  String get locationDesc =>
+      'Улаанбаатар хот, Чингэлтэй дүүрэг 5-р хороо МН Товер оффис 15 давхарт 1510 тоот';
+
+  @override
+  String get location => 'Хаяг';
+
+  @override
+  String get faqSearchFlightTitle => 'Нислэг хэрхэн хайх вэ?';
+
+  @override
+  String get faqSearchFlightDesc =>
+      'Та явах болон очих хот, аяллын огноогоо оруулан дотоод болон олон улсын нислэгүүдийг хялбар хайх боломжтой. Систем нь боломжит нислэг, үнэ болон цагийн мэдээллийг бодит хугацаанд харуулна.';
+
+  @override
+  String get faqBookingTitle => 'Онгоцны тасалбар хэрхэн захиалах вэ?';
+
+  @override
+  String get faqBookingDesc =>
+      'Нислэгээ сонгосны дараа зорчигчийн мэдээллээ оруулж, боломжит төлбөрийн аргуудаас сонгон захиалгаа баталгаажуулна.';
+
+  @override
+  String get faqBookingInfoTitle => 'Захиалгын мэдээллээ хаанаас харах вэ?';
+
+  @override
+  String get faqBookingInfoDesc =>
+      'Та захиалга амжилттай хийсний дараа өөрийн бүртгэлийн хэсгээс захиалгын төлөв, тасалбар болон төлбөрийн мэдээллээ харах боломжтой.';
+
+  @override
+  String get faqPaymentIssueTitle =>
+      'Төлбөр төлөгдсөн боловч тасалбар гараагүй юу?';
+
+  @override
+  String get faqPaymentIssueDesc =>
+      'Хэрэв таны төлбөр амжилттай болсон боловч тасалбар үүсээгүй бол захиалгын дугаар болон төлбөрийн мэдээллээ ашиглан хэрэглэгчийн үйлчилгээтэй холбогдоно уу.';
+
+  @override
+  String get faqChangeCancelTitle =>
+      'Тасалбараа өөрчлөх эсвэл цуцлах боломжтой юу?';
+
+  @override
+  String get faqChangeCancelDesc =>
+      'Нислэгийн өөрчлөлт болон цуцлалт нь агаарын тээврийн компанийн дүрэм болон тасалбарын нөхцлөөс хамаарна. Сонгосон тарифын төрлөөс шалтгаалан нэмэлт үйлчилгээний төлбөр гарч болно.';
+
+  @override
+  String get faqPassengerInfoTitle =>
+      'Зорчигчийн мэдээллийг хэрхэн хадгалах вэ?';
+
+  @override
+  String get faqPassengerInfoDesc =>
+      'Зорчигчид өөрийн мэдээллээ хадгалснаар дараагийн захиалгыг илүү хурдан бөгөөд хялбар хийх боломжтой.';
+
+  @override
+  String get faqDocumentTitle =>
+      'Олон улсын нислэгт ямар бичиг баримт шаардлагатай вэ?';
+
+  @override
+  String get faqDocumentDesc =>
+      'Олон улсын аялал хийх үед зорчигчид паспортын хүчинтэй хугацаа болон визийн шаардлага тухайн улсын журамд нийцэж байгаа эсэхийг шалгах шаардлагатай.';
+
+  @override
+  String get faqSupportTitle =>
+      'Хэрэглэгчийн үйлчилгээтэй хэрхэн холбогдох вэ?';
+
+  @override
+  String get faqSupportDesc =>
+      'Та Help хэсэг эсвэл платформ дээрх холбоо барих мэдээллийг ашиглан захиалга болон төлбөрийн талаар тусламж авах боломжтой.';
+
+  @override
+  String get contactUsBottomDesc =>
+      'Бидэнтэй холбогдоорой, бид аль болох хурдан тантай эргэн холбогдох болно.';
+
+  @override
+  String get contactUsBottomTitle =>
+      'Одоо ч учирыг нь олохгүй байна уу? Бид тусалж чадна!';
+
+  @override
+  String get howCanWeHelpYou => 'Бид танд хэрхэн туслах вэ?';
+
+  @override
+  String get hello => 'Сайнуу';
+
+  @override
+  String get youDontHaveBooking => 'Танд хараахан захиалга байхгүй болно';
+
+  @override
+  String get ticketDetail => 'Тасалбарын дэлгэрэнгүй';
+
+  @override
+  String get transactionDate => 'Гүйлгээний огноо';
+
+  @override
+  String get availableDate => 'Хүчинтэй хугацаа';
+
+  @override
+  String get showBoardingPass => 'Суух тасалбараа харах';
+
+  @override
+  String get priceDetail => 'Үнийн дэлгэрэнгүй';
+
+  @override
+  String get ticket => 'Тасалбар';
+
+  @override
+  String get feeAndTax => 'Нэмэлт Төлбөр';
+
+  @override
+  String get subtotal => 'Үнийн дүн';
+
+  @override
+  String get passengerDetail => 'Зорчигчидиин дэлгэрэнгүй';
+
+  @override
+  String get baggage => 'Ачаа тээш';
 }

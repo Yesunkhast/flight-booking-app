@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
-import 'package:get/utils.dart';
+// import 'package:get/utils.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
 class CheckoutTermsCondition extends StatelessWidget {
@@ -27,6 +27,8 @@ class CheckoutTermsCondition extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
     final passengerController = Get.find<PassengerController>();
     final bookingController = Get.find<BookingController>();
+    print(
+        "booked passengers:${passengerController.bookingPassengers.value.first}");
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: ThemeSize.md),
@@ -124,7 +126,7 @@ class CheckoutTermsCondition extends StatelessWidget {
                     Divider(color: Theme.of(context).colorScheme.onPrimary),
                     // ── Passenger table ─────────────────────────────────
                     _PassengerTable(
-                      passengers: passengerController.passengers,
+                      passengers: passengerController.bookingPassengers,
                       context: context,
                     ),
 
@@ -278,15 +280,15 @@ class _PassengerTable extends StatelessWidget {
                 padding: EdgeInsets.all(spacingUnit(2)),
                 child: Column(
                   children: [
-                    _InfoRow(l.passport, p.idCard),
+                    _InfoRow(l.passport, p.idcard),
                     _Divider(),
-                    _InfoRow(l.lastName, p.lastName.toUpperCase()),
+                    _InfoRow(l.lastName, p.lastname.toUpperCase()),
                     _Divider(),
-                    _InfoRow(l.firstName, p.firstName.toUpperCase()),
+                    _InfoRow(l.firstName, p.firstname.toUpperCase()),
                     _Divider(),
-                    _InfoRow(l.birthDate, p.birthday),
+                    _InfoRow(l.dateOfBirth, p.birthday),
                     _Divider(),
-                    _InfoRow(l.expiryDate, p.passportValidDate),
+                    _InfoRow(l.expiryDate, p.passportvaliddate),
                   ],
                 ),
               ),

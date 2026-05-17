@@ -1,15 +1,21 @@
+import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 class PanelPoint extends StatelessWidget {
   const PanelPoint({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<UserController>();
+    final localization = AppLocalizations.of(context)!;
     return Container(
       margin: EdgeInsets.only(
           top: spacingUnit(2), left: spacingUnit(2), right: spacingUnit(2)),
@@ -36,7 +42,7 @@ class PanelPoint extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Gold', style: ThemeText.subtitle2),
+                      Text(localization.gold, style: ThemeText.subtitle2),
                       ClipRRect(
                         borderRadius: ThemeRadius.big,
                         child: LinearProgressIndicator(
@@ -44,7 +50,7 @@ class PanelPoint extends StatelessWidget {
                           backgroundColor: Colors.grey.withValues(alpha: 0.25),
                           color: Colors.amber,
                           minHeight: 10,
-                          semanticsLabel: 'Level progress indicator',
+                          semanticsLabel: localization.levelProgressIndicator,
                         ),
                       )
                     ]),
@@ -71,9 +77,9 @@ class PanelPoint extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('999',
+                      Text(userController.user.value?.point.toString() ?? '0',
                           style: ThemeText.subtitle2.copyWith(height: 1)),
-                      const Text('Your Point', style: ThemeText.paragraph),
+                      Text(localization.yourPoint, style: ThemeText.paragraph),
                     ]),
               ),
             ]),

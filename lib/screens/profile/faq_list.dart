@@ -1,6 +1,7 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/app_const.dart';
 import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/widgets/app_button/back_icon_button.dart';
 import 'package:flight_app/widgets/search_filter/search_input_btn.dart';
@@ -34,6 +35,41 @@ class _FaqListState extends State<FaqList> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    final List<Faq> faqData = [
+      Faq(
+        expandedValue: localization.faqSearchFlightDesc,
+        headerValue: localization.faqSearchFlightTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqBookingDesc,
+        headerValue: localization.faqBookingTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqBookingInfoDesc,
+        headerValue: localization.faqBookingInfoTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqPaymentIssueDesc,
+        headerValue: localization.faqPaymentIssueTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqChangeCancelDesc,
+        headerValue: localization.faqChangeCancelTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqPassengerInfoDesc,
+        headerValue: localization.faqPassengerInfoTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqDocumentDesc,
+        headerValue: localization.faqDocumentTitle,
+      ),
+      Faq(
+        expandedValue: localization.faqSupportDesc,
+        headerValue: localization.faqSupportTitle,
+      ),
+    ];
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -84,7 +120,7 @@ class _FaqListState extends State<FaqList> {
                   right: spacingUnit(2)),
               child: RichText(
                   text: TextSpan(
-                      text: 'Hello ',
+                      text: '${localization.hello} ',
                       style: ThemeText.title2.copyWith(
                           fontWeight: FontWeight.normal, color: Colors.black),
                       children: [
@@ -101,7 +137,7 @@ class _FaqListState extends State<FaqList> {
                     bottom: spacingUnit(3),
                     left: spacingUnit(2),
                     right: spacingUnit(2)),
-                child: Text('How can we help you?',
+                child: Text(localization.howCanWeHelpYou,
                     style: ThemeText.title.copyWith(color: Colors.black))),
 
             /// CONTENTS
@@ -173,14 +209,14 @@ class _FaqListState extends State<FaqList> {
                               ),
                               child: Column(
                                 children: [
-                                  Text('Still no luck? We can help!',
+                                  Text(localization.contactUsBottomTitle,
                                       style: ThemeText.subtitle.copyWith(
                                         color: colorScheme(context)
                                             .onPrimaryContainer,
                                       )),
                                   const SizedBox(height: 8),
-                                  const Text(
-                                    'Contact us and we’ll get back to you as soon as possible.',
+                                  Text(
+                                    localization.contactUsBottomDesc,
                                     textAlign: TextAlign.center,
                                     style: ThemeText.paragraph,
                                   ),
@@ -194,7 +230,7 @@ class _FaqListState extends State<FaqList> {
                                       },
                                       style:
                                           ThemeButton.outlinedPrimary(context),
-                                      child: const Text('CONTACT US'),
+                                      child: Text(localization.contactUs),
                                     ),
                                   )
                                 ],

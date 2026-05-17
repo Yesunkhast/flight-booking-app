@@ -1,6 +1,8 @@
+// import 'package:flight_app/models/city.dart';
+// import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/realModel/flight.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -17,24 +19,24 @@ class TicketCard extends StatelessWidget {
       {super.key,
       required this.from,
       required this.to,
-      required this.plane,
+      // required this.plane,
       required this.price,
       required this.depart,
       required this.arrival,
-      required this.transit,
+      required this.createdDate,
       required this.status,
       required this.timeLeft,
       required this.bookingCode,
       this.showBoardingPass,
       this.showDetail});
 
-  final City from;
-  final City to;
-  final Plane plane;
-  final double price;
-  final DateTime depart;
-  final DateTime arrival;
-  final int transit;
+  final FlightSegment from;
+  final FlightSegment to;
+  // final Plane plane;
+  final int price;
+  final String depart;
+  final String arrival;
+  final String createdDate;
   final BookStatus status;
   final String timeLeft;
   final String bookingCode;
@@ -43,6 +45,8 @@ class TicketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    final formatter = NumberFormat("#,###");
     final bool isDark = Get.isDarkMode;
     final Color cardColor = isDark
         ? colorScheme(context).outline
@@ -71,16 +75,16 @@ class TicketCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: spacingUnit(2), vertical: spacingUnit(1)),
                 child: Row(children: [
-                  Text('Date Order: ',
-                      style: ThemeText.caption.copyWith(
+                  Text('${localization.date}: ',
+                      style: ThemeText.paragraph.copyWith(
                           color: colorScheme(context).onSurfaceVariant)),
-                  Text('12 May 2004',
+                  Text(createdDate.substring(0, 10),
                       style: ThemeText.caption
                           .copyWith(fontWeight: FontWeight.bold)),
                   const Spacer(),
                   status != BookStatus.waiting
-                      ? Text('Booking Code: ',
-                          style: ThemeText.caption.copyWith(
+                      ? Text("${localization.bookingCode}: ",
+                          style: ThemeText.paragraph.copyWith(
                               color: colorScheme(context).onSurfaceVariant))
                       : Container(),
                   status != BookStatus.waiting
@@ -133,7 +137,7 @@ class TicketCard extends StatelessWidget {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(from.name,
+                                  Text(from.dptCityNameEng,
                                       overflow: TextOverflow.ellipsis,
                                       style: ThemeText.caption.copyWith(
                                           color: colorScheme(context)
@@ -142,16 +146,16 @@ class TicketCard extends StatelessWidget {
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 1),
                                     child: Text(
-                                      from.code,
+                                      from.dpt,
                                       style: ThemeText.paragraph.copyWith(
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(DateFormat.MMMEd().format(depart),
+                                  Text(from.dptDate,
                                       style: ThemeText.caption.copyWith(
-                                          color: colorScheme(context)
-                                              .onSurfaceVariant)),
-                                  Text(DateFormat.jm().format(depart),
+                                          color:
+                                              colorScheme(context).onSurface)),
+                                  Text(from.dptTime,
                                       style: ThemeText.caption.copyWith(
                                           color: colorScheme(context)
                                               .onSurfaceVariant)),
@@ -163,7 +167,7 @@ class TicketCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(plane.code,
+                                  Text(from.airline,
                                       overflow: TextOverflow.ellipsis,
                                       style: ThemeText.caption.copyWith(
                                           fontWeight: FontWeight.bold)),
@@ -180,27 +184,31 @@ class TicketCard extends StatelessWidget {
                                       children: [
                                         ClipRRect(
                                           borderRadius: ThemeRadius.xsmall,
-                                          child: Image.network(
-                                            plane.logo,
-                                            width: 20,
-                                          ),
+                                          child: to.airline.isEmpty
+                                              ? Image.network(to.airline,
+                                                  width: 36,
+                                                  height: 36,
+                                                  fit: BoxFit.contain,
+                                                  errorBuilder: (_, __, ___) =>
+                                                      _airlineInitials(context))
+                                              : _airlineInitials(context),
                                         ),
                                         const SizedBox(
                                           width: 4,
                                         ),
-                                        Text(plane.name,
-                                            style: ThemeText.caption),
-                                        SizedBox(width: spacingUnit(1)),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4),
-                                          decoration: BoxDecoration(
-                                              borderRadius: ThemeRadius.xsmall,
-                                              color: colorScheme(context)
-                                                  .surfaceDim),
-                                          child: Text(plane.classType,
-                                              style: ThemeText.caption),
-                                        ),
+                                        Text(from.flightNum,
+                                            style: ThemeText.paragraph),
+                                        // SizedBox(width: spacingUnit(1)),
+                                        // Container(
+                                        //   padding: const EdgeInsets.symmetric(
+                                        //       horizontal: 4),
+                                        //   decoration: BoxDecoration(
+                                        //       borderRadius: ThemeRadius.xsmall,
+                                        //       color: colorScheme(context)
+                                        //           .surfaceDim),
+                                        //   child: Text(plane.classType,
+                                        //       style: ThemeText.caption),
+                                        // ),
                                       ]),
                                 ]),
                           ),
@@ -209,7 +217,7 @@ class TicketCard extends StatelessWidget {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(to.name,
+                                  Text(to.arrAirportEng,
                                       style: ThemeText.caption.copyWith(
                                           color: colorScheme(context)
                                               .onSurfaceVariant)),
@@ -217,16 +225,16 @@ class TicketCard extends StatelessWidget {
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 1),
                                     child: Text(
-                                      to.code,
+                                      to.arr,
                                       style: ThemeText.paragraph.copyWith(
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(DateFormat.MMMEd().format(arrival),
+                                  Text(to.arrDate,
                                       style: ThemeText.caption.copyWith(
                                           color: colorScheme(context)
                                               .onSurfaceVariant)),
-                                  Text(DateFormat.jm().format(arrival),
+                                  Text(to.arrTime,
                                       style: ThemeText.caption.copyWith(
                                           color: colorScheme(context)
                                               .onSurfaceVariant)),
@@ -274,19 +282,23 @@ class TicketCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         /// TIME LEFT AND STATUS
-                        _ticketStatus(context, status),
+                        Center(child: _ticketStatus(context, status)),
+                        // _ticketStatus(context, status),
 
                         /// PRICE
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Total Price',
+                            Text(localization.totalAmount,
                                 textAlign: TextAlign.end,
-                                style: ThemeText.caption.copyWith(
+                                style: ThemeText.paragraph.copyWith(
                                     color:
                                         colorScheme(context).onSurfaceVariant)),
                             SizedBox(width: spacingUnit(1)),
-                            Text('\$$price',
+                            Text(
+                                price < 10000
+                                    ? '¥${formatter.format(price)}'
+                                    : '${formatter.format(price)}₮',
                                 textAlign: TextAlign.end,
                                 style: ThemeText.subtitle),
                           ],
@@ -420,5 +432,23 @@ class TicketCard extends StatelessWidget {
           ),
         );
     }
+  }
+
+  Widget _airlineInitials(BuildContext context) {
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: colorScheme(context).primaryContainer,
+        borderRadius: ThemeRadius.xsmall,
+      ),
+      child: Text(
+        from.airline.length >= 2
+            ? from.airline.substring(0, 2).toUpperCase()
+            : from.airline,
+        style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold),
+      ),
+    );
   }
 }

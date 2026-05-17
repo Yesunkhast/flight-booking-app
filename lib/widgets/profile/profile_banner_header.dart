@@ -1,6 +1,7 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/img_api.dart';
 import 'package:flight_app/app/controller/user_controller.dart';
+import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 // import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/app/constants/app_const.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -79,12 +82,19 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundImage: NetworkImage(
-                            userController.user.value?.image ??
-                                userDummy.image),
-                      ),
+                      Obx(() => CircleAvatar(
+                            radius: 24,
+                            backgroundImage: (userController
+                                            .user.value?.image !=
+                                        null &&
+                                    userController.user.value!.image.isNotEmpty)
+                                ? NetworkImage(userController.user.value!.image)
+                                : null,
+                            child: (userController.user.value?.image == null ||
+                                    userController.user.value!.image.isEmpty)
+                                ? const Icon(Icons.person)
+                                : null,
+                          )),
                       SizedBox(width: spacingUnit(1)),
                       Text(
                           userController.user.value?.firstName ??
@@ -93,11 +103,13 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
                     ]),
               ),
             ),
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 8,
-              right: spacingUnit(1),
-              child: Row(children: homeActionGroup(context, false)),
-            ),
+            // Obx(
+            //   () => Positioned(
+            //     top: MediaQuery.of(context).padding.top + 8,
+            //     right: spacingUnit(1),
+            //     child: Row(children: homeActionGroup(context, false)),
+            //   ),
+            // ),
 
             /// USER PROFILE
             Positioned(
@@ -128,12 +140,26 @@ class ProfileBannerHeader extends SliverPersistentHeaderDelegate {
                                                   .user.value?.image ??
                                               userDummy.image));
                                     },
-                                    child: CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage: NetworkImage(
-                                          userController.user.value?.image ??
-                                              userDummy.image),
-                                    ),
+                                    child: Obx(() => CircleAvatar(
+                                          radius: 50,
+                                          backgroundColor:
+                                              colorScheme(context).surface,
+                                          backgroundImage: (userController
+                                                          .user.value?.image !=
+                                                      null &&
+                                                  userController.user.value!
+                                                      .image.isNotEmpty)
+                                              ? NetworkImage(userController
+                                                  .user.value!.image)
+                                              : null,
+                                          child: (userController
+                                                          .user.value?.image ==
+                                                      null ||
+                                                  userController.user.value!
+                                                      .image.isEmpty)
+                                              ? const Icon(Icons.person)
+                                              : null,
+                                        )),
                                   ),
                                 ),
                                 Positioned(

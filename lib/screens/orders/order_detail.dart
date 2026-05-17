@@ -1,7 +1,17 @@
+// import 'package:flight_app/app/controller/flight_search_controller.dart';
+// import 'package:flight_app/app/controller/fligth_detail_controller.dart';
+// import 'package:flight_app/app/controller/payment_controller.dart';
+// import 'package:flight_app/models/city.dart';
+// import 'package:flight_app/models/flight_route.dart';
+// import 'package:flight_app/widgets/flight/flight_routes_horizontal.dart';
+// import 'package:flight_app/widgets/flight/flight_summary.dart';
+// import 'package:flight_app/widgets/flight/flight_summary_wide.dart';
+// import 'package:get/get_instance/src/extension_instance.dart';
+// import 'package:intl/intl.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/flight_route.dart';
 import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/realModel/order.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -14,12 +24,9 @@ import 'package:flight_app/widgets/booking/choose_passengger.dart';
 import 'package:flight_app/widgets/booking/review_order.dart';
 import 'package:flight_app/widgets/booking/ticket_settings.dart';
 import 'package:flight_app/widgets/flight/flight_routes.dart';
-import 'package:flight_app/widgets/flight/flight_routes_horizontal.dart';
-import 'package:flight_app/widgets/flight/flight_summary.dart';
-import 'package:flight_app/widgets/flight/flight_summary_wide.dart';
+import 'package:flight_app/widgets/flight/order_flight_summery.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:intl/intl.dart';
 
 class OrderDetail extends StatefulWidget {
   const OrderDetail({super.key});
@@ -30,11 +37,18 @@ class OrderDetail extends StatefulWidget {
 
 class _OrderDetailState extends State<OrderDetail> {
   @override
+  // final paymentController = Get.find<PaymentController>();
+  // final detailController = Get.find<FlightDetailController>();
+  // final searchController = Get.find<FlightSearchController>();
+  // double? get flightPrice => detailController.ext?.price.toDouble();
+  // String? get ifHas2Segment => detailController.ext?.flightType;
+  // bool get isRoundTrip => searchController.roundTrip.value;
+  // String get oid => paymentController.oid.value;
   Widget build(BuildContext context) {
-    const double price = 400;
-    const double discount = 10;
-    final Booking booking = bookingList[0];
-    final wideScreen = ThemeBreakpoints.smUp(context);
+    final localization = AppLocalizations.of(context)!;
+    final item = Get.arguments as CreateOrderResponse;
+
+    // final wideScreen = ThemeBreakpoints.smUp(context);
 
     Color colorStatus(BookStatus st) {
       switch (st) {
@@ -78,9 +92,16 @@ class _OrderDetailState extends State<OrderDetail> {
         StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return Padding(
             padding: EdgeInsets.all(spacingUnit(2)),
-            child: const Wrap(
+            child: Wrap(
               alignment: WrapAlignment.center,
-              children: [VSpace(), GrabberIcon(), ChoosePassengger()],
+              children: [
+                VSpace(),
+                GrabberIcon(),
+                ChoosePassengger(
+                  order: item,
+                  passengerList: item.result.passengers,
+                )
+              ],
             ),
           );
         }),
@@ -101,7 +122,7 @@ class _OrderDetailState extends State<OrderDetail> {
             },
             icon: const Icon(Icons.arrow_back_ios_new)),
         centerTitle: true,
-        title: const Text('Ticket Detail', style: ThemeText.subtitle),
+        title: Text(localization.ticketDetail, style: ThemeText.subtitle),
         actions: const [TicketSettingsPopup()],
       ),
       body: SingleChildScrollView(
@@ -120,7 +141,7 @@ class _OrderDetailState extends State<OrderDetail> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Check in available in',
+                              Text(localization.availableDate,
                                   textAlign: TextAlign.start,
                                   style: ThemeText.caption.copyWith(
                                       color: colorScheme(context)
@@ -136,7 +157,8 @@ class _OrderDetailState extends State<OrderDetail> {
                                 child: Row(children: [
                                   const Icon(Icons.access_time, size: 16),
                                   const SizedBox(width: 4),
-                                  Text('2d 11h',
+                                  Text(
+                                      '${item.result.flightInfo.first.dptDate} ${item.result.flightInfo.first.dptTime}',
                                       textAlign: TextAlign.center,
                                       style: ThemeText.paragraph.copyWith(
                                           fontWeight: FontWeight.bold)),
@@ -161,12 +183,12 @@ class _OrderDetailState extends State<OrderDetail> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Transaction date',
+                              Text(localization.transactionDate,
                                   textAlign: TextAlign.end,
                                   style: ThemeText.caption.copyWith(
                                       color: colorScheme(context)
                                           .onSurfaceVariant)),
-                              Text('12 Jan 2025',
+                              Text(item.result.createDate.substring(0, 16),
                                   textAlign: TextAlign.center,
                                   style: ThemeText.paragraph
                                       .copyWith(fontWeight: FontWeight.bold)),
@@ -179,13 +201,13 @@ class _OrderDetailState extends State<OrderDetail> {
                   /// BARCODE
                   RichText(
                       text: TextSpan(
-                          text: 'Booking Code: ',
+                          text: '${localization.bookingCode}: ',
                           style: ThemeText.title2.copyWith(
                               fontWeight: FontWeight.normal,
                               color: colorScheme(context).onSurface),
                           children: [
                         TextSpan(
-                            text: 'A1234Z',
+                            text: item.result.orderNo,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: colorScheme(context).primary))
@@ -197,9 +219,9 @@ class _OrderDetailState extends State<OrderDetail> {
                       width: 300,
                     ),
                   ),
-                  Text('Submit at Registration',
-                      style: ThemeText.paragraph.copyWith(
-                          color: colorScheme(context).onSurfaceVariant)),
+                  // Text('Submit at Registration',
+                  //     style: ThemeText.paragraph.copyWith(
+                  //         color: colorScheme(context).onSurfaceVariant)),
                   const VSpaceShort(),
                   Divider(
                       thickness: 10, color: colorScheme(context).surfaceDim),
@@ -217,38 +239,57 @@ class _OrderDetailState extends State<OrderDetail> {
                   //         arrival: DateTime.parse('2025-07-21 20:18:00'),
                   //         plane: planeList[0],
                   //       )
-                  //     : FlightSummary(
-                  //         from: cityList[0],
-                  //         to: cityList[6],
-                  //         price: price,
-                  //         discount: discount,
-                  //         label: 'Discount $discount%',
-                  //         bordered: true,
-                  //         depart: DateTime.parse('2025-07-20 20:18:00'),
-                  //         arrival: DateTime.parse('2025-07-21 20:18:00'),
-                  //         plane: planeList[0],
-                  //       ),
-                  const VSpaceShort(),
+                  //     :
+                  OrderFlightSummery(
+                    // from: cityList[0],
+                    // to: cityList[6],
+                    // price: price,
+                    // discount: discount,
+                    // label: 'Discount $discount%',
+                    // bordered: true,
+                    // depart: DateTime.parse('2025-07-20 20:18:00'),
+                    // arrival: DateTime.parse('2025-07-21 20:18:00'),
+                    plane: planeList[0],
+                    segment: item,
+                  ),
+                  // const VSpaceShort(),
 
                   /// FLIGHT TIMELINE
-                  wideScreen
-                      ? FlightRoutesHorizontal(
-                          title:
-                              'Depart on ${DateFormat.yMMMMd().format(booking.depart)}',
-                          routes: departRoute)
-                      : FlightRoutes(
-                          title:
-                              'Depart on ${DateFormat.yMMMMd().format(booking.depart)}',
-                          routes: departRoute),
+                  Column(
+                    children: [
+                      FlightRoutes(
+                        flightSegment: item.result.flightInfo.first,
+                        title: localization.departure,
+                      ),
+                      if (item.result.flightInfo.first !=
+                          item.result.flightInfo.last)
+                        FlightRoutes(
+                          flightSegment: item.result.flightInfo.last,
+                          title: localization.returnword,
+                        ),
+                    ],
+                  ),
+                  // wideScreen
+                  //     ? FlightRoutesHorizontal(
+                  //         title:
+                  //             'Depart on ${DateFormat.yMMMMd().format(booking.depart)}',
+                  //         routes: departRoute)
+                  //     : FlightRoutes(
+                  //         title:
+                  //             'Depart on ${DateFormat.yMMMMd().format(booking.depart)}',
+                  //         routes: departRoute),
 
                   /// PASSENGGERS & PRICING DETAIL
-                  const ReviewOrder(withFlightDetail: false),
+                  ReviewOrder(
+                    withFlightDetail: false,
+                    orderResponse: item,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-                    child: const AlertInfo(
+                    child: AlertInfo(
                         type: AlertType.warning,
                         text:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis congue euismod elit'),
+                            "${localization.passengerInfo} ${localization.passportFields} ${localization.warningInvalid}"),
                   ),
 
                   /// OTHER OPTIONS
@@ -304,7 +345,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                   color:
                                       colorScheme(context).onPrimaryContainer),
                               SizedBox(width: spacingUnit(1)),
-                              const Text('SHOW BOARDING PASS',
+                              Text(localization.showBoardingPass.toUpperCase(),
                                   style: ThemeText.subtitle2),
                             ],
                           )),

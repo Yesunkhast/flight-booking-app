@@ -6,7 +6,7 @@ class User {
   final String firstName;
   final String gender;
   final String birthday;
-  final String point;
+  final int point;
   final bool isOperator;
   final String image;
   final String? idCard;
@@ -51,12 +51,12 @@ class User {
       id: json['id'].toString(),
       phone: json['phone'] ?? '',
       email: json['email'] ?? '',
-      lastName: json['surname'] ?? json['lastName'] ?? '',
-      firstName: json['name'] ?? json['firstName'] ?? '',
+      lastName: json['surname'] ?? json['lastname'] ?? '',
+      firstName: json['name'] ?? json['firstname'] ?? '',
       image: json['avatar'] ?? json['image'] ?? '',
       gender: json['gender'] ?? '',
       birthday: json['birthday'] ?? json['birthDate'] ?? '',
-      point: json['point'] ?? '',
+      point: json['point'] ?? 0,
       isOperator: json['is_operator'] ?? false,
     );
   }

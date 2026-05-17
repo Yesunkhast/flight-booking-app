@@ -1,11 +1,13 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/utils/col_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+// import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -25,6 +27,7 @@ class PaymentStatus extends StatefulWidget {
 
 class _PaymentStatusState extends State<PaymentStatus> {
   final paymentController = Get.find<PaymentController>();
+  final searchController = Get.find<FlightSearchController>();
 
   Color statusColor(String status) {
     switch (status) {
@@ -47,9 +50,13 @@ class _PaymentStatusState extends State<PaymentStatus> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final formatter = NumberFormat("#,###");
+    final totalPrice =
+        paymentController.orderResponse.value?.result.amount.toDouble();
+    final formattedPrice = '${formatter.format(totalPrice)}₮';
     print(
-        "order no by order response:${paymentController.orderResponse.value?.result?.orderNo}");
+        "order no by order response:${paymentController.orderResponse.value?.result.orderNo}");
     return Scaffold(
         appBar: AppBar(
           forceMaterialTransparency: true,
@@ -67,7 +74,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
             )
           ],
           centerTitle: true,
-          title: const Text('Payment', style: ThemeText.subtitle),
+          title: Text(localization.payment, style: ThemeText.subtitle),
         ),
         body: Column(children: [
           StepProgress(
@@ -91,7 +98,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                       const Icon(Icons.check_circle_outline_sharp,
                           color: Colors.white, size: 24),
                       SizedBox(width: spacingUnit(1)),
-                      Text('Payment Success',
+                      Text(localization.paymentSuccess,
                           style:
                               ThemeText.subtitle.copyWith(color: Colors.white))
                     ]),
@@ -104,7 +111,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                           color: colorScheme(context).surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(40))),
-                      child: Text('\$705.6',
+                      child: Text(formattedPrice,
                           style: ThemeText.title.copyWith(
                               color: statusColor('success'),
                               fontWeight: FontWeight.bold)),
@@ -124,13 +131,16 @@ class _PaymentStatusState extends State<PaymentStatus> {
                       vertical: spacingUnit(1), horizontal: spacingUnit(2)),
                   children: [
                     const VSpaceShort(),
-                    const TitleBasicSmall(title: 'Detail Transaction'),
+                    TitleBasicSmall(title: localization.transactionDetail),
                     const VSpaceShort(),
-                    const Row(
+                    Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Date:'),
-                          Text('22 Jun 2025',
+                          Text(localization.date),
+                          Text(
+                              searchController.dateTo.value.isNotEmpty
+                                  ? '${searchController.dateFrom.value} - ${searchController.dateTo.value}'
+                                  : searchController.dateFrom.value,
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ]),
                     const LineList(
@@ -139,7 +149,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Transaction Number:'),
+                          Text(localization.transactionNumber),
                           Text(
                               paymentController
                                   .orderResponse.value!.result.orderNo,
@@ -152,7 +162,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Price:'),
+                          Text(localization.totalAmount),
                           Text(
                               "${formatter.format(paymentController.orderResponse.value!.result.amount)} ₮",
                               style: TextStyle(fontWeight: FontWeight.bold)),
@@ -189,7 +199,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.toNamed(AppLink.orderHistory);
+                      Get.toNamed(AppLink.myTicket);
                     },
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,7 +216,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          const Text('Order History', style: ThemeText.caption)
+                          Text(localization.orderHistory,
+                              style: ThemeText.paragraph)
                         ]),
                   ),
                   InkWell(
@@ -229,7 +240,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          const Text('Share', style: ThemeText.caption)
+                          Text(localization.share, style: ThemeText.paragraph)
                         ]),
                   ),
                   InkWell(
@@ -251,7 +262,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          const Text('Show E Ticket', style: ThemeText.caption)
+                          Text(localization.showETicket,
+                              style: ThemeText.paragraph)
                         ]),
                   ),
                 ]),
@@ -271,11 +283,12 @@ class _PaymentStatusState extends State<PaymentStatus> {
                   width: ThemeBreakpoints.smUp(context) ? 250 : double.infinity,
                   child: FilledButton(
                       onPressed: () {
-                        Get.toNamed(AppLink.ticketDetail);
+                        Get.toNamed(AppLink.ticketDetail,
+                            arguments: paymentController.orderResponse.value);
                       },
                       style: ThemeButton.btnBig
                           .merge(ThemeButton.tonalPrimary(context)),
-                      child: const Text('GO TO MY TICKET')),
+                      child: Text(localization.goToMyTicket.toUpperCase())),
                 ),
                 SizedBox(
                   height: ThemeBreakpoints.smUp(context) ? 0 : spacingUnit(2),
@@ -289,7 +302,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                       },
                       style: ThemeButton.btnBig
                           .merge(ThemeButton.outlinedPrimary(context)),
-                      child: const Text('GO TO HOMEPAGE')),
+                      child: Text(localization.backToHome.toUpperCase())),
                 ),
               ],
             ),

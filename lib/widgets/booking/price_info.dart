@@ -1,5 +1,6 @@
 import 'package:flight_app/app/controller/flight_booking_controller.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
+import 'package:flight_app/app/controller/payment_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 // import 'package:flight_app/models/realModel/booking.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
@@ -21,6 +22,7 @@ class PaymentInfoWidget extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
     final bookingController = Get.find<BookingController>();
     final searchController = Get.find<FlightSearchController>();
+    final paymentController = Get.find<PaymentController>();
 
     return Obx(() {
       final priceInfo = bookingController.priceInfo;
@@ -47,17 +49,18 @@ class PaymentInfoWidget extends StatelessWidget {
       double subtotal = adultTotal + childTotal + fee;
       double bankFee = subtotal * bankFeePercent / 100;
       double operatorFee = priceInfo.operatorFee;
+      double totalfee = fee + operatorFee;
       double grandTotal = (subtotal + bankFee + operatorFee + nightFee);
       // operatorFeePercent /
       // 100;
-      print(priceInfo.totalPrice);
+      print("total price ${priceInfo.totalPrice}");
       if (priceInfo.totalPrice < 10000) {
         adultTotal = adultTotal * mnt;
         childTotal = childTotal * mnt;
         subtotal = adultTotal + childTotal + fee;
         bankFee = subtotal * bankFeePercent / 100;
         grandTotal = (subtotal + bankFee + operatorFee + nightFee) + 3855;
-        print("to mnt price $grandTotal");
+        print("to mnt price $mnt");
       }
 
       String formatPrice(double val) {
@@ -123,8 +126,8 @@ class PaymentInfoWidget extends StatelessWidget {
             // ── Service fee ────────────────────────────────────────────
             _PriceRow(
               label: localization.serviceFee,
-              subLabel: '${formatter.format(fee)}₮x1',
-              value: '${formatter.format(fee)}₮',
+              subLabel: '${formatter.format(totalfee)}₮x1',
+              value: '${formatter.format(totalfee)}₮',
               context: context,
             ),
 
@@ -165,7 +168,10 @@ class PaymentInfoWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${formatter.format(grandTotal)}₮',
+                  formatPrice(paymentController
+                          .orderResponse.value?.result.amount
+                          .toDouble() ??
+                      grandTotal),
                   style: ThemeText.subtitle.copyWith(
                     color: colorScheme(context).primary,
                     fontWeight: FontWeight.bold,

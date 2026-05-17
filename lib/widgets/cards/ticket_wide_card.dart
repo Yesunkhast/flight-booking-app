@@ -1,6 +1,7 @@
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/city.dart';
 import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/realModel/flight.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -27,12 +28,12 @@ class TicketWideCard extends StatelessWidget {
       this.showBoardingPass,
       this.showDetail});
 
-  final City from;
-  final City to;
-  final Plane plane;
+  final FlightSegment from;
+  final FlightSegment to;
+  final String plane;
   final double price;
-  final DateTime depart;
-  final DateTime arrival;
+  final String depart;
+  final String arrival;
   final int transit;
   final BookStatus status;
   final String timeLeft;
@@ -104,7 +105,7 @@ class TicketWideCard extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(from.name,
+                                      Text(from.dptCityNameEng,
                                           overflow: TextOverflow.ellipsis,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
@@ -113,16 +114,16 @@ class TicketWideCard extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 1),
                                         child: Text(
-                                          from.code,
+                                          from.dpt,
                                           style: ThemeText.paragraph.copyWith(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      Text(DateFormat.MMMEd().format(depart),
+                                      Text(from.dptDate,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
                                                   .onSurfaceVariant)),
-                                      Text(DateFormat.jm().format(depart),
+                                      Text(from.dptDate,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
                                                   .onSurfaceVariant)),
@@ -139,14 +140,20 @@ class TicketWideCard extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Image.network(
-                                              plane.logo,
-                                              width: 32,
-                                            ),
+                                            plane.isEmpty
+                                                ? Image.network(plane,
+                                                    width: 36,
+                                                    height: 36,
+                                                    fit: BoxFit.contain,
+                                                    errorBuilder:
+                                                        (_, __, ___) =>
+                                                            _airlineInitials(
+                                                                context))
+                                                : _airlineInitials(context),
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(plane.name,
+                                            Text(from.airline,
                                                 style: ThemeText.paragraph),
                                           ]),
                                       Expanded(
@@ -200,15 +207,21 @@ class TicketWideCard extends StatelessWidget {
                                           children: [
                                             ClipRRect(
                                               borderRadius: ThemeRadius.xsmall,
-                                              child: Image.network(
-                                                plane.logo,
-                                                width: 32,
-                                              ),
+                                              child: plane.isEmpty
+                                                  ? Image.network(plane,
+                                                      width: 36,
+                                                      height: 36,
+                                                      fit: BoxFit.contain,
+                                                      errorBuilder:
+                                                          (_, __, ___) =>
+                                                              _airlineInitials(
+                                                                  context))
+                                                  : _airlineInitials(context),
                                             ),
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(plane.name,
+                                            Text(to.airline,
                                                 style: ThemeText.paragraph),
                                           ]),
                                     ]),
@@ -220,7 +233,7 @@ class TicketWideCard extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(to.name,
+                                      Text(to.arrCityNameEng,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
                                                   .onSurfaceVariant)),
@@ -228,16 +241,16 @@ class TicketWideCard extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 1),
                                         child: Text(
-                                          to.code,
+                                          to.arr,
                                           style: ThemeText.paragraph.copyWith(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      Text(DateFormat.MMMEd().format(arrival),
+                                      Text(to.arrDate,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
                                                   .onSurfaceVariant)),
-                                      Text(DateFormat.jm().format(arrival),
+                                      Text(to.arrTime,
                                           style: ThemeText.caption.copyWith(
                                               color: colorScheme(context)
                                                   .onSurfaceVariant)),
@@ -257,20 +270,20 @@ class TicketWideCard extends StatelessWidget {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(plane.code,
+                              Text(to.airlineCode,
                                   overflow: TextOverflow.ellipsis,
                                   style: ThemeText.paragraph
                                       .copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 4),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: ThemeRadius.xsmall,
-                                    color: colorScheme(context).surfaceDim),
-                                child: Text(plane.classType,
-                                    style: ThemeText.paragraph),
-                              ),
+                              // Container(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 4),
+                              //   decoration: BoxDecoration(
+                              //       borderRadius: ThemeRadius.xsmall,
+                              //       color: colorScheme(context).surfaceDim),
+                              //   child: Text(plane.classType,
+                              //       style: ThemeText.paragraph),
+                              // ),
                               const VSpaceShort(),
                               Text('Date Order: ',
                                   style: ThemeText.caption.copyWith(
@@ -421,5 +434,21 @@ class TicketWideCard extends StatelessWidget {
           ),
         );
     }
+  }
+
+  Widget _airlineInitials(BuildContext context) {
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: colorScheme(context).primaryContainer,
+        borderRadius: ThemeRadius.xsmall,
+      ),
+      child: Text(
+        plane.length >= 2 ? plane.substring(0, 2).toUpperCase() : plane,
+        style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold),
+      ),
+    );
   }
 }

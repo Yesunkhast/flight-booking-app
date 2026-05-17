@@ -56,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
       password: password,
     );
 
-    await _userController.getUserToApi();
+    await _userController.getUserFromDb();
   }
 
   @override
@@ -207,8 +207,8 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Forgot Password',
+                      Text(
+                        localization.forgetPassword,
                         style: ThemeText.caption,
                       ),
                     ],
@@ -236,8 +236,8 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Help and Support',
+                      Text(
+                        localization.helpAndSupport,
                         style: ThemeText.caption,
                       ),
                     ],
@@ -265,8 +265,8 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'User Demo',
+                      Text(
+                        localization.userDemo,
                         style: ThemeText.caption,
                       ),
                     ],

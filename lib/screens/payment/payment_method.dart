@@ -2,6 +2,8 @@ import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/app/controller/fligth_detail_controller.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/app/data/database/database_service.dart';
+import 'package:flight_app/app/service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/plane.dart';
@@ -75,9 +77,26 @@ class _PaymentMethodState extends State<PaymentMethod> {
     });
   }
 
+  Future<void> getNotifByDb() async {
+    final db = await DatabaseService.instance.database;
+    final result = await db.query('notification');
+    print("Sent notifications from DB: $result");
+  }
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    // final sent = NotificationService.instance.getSentNotifications();
+
+    // for (var notif in sent) {
+    //   print("notif title:${notif['title']} - ${notif['sentAt']}");
+    // }
+
+    getNotifByDb();
+    if (paymentController.isLoading.value) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     // final Trip item = tripList[1];
 
     // double finalPrice = price - price * discount / 100;
@@ -111,13 +130,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
               },
               icon: const Icon(Icons.arrow_back_ios_new)),
           centerTitle: true,
-          title: const Text('Payment', style: ThemeText.subtitle),
+          title: Text(localization.payment, style: ThemeText.subtitle),
         ),
         body: Obx(() {
-          if (paymentController.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
           final payment = paymentController.accountInfo.value;
 
           if (payment == null) {

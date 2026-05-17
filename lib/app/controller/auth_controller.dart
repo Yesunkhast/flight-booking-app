@@ -6,14 +6,16 @@ import 'package:flight_app/app/config/env.dart';
 import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/app/storage/token_storage.dart';
+import 'package:flight_app/models/realModel/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sqflite/sqflite.dart';
 import '../app_link.dart';
 
 class AuthController extends GetxController {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final UserController userController = Get.find();
+  final userController = Get.find<UserController>();
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
   final isLoading = false.obs;
@@ -61,32 +63,53 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       errorMessage.value = '';
+      final db = await DatabaseService.instance.database;
 
       final response = await dio.post(
-        '/auth/login',
+        '/api/auth/login',
         data: {
-          'username': identifier,
+          'phone': identifier,
           'password': password,
-          'expiresInMins': 30,
         },
       );
 
-      final data = response.data;
-      final accessToken = data['accessToken'];
-      final refreshToken = data['refreshToken'];
+      print(response.data);
 
-      if (accessToken == null) {
-        errorMessage.value = 'Login failed. Please try again';
-        return;
-      }
+      userController.user.value = User.fromJson(response.data["data"]["user"]);
+      // final data = response.data;
+      final accessToken = response.data["data"]["token"];
+      // final refreshToken = data['refreshToken'];
+      print(
+          "##########req info##########: ${response.data["data"]["user"]["id"]}");
+      print(userController.user.value!.toMap());
+      // if (accessToken == null) {
+      //   errorMessage.value = 'Login failed. Please try again';
+      //   return;
+      // }
 
+      print("here1 $accessToken");
       await TokenStorage.saveAccessToken(accessToken);
-      if (refreshToken != null) {
-        await TokenStorage.saveRefreshToken(refreshToken);
-      }
-      // print(accessToken);
-      // print(refreshToken);
-      print("login success");
+      print("here2 ${response.data["data"]["user"]["lastname"]}");
+      await db.insert(
+          'user',
+          {
+            'id': response.data["data"]["user"]["id"],
+            'lastname': response.data["data"]["user"]["lastname"],
+            'firstname': response.data["data"]["user"]["firstname"],
+            'email': response.data["data"]["user"]["email"],
+            'phone': response.data["data"]["user"]["phone"],
+            'image': response.data["data"]["user"]["image"],
+            'birthday': response.data["data"]["user"]["birthday"],
+            'isoperator': response.data["data"]["user"]["isoperator"],
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      print("here3");
+      final result = await db.query('user');
+
+      print("queryd_user: $result");
+
+      print("login success ${userController.user.value!.toMap()}");
+      userController.userIsAvailable = true;
 
       Get.offAllNamed(AppLink.home);
     } on DioException catch (e) {
@@ -104,6 +127,7 @@ class AuthController extends GetxController {
         errorMessage.value = serverMessage ?? 'Login failed. Please try again';
       }
     } catch (e) {
+      print(e);
       errorMessage.value = 'Something went wrong. Check your connection';
     } finally {
       isLoading.value = false;
@@ -111,15 +135,49 @@ class AuthController extends GetxController {
   }
 
   Future<void> register(
-      {required String userName,
+      {required String firstName,
       required String phone,
       required String password,
       required}) async {
-    // print("${userName} - ${phone} - ${password}");
+    try {
+      isLoading.value = true;
+      errorMessage.value = '';
+
+      print("${firstName} - ${phone} - ${password}");
+      final response = await dio.post(
+        '/api/auth/register',
+        data: {
+          'firstname': firstName,
+          'phone': phone,
+          // 'email': phone,
+          'password': password,
+        },
+      );
+
+      print(response.data);
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode;
+
+      if (statusCode == 400) {
+        errorMessage.value = 'Please fill in all required fields';
+      } else if (statusCode == 409) {
+        errorMessage.value =
+            'An account with this email or phone already exists';
+      } else {
+        final serverMessage = e.response?.data?['message']?.toString();
+        errorMessage.value =
+            serverMessage ?? 'Registration failed. Please try again';
+      }
+    } catch (e) {
+      errorMessage.value = 'Something went wrong. Check your connection';
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> logout() async {
     userController.user.value = null;
+    userController.userIsAvailable = false;
     await TokenStorage.clear();
     await DatabaseService.instance.deletedb();
     Get.offAllNamed(AppLink.home);

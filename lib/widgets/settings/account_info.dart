@@ -38,7 +38,7 @@ class AccountInfo extends StatelessWidget {
                         style: ThemeText.subtitle
                             .copyWith(fontWeight: FontWeight.bold)),
                     const Spacer(),
-                    Text(userController.user.value?.lastName ?? 'Guest'),
+                    Text(userController.user.value?.firstName ?? 'Guest'),
                   ]),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: spacingUnit(2)),

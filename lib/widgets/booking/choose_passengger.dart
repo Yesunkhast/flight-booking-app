@@ -1,6 +1,7 @@
 import 'package:change_case/change_case.dart';
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/realModel/order.dart';
 import 'package:flight_app/models/user.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -9,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 class ChoosePassengger extends StatelessWidget {
-  const ChoosePassengger({super.key});
+  const ChoosePassengger(
+      {super.key, required this.passengerList, required this.order});
+  final List<OrderPassenger> passengerList;
+  final CreateOrderResponse order;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +23,23 @@ class ChoosePassengger extends StatelessWidget {
           textAlign: TextAlign.center, style: ThemeText.subtitle),
       const VSpaceShort(),
       ListView.builder(
-          itemCount: 3,
+          itemCount: passengerList.length,
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
           padding: EdgeInsets.only(bottom: spacingUnit(5)),
           itemBuilder: ((BuildContext context, int index) {
-            User item = passengerList[index];
+            OrderPassenger item = passengerList[index];
             return ListTile(
               leading: const Icon(Icons.person),
-              title: Text(item.username), //${item.name}
+              title: Text(item.name),
               subtitle:
-                  item.type != null ? Text(item.type!.toCapitalCase()) : null,
+                  // item.type != null ?
+                  Text("Adult".toCapitalCase()),
+              //  : null,
               trailing: Icon(Icons.arrow_forward_ios,
                   color: ThemePalette.primaryMain),
               onTap: () {
-                Get.toNamed(AppLink.eTicket);
+                Get.toNamed(AppLink.eOrdersTicket, arguments: order);
               },
             );
           })),

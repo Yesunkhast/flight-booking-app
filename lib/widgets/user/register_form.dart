@@ -1,4 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/auth_controller.dart';
 // import 'package:flight_app/app/controller/auth_controller.dart';
 // import 'package:flight_app/app/controller/mail_auth_controller.dart';
 // import 'package:get/get_instance/src/extension_instance.dart';
@@ -8,6 +9,7 @@ import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -25,21 +27,32 @@ class _RegisterFormState extends State<RegisterForm> {
   final _registerKey = GlobalKey<FormBuilderState>();
   // final EmailAuthController emailAuthController =
   //     Get.find<EmailAuthController>();
+
+  bool termsValidator = false;
+
+  checkValidate() {
+    setState(() {
+      termsValidator =
+          _registerKey.currentState?.fields['accept_terms']?.value ?? false;
+    });
+  }
+
+  final _authController = Get.find<AuthController>();
   Future<void> _handleRegister() async {
     final isValid = _registerKey.currentState?.saveAndValidate() ?? false;
 
     if (!isValid) return;
 
-    // final formData = _registerKey.currentState!.value;
-    // final name = (formData['name'] ?? '').toString().trim();
-    // final mailOrPhone = (formData['mailOrPhone'] ?? '').toString().trim();
-    // final password = (formData['password'] ?? '').toString().trim();
+    final formData = _registerKey.currentState!.value;
+    final name = (formData['name'] ?? '').toString().trim();
+    final mailOrPhone = (formData['mailOrPhone'] ?? '').toString().trim();
+    final password = (formData['password'] ?? '').toString().trim();
 
-    // await emailAuthController.register(
-    //   name: name,
-    //   email: phone,
-    //   password: password,
-    // );
+    await _authController.register(
+      firstName: name,
+      phone: mailOrPhone,
+      password: password,
+    );
   }
 
   @override
@@ -66,7 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
             name: 'name',
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
-                label: localization.userName,
+                label: localization.firstName,
                 onChanged: (value) => field.didChange(value),
                 errorText:
                     field.hasError ? localization.pleaseFillYourName : null,
@@ -81,7 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
             builder: (FormFieldState<dynamic> field) {
               return AppTextField(
                 // controller: emailAuthController.,
-                label: localization.emailOrPhoneNumber,
+                label: localization.phoneNumber,
                 onChanged: (value) => field.didChange(value),
                 errorText: field.hasError
                     ? localization.incorrectEmailOrPhoneNumber
@@ -135,13 +148,15 @@ class _RegisterFormState extends State<RegisterForm> {
           const VSpaceShort(),
           FormBuilderCheckbox(
             name: 'accept_terms',
-            initialValue: false,
+            initialValue: termsValidator,
             onChanged: (value) {
-              value == true ? Get.toNamed(AppLink.terms) : null;
+              value == true
+                  ? {Get.toNamed(AppLink.terms), checkValidate()}
+                  : null;
             },
             title: Text(localization.agreewithOurTermsAndConditions),
             validator: FormBuilderValidators.equal(
-              false,
+              termsValidator,
               errorText: localization.acceptTermsError,
             ),
           ),

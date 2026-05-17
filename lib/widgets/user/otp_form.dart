@@ -51,7 +51,7 @@ class _OtpFormState extends State<OtpForm> {
   }
 
   void startTimer() {
-    seconds = 10; // hugtsaa uurhcluh 90second
+    seconds = 30; // hugtsaa uurhcluh 90second
     timer?.cancel();
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (seconds > 0) {

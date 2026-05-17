@@ -504,22 +504,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get warning => 'Warning';
 
   @override
-  String get warningInvalid => 'If incorrect, it cannot be used!!!!';
-
-  @override
   String get passportInfo => 'Based on passport information';
 
   @override
-  String get passportFields => 'Letters, numbers, gender';
+  String get passportFields => 'Letters, Numbers, Gender';
+
+  @override
+  String get warningInvalid => 'If incorrect, it cannot be used!!!!';
 
   @override
   String get passport => 'Passport';
 
   @override
   String get flightTermsTitle => 'Flight Ticket Booking Terms and Conditions';
-
-  @override
-  String get birthDate => 'Date of Birth';
 
   @override
   String get expiryDate => 'Expiry Date';
@@ -533,4 +530,337 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backToHome => 'Back to home';
+
+  @override
+  String get checkPayment => 'Check Payment';
+
+  @override
+  String get totalAmount => 'Total amount';
+
+  @override
+  String get transactionValue => 'Transaction value';
+
+  @override
+  String get bank => 'Bank';
+
+  @override
+  String get accountHolder => 'Account holder';
+
+  @override
+  String get expiryTime => 'Expiry time';
+
+  @override
+  String get copied => 'copied';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get transactionNumber => 'Transaction number';
+
+  @override
+  String get orderHistory => 'Order history';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get showETicket => 'Show E-Ticket';
+
+  @override
+  String get goToMyTicket => 'GO TO MY TICKET';
+
+  @override
+  String get eTicket => 'E-Ticket';
+
+  @override
+  String get paymentExpiredWarning => 'Sorry, the payment time has expired';
+
+  @override
+  String get paymentInstructions =>
+      'IF YOU HAVE ALREADY PAID, A CONFIRMATION THAT YOUR TICKET BOOKING HAS BEEN SUCCESSFULLY CONFIRMED WILL BE SENT TO YOUR PHONE AND EMAIL, AND YOUR BOOKING WILL BE COMPLETED. IF YOU HAVE NOT RECEIVED SUCH A MESSAGE, PLEASE CONTACT US THROUGH THE CONTACT SECTION.';
+
+  @override
+  String get warningTitle => 'WARNING';
+
+  @override
+  String get paymentSuccess => 'Payment successful';
+
+  @override
+  String get warningPassportResponsibility =>
+      'The passenger is responsible for any risks arising from incorrectly entering their own passport information or missing the flight.';
+
+  @override
+  String get warningTransitFlight =>
+      'If you have a connecting flight, please contact 96961414, 90901550 for detailed transit information.';
+
+  @override
+  String get warningArrivalTime =>
+      'Passengers must arrive at the airport 3 hours before departure for ticket and baggage registration and passport control.';
+
+  @override
+  String get warningScheduleChanges =>
+      'Please note that schedule change notifications will be sent to the mobile number and email address registered in our system.';
+
+  @override
+  String get warningFlightChanges =>
+      'Please note that the airline operating the flight has the right to cancel/delay the flight due to weather or other force majeure circumstances. If such a situation occurs, ECHINA.MN shall not be liable for any subsequent consequences.';
+
+  @override
+  String get transactionDetail => 'Transaction detail';
+
+  @override
+  String get paymentNotPaid => 'Payment not paid';
+
+  @override
+  String get userDemo => 'User Demo';
+
+  @override
+  String get forgetPassword => 'Forget Password';
+
+  @override
+  String get boardingTime => 'Boarding Time';
+
+  @override
+  String get checkAllNews => 'Check All News';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get levelProgressIndicator => 'Level progress indicator';
+
+  @override
+  String get gold => 'Gold';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get lightMode => 'Light Mode';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get uiSettings => 'UI Settings';
+
+  @override
+  String get auth => 'Auth';
+
+  @override
+  String get welcomePage => 'Welcome Page';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get helpAndAccount => 'Help and Account';
+
+  @override
+  String get accountInformation => 'Account Information';
+
+  @override
+  String get contactAdmin => 'Contact Admin';
+
+  @override
+  String get faq => 'FAQ';
+
+  @override
+  String get termsAndConditions => 'Terms and Conditions';
+
+  @override
+  String get auto => 'Auto';
+
+  @override
+  String get registerNow => 'Register Now';
+
+  @override
+  String get bookingNotificationTitle => 'Booking Created';
+
+  @override
+  String get bookingNotificationBody =>
+      'Your booking has been created. Please pay the amount to the following account';
+
+  @override
+  String get reminder => 'Reminder';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get bookingTimeUp =>
+      'Hello! The time to make the payment is running out. Please don\'t delay in making the payment.';
+
+  @override
+  String get bookingCode => 'Booking code';
+
+  @override
+  String get orderNotFound => 'Order Not Found';
+
+  @override
+  String get orderNotFoundDesc => 'The order could not been found';
+
+  @override
+  String get notification => 'Notifications';
+
+  @override
+  String get messages => 'Messages';
+
+  @override
+  String get chat => 'Chat';
+
+  @override
+  String get allYourOrders => 'Your booking is the beginning of your dream';
+
+  @override
+  String get myOrders => 'My orders';
+
+  @override
+  String get contact => 'Contact';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get contactUsReport =>
+      'Contact us below if you need help / want to report issue.';
+
+  @override
+  String get chooseTopic => 'Choose topic';
+
+  @override
+  String get subject => 'Subject';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get plsChooseTopic => 'Please choose topic';
+
+  @override
+  String get plsWriteMessageDesc => 'Please write message description';
+
+  @override
+  String get subRep => 'Submit report';
+
+  @override
+  String get chooseCategory => 'Choose category';
+
+  @override
+  String get contactUsDesc =>
+      'If you are interested in working with our organization or need assistance, please select below and contact us.';
+
+  @override
+  String get locationDesc =>
+      'Ulaanbaatar city, Chingeltei district 5th khoroo, MN Tower office, 15th floor, room 1510';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get faqSearchFlightTitle => 'How to Search for Flights?';
+
+  @override
+  String get faqSearchFlightDesc =>
+      'You can easily search for domestic and international flights by entering your departure city, destination, and travel date. The system will display available flights, prices, and schedules in real time.';
+
+  @override
+  String get faqBookingTitle => 'How to Book a Flight Ticket?';
+
+  @override
+  String get faqBookingDesc =>
+      'After selecting your flight, you can complete your booking by entering passenger information and making payment through the available payment methods on the platform.';
+
+  @override
+  String get faqBookingInfoTitle => 'Where Can I Check My Booking Information?';
+
+  @override
+  String get faqBookingInfoDesc =>
+      'You can view your booking details, payment status, and ticket information from your account dashboard after successfully completing your reservation.';
+
+  @override
+  String get faqPaymentIssueTitle => 'Payment Completed but Ticket Not Issued?';
+
+  @override
+  String get faqPaymentIssueDesc =>
+      'If your payment was successful but your ticket was not issued, please contact customer support with your booking number and payment information for assistance.';
+
+  @override
+  String get faqChangeCancelTitle => 'Can I Change or Cancel My Ticket?';
+
+  @override
+  String get faqChangeCancelDesc =>
+      'Flight changes and cancellations depend on the airline policy and ticket conditions. Additional service fees may apply depending on the selected fare type.';
+
+  @override
+  String get faqPassengerInfoTitle => 'How to Save Passenger Information?';
+
+  @override
+  String get faqPassengerInfoDesc =>
+      'Passengers can save their personal information in the application to make future bookings faster and more convenient.';
+
+  @override
+  String get faqDocumentTitle =>
+      'What Documents Are Required for International Flights?';
+
+  @override
+  String get faqDocumentDesc =>
+      'For international travel, passengers must ensure that their passport validity and visa requirements meet the destination country regulations before departure.';
+
+  @override
+  String get faqSupportTitle => 'How to Contact Customer Support?';
+
+  @override
+  String get faqSupportDesc =>
+      'You can contact customer support through the Help section or by using the contact information provided on the platform for booking and payment assistance.';
+
+  @override
+  String get contactUsBottomDesc =>
+      'Contact us and we\'ll get back to you as soon as possible.';
+
+  @override
+  String get contactUsBottomTitle => 'Still no luck? We can help!';
+
+  @override
+  String get howCanWeHelpYou => 'How can we help you?';
+
+  @override
+  String get hello => 'Hello';
+
+  @override
+  String get youDontHaveBooking => 'You don\'t any booking yet';
+
+  @override
+  String get ticketDetail => 'Ticket Detail';
+
+  @override
+  String get transactionDate => 'Transaction Date';
+
+  @override
+  String get availableDate => 'Available Date';
+
+  @override
+  String get showBoardingPass => 'Show boarding pass';
+
+  @override
+  String get priceDetail => 'Price Detail';
+
+  @override
+  String get ticket => 'Ticket';
+
+  @override
+  String get feeAndTax => 'Fee and Tax';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get passengerDetail => 'Passenger Detail';
+
+  @override
+  String get baggage => 'Baggage';
 }

@@ -102,11 +102,11 @@ class _AddPassenggerState extends State<AddPassengger> {
     if (!_addPassenggerKey.currentState!.validate()) return;
 
     await _passengerController.addPassenger(
-      lastName: _lastNameRef.text.trim(),
-      firstName: _firstNameRef.text.trim(),
-      idCard: _passportIdRef.text.trim(),
+      lastname: _lastNameRef.text.trim(),
+      firstname: _firstNameRef.text.trim(),
+      idcard: _passportIdRef.text.trim(),
       birthday: _birthdayRef.text.trim(),
-      passportValidDate: _passportValidRef.text.trim(),
+      passportvaliddate: _passportValidRef.text.trim(),
       gender: _gender ?? '',
     );
 
@@ -241,7 +241,7 @@ class _AddPassenggerState extends State<AddPassengger> {
                         child: _passengerController.isLoading.value
                             ? const CircularProgressIndicator(
                                 color: Colors.white)
-                            : const Text('ХАДГАЛАХ',
+                            : Text(localization.save,
                                 style: ThemeText.subtitle2),
                       ),
                     )),

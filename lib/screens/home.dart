@@ -1,4 +1,6 @@
 // import 'package:flight_app/app/controllers.dart';
+import 'package:flight_app/app/controller/notification_controller.dart';
+import 'package:flight_app/app/service.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/bottom_nav/bottom_nav_menu.dart';
 import 'package:flight_app/widgets/home/header.dart';
@@ -11,6 +13,8 @@ import 'package:flight_app/widgets/home/header.dart';
 // import 'package:flight_app/widgets/home/flight_list_double.dart';
 import 'package:flight_app/widgets/home/search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 // import 'package:get/get.dart';
 // import 'package:get/route_manager.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
@@ -27,6 +31,7 @@ class _HomeState extends State<Home> {
   final ScrollController _scrollref = ScrollController();
   final TooltipController _tooltipRef = TooltipController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final notifController = Get.find<NotificationController>();
 
   final String _key = 'finishedGuide';
 
@@ -49,6 +54,7 @@ class _HomeState extends State<Home> {
         _isDoneGuide = true;
       });
     });
+    notifController.getNotifByDb();
 
     _checkFinishedGuide();
     super.initState();
@@ -63,6 +69,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // print(NotificationService.instance.sentNotifications);
     _scrollref.addListener(() {
       setState(() {
         if (_scrollref.offset > 60) {

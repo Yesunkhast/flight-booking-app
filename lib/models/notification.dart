@@ -16,6 +16,8 @@ class NotificationModel {
     this.image,
     this.isRead = false,
   });
+
+  static Object? fromJson(Map<String, Object?> json) {}
 }
 
 final List<NotificationModel> notifList = [

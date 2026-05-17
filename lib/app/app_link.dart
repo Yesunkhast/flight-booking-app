@@ -50,6 +50,7 @@ class AppLink {
   static const ticketDetail = '/ticket-detail';
   static const orderHistory = '/order-history';
   static const eTicket = '/e-ticket';
+  static const eOrdersTicket = '/e-orders-detail';
 
   // PROMO
   static const promo = '/promos';

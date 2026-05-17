@@ -1,3 +1,4 @@
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,59 +11,65 @@ class ContactList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: ThemeSize.sm
-        ),
-        child: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: const [
+        constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+        child: ListView(padding: EdgeInsets.all(spacingUnit(2)), children: [
           VSpaceShort(),
-          Text('If you need help with anything related to being a Promotor on this App, please get in touch by selecting a topic below.', style: ThemeText.headline),
+          Text(localization.contactUsDesc, style: ThemeText.headline),
           VSpace(),
-          PaperCard(content: Padding(padding: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.lightGreen),
-              title:Text('+62 81234 5678 90'),
-              subtitle: Text('WhatsApp'),
-              trailing: Icon(Icons.arrow_forward_ios),
-            )
-          )),
+          PaperCard(
+              content: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: FaIcon(FontAwesomeIcons.viber,
+                        color: Colors.lightGreen),
+                    title: Text('+976 9090 1550'),
+                    subtitle: Text('Viber'),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ))),
           VSpaceShort(),
-          PaperCard(content: Padding(padding: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Icon(Icons.phone, color: Colors.cyan),
-              title:Text('+62 81234 5678 90'),
-              subtitle: Text('Phone'),
-              trailing: Icon(Icons.arrow_forward_ios),
-            )
-          )),
+          PaperCard(
+              content: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(Icons.phone, color: Colors.cyan),
+                    title: Text('+976 9090 1550'),
+                    subtitle: Text(localization.phoneNumber),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ))),
           VSpaceShort(),
-          PaperCard(content: Padding(padding: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Icon(Icons.email, color: Colors.teal),
-              title:Text('support@mail.com'),
-              subtitle: Text('Email'),
-              trailing: Icon(Icons.arrow_forward_ios),
-            )
-          )),
+          PaperCard(
+              content: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(Icons.email, color: Colors.teal),
+                    title: Text('contact@echina.mn'),
+                    subtitle: Text('Email'),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ))),
           VSpaceShort(),
-          PaperCard(content: Padding(padding: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Icon(Icons.location_on, color: Colors.red),
-              title:Text('Cecilia Chapman 711-2880 Nulla St. Mankato Mississippi 96522'),
-              subtitle: Text('Headquarter Address'),
-              trailing: Icon(Icons.arrow_forward_ios),
-            )
-          )),
+          PaperCard(
+              content: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(Icons.location_on, color: Colors.red),
+                    title: Text(localization.locationDesc),
+                    subtitle: Text(localization.location),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ))),
           VSpaceShort(),
-          PaperCard(content: Padding(padding: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: FaIcon(FontAwesomeIcons.instagram, color: Colors.purple),
-              title:Text('@appsocialmedia'),
-              subtitle: Text('Instagram'),
-              trailing: Icon(Icons.arrow_forward_ios),
-            )
-          )),
+          PaperCard(
+              content: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading:
+                        FaIcon(FontAwesomeIcons.facebook, color: Colors.blue),
+                    title: Text('EChina.mn'),
+                    subtitle: Text('Facebook'),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ))),
         ]),
       ),
     );

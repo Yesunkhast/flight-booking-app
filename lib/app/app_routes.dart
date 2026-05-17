@@ -11,6 +11,7 @@ import 'package:flight_app/screens/messages/notification.dart';
 import 'package:flight_app/screens/not_found.dart';
 import 'package:flight_app/screens/orders/order_detail.dart';
 import 'package:flight_app/screens/orders/order_list.dart';
+import 'package:flight_app/screens/orders/orders_e_ticket.dart';
 import 'package:flight_app/screens/profile/contact.dart';
 import 'package:flight_app/screens/profile/faq_list.dart';
 import 'package:flight_app/screens/profile/terms_condition.dart';
@@ -78,6 +79,10 @@ final List<GetPage> appRoutes = [
     name: AppLink.ticketDetail,
     page: () => const GeneralLayout(content: OrderDetail()),
   ),
+  GetPage(
+      name: AppLink.eOrdersTicket,
+      page: () => const HomeLayout(content: EOrderTicket()),
+      transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
 
   /// SEARCH
   // GetPage(
@@ -99,7 +104,7 @@ final List<GetPage> appRoutes = [
   /// PROMO
   GetPage(
       name: AppLink.promo,
-      page: () => const HomeLayout(content: PromoMain()),
+      page: () => const HomeLayout(content: NewsMain()),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: pageTransitionDuration)),
   GetPage(

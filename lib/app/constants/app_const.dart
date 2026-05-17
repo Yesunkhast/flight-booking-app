@@ -28,7 +28,7 @@ class ContentApi {
 // Project
 Company branding = Company(
     id: '1',
-    name: 'Flight App',
+    name: 'eChina.mn',
     logo: 'assets/images/app_logo.png',
     title: 'Find the best deals on flights',
     desc:

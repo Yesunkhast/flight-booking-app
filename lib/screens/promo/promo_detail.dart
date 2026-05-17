@@ -1,11 +1,12 @@
+// import 'package:flight_app/widgets/promo/package_list.dart';
+// import 'package:flight_app/ui/themes/theme_radius.dart';
+// import 'package:flight_app/models/promo.dart';
 import 'package:change_case/change_case.dart';
-import 'package:flight_app/models/promo.dart';
+import 'package:flight_app/models/realModel/post.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/widgets/app_button/back_icon_button.dart';
-// import 'package:flight_app/widgets/promo/package_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_shadow.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
@@ -22,6 +23,7 @@ class PromoDetail extends StatefulWidget {
 
 class _PromoDetailState extends State<PromoDetail> {
   final ScrollController _scrollref = ScrollController();
+  final Post postItem = Get.arguments as Post;
 
   bool _isFixed = false;
   bool _liked = false;
@@ -40,8 +42,6 @@ class _PromoDetailState extends State<PromoDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final Promotion promoItem = promoList[0];
-
     _scrollref.addListener(() {
       setState(() {
         if (_scrollref.offset > 100) {
@@ -72,8 +72,8 @@ class _PromoDetailState extends State<PromoDetail> {
                     .onSurface
                     .withValues(alpha: _isFixed ? 1 : 0)),
             child: Text(
-              promoItem.name.toCapitalCase(),
-              overflow: TextOverflow.ellipsis,
+              postItem.title,
+              // overflow: TextOverflow.ellipsis,
               style: ThemeText.subtitle2,
             ),
           ),
@@ -121,17 +121,17 @@ class _PromoDetailState extends State<PromoDetail> {
             child: ListView(controller: _scrollref, children: [
               /// EVENT BANNER HERO AND DESCRIPTON
               PromoDesc(
-                  title: promoItem.name.toCapitalCase(),
-                  desc: promoItem.desc,
-                  thumb: promoItem.thumb,
+                  title: postItem.title,
+                  desc: postItem.description,
+                  thumb: postItem.image,
                   terms1:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                      'hello lorem  ipsum dolor sit amet, consectetur adipiscing elit.',
                   terms2:
                       'Integer sem massa, interdum commodo leo ac, posuere molestie leo',
                   terms3:
                       'Sed iaculis quis lacus sed malesuada. Nam suscipit lacus',
-                  date: promoItem.date,
-                  point: promoItem.price,
+                  date: postItem.createdAt.toString().substring(0, 10),
+                  point: postItem.likes.toDouble(),
                   liked: true),
 
               /// PACKAGE LIST OF THIS PROMO

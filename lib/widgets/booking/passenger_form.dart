@@ -45,7 +45,7 @@ class _PassengerFormState extends State<PassengerForm> {
   @override
   void initState() {
     super.initState();
-
+    passengerController.loadPassengers();
     _bookingPassengers = List.generate(
       widget.totalPassengers,
       (_) => passengerInit,
@@ -158,7 +158,7 @@ class _PassengerFormState extends State<PassengerForm> {
                                 ),
                               ),
                               subtitle: Text(
-                                'ID: ${p.idCard}',
+                                'ID: ${p.idcard}',
                                 style: ThemeText.caption.copyWith(
                                   color: colorScheme(context).onSurfaceVariant,
                                 ),
@@ -212,6 +212,7 @@ class _PassengerFormState extends State<PassengerForm> {
                             _bookingPassengers[index] = passengerInit;
                           } else {
                             _bookingPassengers[index] = selected;
+                            passengerController.bookingPassengers.add(selected);
                             counter++;
                           }
                         });
@@ -241,7 +242,7 @@ class _PassengerFormState extends State<PassengerForm> {
 
   @override
   Widget build(BuildContext context) {
-    print("page passenger");
+    print("page passenger ${passengerController.passengers}");
     final localization = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       child: Column(
@@ -333,7 +334,7 @@ class _PassengerFormState extends State<PassengerForm> {
                                 style: ThemeText.headline,
                               ),
                               Text(
-                                '${localization.idNumber}: ${passenger.idCard}',
+                                '${localization.idNumber}: ${passenger.idcard}',
                               ),
                             ],
                           )

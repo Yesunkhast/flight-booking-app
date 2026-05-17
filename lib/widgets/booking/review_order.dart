@@ -1,4 +1,7 @@
+import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/city.dart';
+import 'package:flight_app/models/realModel/order.dart';
+import 'package:flight_app/models/realModel/passenger.dart';
 import 'package:flight_app/models/trip.dart';
 import 'package:flight_app/models/user.dart';
 import 'package:flight_app/models/booking.dart';
@@ -13,24 +16,33 @@ import 'package:flight_app/widgets/decorations/dashed_border.dart';
 import 'package:flight_app/widgets/title/title_basic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:intl/intl.dart';
 
 class ReviewOrder extends StatelessWidget {
-  const ReviewOrder({super.key, this.withFlightDetail = true});
+  const ReviewOrder({
+    super.key,
+    this.withFlightDetail = true,
+    required this.orderResponse,
+  });
 
   static const double price = 600;
   static const double discount = 10;
 
   final bool withFlightDetail;
 
+  final CreateOrderResponse orderResponse;
+
   @override
   Widget build(BuildContext context) {
-    final Trip item = tripList[1];
+    // final Trip item = tripList[1];
+    final localization = AppLocalizations.of(context)!;
+    final formatter = NumberFormat("#,###");
 
     /// BAGAGE POPUP
-    void showPassengerDetail() async {
+    void showPassengerDetail(OrderPassenger passenger) async {
       Get.bottomSheet(
         StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-          return const PassengerDetail();
+          return PassengerDetail(passenger: passenger);
         }),
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -70,8 +82,8 @@ class ReviewOrder extends StatelessWidget {
           const LineSpace(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-            child: const TitleBasic(
-              title: 'Passenger Detail',
+            child: TitleBasic(
+              title: localization.passengerDetail,
               size: 'small',
             ),
           ),
@@ -79,19 +91,20 @@ class ReviewOrder extends StatelessWidget {
               shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
               physics: const ClampingScrollPhysics(),
-              itemCount: 3,
+              itemCount: orderResponse.result.passengers.length,
               itemBuilder: ((BuildContext context, int index) {
-                User item = passengerList[index];
+                OrderPassenger passenger =
+                    orderResponse.result.passengers[index];
                 return Padding(
                   padding: EdgeInsets.only(top: spacingUnit(2)),
                   child: AppInputBox(
                       content: InkWell(
                           onTap: () {
-                            showPassengerDetail();
+                            showPassengerDetail(passenger);
                           },
                           child: ListTile(
                             title: Text(
-                              item.username, //'${item.title} ${item.name}'
+                              passenger.name, //'${item.title} ${item.name}'
                               style: ThemeText.paragraphBold,
                             ),
                             subtitle: Row(children: [
@@ -101,21 +114,35 @@ class ReviewOrder extends StatelessWidget {
                               const SizedBox(
                                 width: 4,
                               ),
-                              Text('${item.baggage} Kg',
+                              Text(
+                                  '${orderResponse.result.baggageRuleInfos.first.checkedBaggageRule.substring(0, 2)} Kg',
                                   style: ThemeText.paragraph),
                               SizedBox(width: spacingUnit(4)),
-                              Icon(Icons.airline_seat_recline_normal_rounded,
-                                  size: 18,
-                                  color: colorScheme(context).outlineVariant),
-                              Text(item.seat!, style: ThemeText.paragraph),
-                              SizedBox(width: spacingUnit(4)),
-                              Icon(Icons.playlist_add,
+                              // Icon(Icons.airline_seat_recline_normal_rounded,
+                              //     size: 18,
+                              //     color: colorScheme(context).outlineVariant),
+                              // Text(item.seat!, style: ThemeText.paragraph),
+                              // SizedBox(width: spacingUnit(4)),
+                              Icon(Icons.card_membership,
                                   size: 18,
                                   color: colorScheme(context).outlineVariant),
                               const SizedBox(
                                 width: 4,
                               ),
-                              const Text('2', style: ThemeText.paragraph),
+                              Text(passenger.passport,
+                                  style: ThemeText.paragraph),
+                              SizedBox(width: spacingUnit(4)),
+                              Icon(passenger.sex == 1 ? Icons.man : Icons.woman,
+                                  size: 18,
+                                  color: colorScheme(context).outlineVariant),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                  passenger.sex == 1
+                                      ? localization.male
+                                      : localization.female,
+                                  style: ThemeText.paragraph),
                             ]),
                             trailing: Icon(Icons.more_horiz,
                                 color: colorScheme(context).primary),
@@ -129,22 +156,27 @@ class ReviewOrder extends StatelessWidget {
           const LineSpace(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-            child: const TitleBasic(
-              title: 'Price Detail',
+            child: TitleBasic(
+              title: localization.priceDetail,
               size: 'small',
             ),
           ),
           const VSpaceShort(),
           ListTile(
             title: Text(
-              'Ticket ${cityList[0].name} to ${cityList[6].name}',
+              '${localization.ticket} ${orderResponse.result.flightInfo.first.dptCityNameEng} to ${orderResponse.result.flightInfo.last.arrCityNameEng}',
               style: ThemeText.paragraph,
             ),
-            subtitle: const Text(
-              '\$200 x 3(Adult)',
+            subtitle: Text(
+              orderResponse.result.priceInfo.price < 100000
+                  ? '¥${formatter.format(orderResponse.result.priceInfo.price)} x ${orderResponse.result.passengers.length}'
+                  : '₮${formatter.format(orderResponse.result.priceInfo.price)} x ${orderResponse.result.passengers.length}',
               style: ThemeText.paragraph,
             ),
-            trailing: Text('\$$price',
+            trailing: Text(
+                orderResponse.result.priceInfo.price < 100000
+                    ? '¥${formatter.format(orderResponse.result.priceInfo.price * orderResponse.result.passengers.length)}'
+                    : '₮${formatter.format(orderResponse.result.priceInfo.price * orderResponse.result.passengers.length)}',
                 style: ThemeText.paragraph.copyWith(
                     fontWeight: FontWeight.bold,
                     color: colorScheme(context).onSurface)),
@@ -152,46 +184,49 @@ class ReviewOrder extends StatelessWidget {
             minTileHeight: 0,
           ),
 
-          ListTile(
-            title: const Text(
-              'Additional Baggage',
-              style: ThemeText.paragraph,
-            ),
-            subtitle: const Text(
-              '\$50 x 1(Adult)',
-              style: ThemeText.paragraph,
-            ),
-            trailing: Text('\$50',
-                style: ThemeText.paragraph.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme(context).onSurface)),
-            contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-            minTileHeight: 0,
-          ),
+          // ListTile(
+          //   title: const Text(
+          //     'Additional Baggage',
+          //     style: ThemeText.paragraph,
+          //   ),
+          //   subtitle: const Text(
+          //     '\$50 x 1(Adult)',
+          //     style: ThemeText.paragraph,
+          //   ),
+          //   trailing: Text('\$50',
+          //       style: ThemeText.paragraph.copyWith(
+          //           fontWeight: FontWeight.bold,
+          //           color: colorScheme(context).onSurface)),
+          //   contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+          //   minTileHeight: 0,
+          // ),
+
+          // ListTile(
+          //   title: const Text(
+          //     'Meal and Beverage',
+          //     style: ThemeText.paragraph,
+          //   ),
+          //   subtitle: const Text(
+          //     '\$20 x 2(Adult)',
+          //     style: ThemeText.paragraph,
+          //   ),
+          //   trailing: Text('\$40',
+          //       style: ThemeText.paragraph.copyWith(
+          //           fontWeight: FontWeight.bold,
+          //           color: colorScheme(context).onSurface)),
+          //   contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+          //   minTileHeight: 0,
+          // ),
 
           ListTile(
-            title: const Text(
-              'Meal and Beverage',
+            title: Text(
+              localization.feeAndTax,
               style: ThemeText.paragraph,
             ),
-            subtitle: const Text(
-              '\$20 x 2(Adult)',
-              style: ThemeText.paragraph,
-            ),
-            trailing: Text('\$40',
-                style: ThemeText.paragraph.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme(context).onSurface)),
-            contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-            minTileHeight: 0,
-          ),
-
-          ListTile(
-            title: const Text(
-              'Fee and Tax',
-              style: ThemeText.paragraph,
-            ),
-            trailing: Text('\$10',
+            trailing: Text(
+                orderResponse.result.priceInfo.tax < 100000
+                    ? '¥${formatter.format(orderResponse.result.priceInfo.tax)}'
+                    : '₮${formatter.format(orderResponse.result.priceInfo.tax)}',
                 style: ThemeText.paragraph.copyWith(
                     fontWeight: FontWeight.bold,
                     color: colorScheme(context).onSurface)),
@@ -206,26 +241,29 @@ class ReviewOrder extends StatelessWidget {
 
           ListTile(
             title: Text(
-              'Subtotal',
+              localization.subtotal,
               style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold),
             ),
-            trailing: Text('\$700',
+            trailing: Text(
+                orderResponse.result.priceInfo.tax < 100000
+                    ? '¥${formatter.format(orderResponse.result.priceInfo.tax + orderResponse.result.priceInfo.price * orderResponse.result.passengers.length)}'
+                    : '₮${formatter.format(orderResponse.result.priceInfo.tax + orderResponse.result.priceInfo.price * orderResponse.result.passengers.length)}',
                 style:
                     ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold)),
             contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
             minTileHeight: 0,
           ),
-          ListTile(
-            title: Text(
-              'Discount 10%',
-              style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold),
-            ),
-            trailing: Text('-\$70',
-                style:
-                    ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold)),
-            contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
-            minTileHeight: 0,
-          ),
+          // ListTile(
+          //   title: Text(
+          //     'Discount 10%',
+          //     style: ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold),
+          //   ),
+          //   trailing: Text('-\$70',
+          //       style:
+          //           ThemeText.paragraph.copyWith(fontWeight: FontWeight.bold)),
+          //   contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
+          //   minTileHeight: 0,
+          // ),
 
           Container(
             margin: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
@@ -233,24 +271,27 @@ class ReviewOrder extends StatelessWidget {
                 borderRadius: ThemeRadius.small,
                 color: colorScheme(context).primaryContainer),
             child: ListTile(
-              title: const Text('Total', style: ThemeText.subtitle2),
-              trailing: Text('\$630',
+              title: Text(localization.total, style: ThemeText.subtitle2),
+              trailing: Text(
+                  orderResponse.result.amount < 100000
+                      ? '¥${formatter.format(orderResponse.result.amount)}'
+                      : '₮${formatter.format(orderResponse.result.amount)}',
                   style: ThemeText.subtitle2.copyWith(
                       color: colorScheme(context).onPrimaryContainer)),
               contentPadding: EdgeInsets.symmetric(horizontal: spacingUnit(2)),
               minTileHeight: 0,
             ),
           ),
-          const VSpaceShort(),
+          // const VSpaceShort(),
 
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-            padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
-            child: const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tortor lectus, imperdiet vitae massa nec, malesuada congue massa. Nam sed venenatis lorem',
-                style: ThemeText.paragraph),
-          ),
-          const VSpace()
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
+          //   padding: EdgeInsets.symmetric(horizontal: spacingUnit(1)),
+          //   child: const Text(
+          //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tortor lectus, imperdiet vitae massa nec, malesuada congue massa. Nam sed venenatis lorem',
+          //       style: ThemeText.paragraph),
+          // ),
+          // const VSpace()
         ]);
   }
 }

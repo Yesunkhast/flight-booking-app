@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class PassengerController extends GetxController {
   final RxList<Passenger> passengers = <Passenger>[].obs;
-  final Rxn<Passenger> selectedPassenger = Rxn<Passenger>();
+  final RxList<Passenger> selectedPassenger = <Passenger>[].obs;
   final RxList<Passenger> bookingPassengers = <Passenger>[].obs;
   final RxBool passengersSelected = false.obs;
   final isLoading = false.obs;
@@ -35,11 +35,11 @@ class PassengerController extends GetxController {
 
   // ─── Add ─────────────────────────────────────────────────────────────────────
   Future<void> addPassenger({
-    required String idCard,
-    required String lastName,
-    required String firstName,
+    required String idcard,
+    required String lastname,
+    required String firstname,
     required String birthday,
-    required String passportValidDate,
+    required String passportvaliddate,
     required String gender,
     String? type,
   }) async {
@@ -47,11 +47,11 @@ class PassengerController extends GetxController {
       isLoading.value = true;
       final db = DatabaseService.instance;
       final passenger = await Passenger.create(
-        idCard: idCard,
-        lastName: lastName,
-        firstName: firstName,
+        idcard: idcard,
+        lastname: lastname,
+        firstname: firstname,
         birthday: birthday,
-        passportValidDate: passportValidDate,
+        passportvaliddate: passportvaliddate,
         gender: gender,
         type: type ?? 'ADU',
       );
@@ -123,11 +123,11 @@ class PassengerController extends GetxController {
 
   // ─── Select ──────────────────────────────────────────────────────────────────
   void selectPassenger(Passenger passenger) {
-    selectedPassenger.value = passenger;
+    selectedPassenger.value = [passenger];
   }
 
   void clearSelected() {
-    selectedPassenger.value = null;
+    selectedPassenger.value = [];
   }
 
   // ─── Helpers ─────────────────────────────────────────────────────────────────

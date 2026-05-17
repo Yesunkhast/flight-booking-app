@@ -62,7 +62,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                 onSortByDate: _onSortByDate,
                 onChangeCategory: _onChangeCategory,
               ),
-              TicketList(bookingList: bookingList),
+              // TicketList(bookingList: bookingList),
               const VSpaceBig()
             ],
           ),

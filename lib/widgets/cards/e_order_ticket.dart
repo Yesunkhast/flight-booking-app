@@ -4,6 +4,7 @@ import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/models/booking.dart';
 import 'package:flight_app/models/city.dart';
 import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/realModel/order.dart';
 import 'package:flight_app/models/user.dart';
 import 'package:flight_app/widgets/decorations/cut_deco.dart';
 import 'package:flight_app/widgets/decorations/dashed_border.dart';
@@ -17,33 +18,34 @@ import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ETicketCard extends StatelessWidget {
-  const ETicketCard({
+class EOrderTicketCard extends StatelessWidget {
+  const EOrderTicketCard({
     super.key,
     required this.date,
+    required this.order,
   });
 
   final String date;
-
+  final CreateOrderResponse order;
   final double _radius = 30;
   final double _maxWidth = 400;
-  final double _height = 640;
+  final double _height = 660;
 
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final paymentController = Get.find<PaymentController>();
-    final passengerController = Get.find<PassengerController>();
+    // final paymentController = Get.find<PaymentController>();
+    // final passengerController = Get.find<PassengerController>();
     final Plane plane = planeList[0];
     // final City from = cityList[0];
     // final City to = cityList[1];
-    print(
-        paymentController.orderResponse.value?.result.flightInfo.first.dptDate);
+    // print(
+    //     paymentController.orderResponse.value?.result.flightInfo.first.dptDate);
 
     DateTime depart = DateTime.parse(
-        '${paymentController.orderResponse.value?.result.flightInfo.first.dptDate} ${paymentController.orderResponse.value?.result.flightInfo.first.dptTime}:00');
+        '${order.result.flightInfo.first.dptDate} ${order.result.flightInfo.first.dptTime}:00');
     DateTime arrival = DateTime.parse(
-        '${paymentController.orderResponse.value?.result.flightInfo.first.arrDate} ${paymentController.orderResponse.value?.result.flightInfo.first.arrTime}:00');
+        '${order.result.flightInfo.first.arrDate} ${order.result.flightInfo.first.arrTime}:00');
     final Duration tripDuration = depart.difference(arrival);
 
     // final User passengger = passengerList[2];
@@ -87,7 +89,7 @@ class ETicketCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${paymentController.orderResponse.value?.result.flightInfo.first.airline}',
+                          order.result.flightInfo.first.airline,
                           style: paragraph,
                         ),
                         const Spacer(),
@@ -96,8 +98,7 @@ class ETicketCard extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: ThemeRadius.small,
                               color: colorScheme(context).surfaceDim),
-                          child: Text(
-                              '${paymentController.orderResponse.value?.result.flightInfo.first.flightNum}',
+                          child: Text(order.result.flightInfo.first.flightNum,
                               style: ThemeText.paragraph),
                         ),
                       ]),
@@ -114,7 +115,7 @@ class ETicketCard extends StatelessWidget {
                           color: Colors.lightBlue[50],
                           borderRadius: ThemeRadius.medium,
                         ),
-                        child: Text(paymentController.orderNo.value,
+                        child: Text(order.result.orderNo,
                             style: ThemeText.title.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -145,13 +146,12 @@ class ETicketCard extends StatelessWidget {
                   Text("${localization.lastName} ${localization.firstName}",
                       style: caption),
                   Text(
-                      "${passengerController.passengers.first.lastname} ${passengerController.passengers.first.firstname}", //'${passengger.title} ${passengger.name}'
+                      "${order.result.passengers.first.name}", //'${passengger.title} ${passengger.name}'
                       style: textBold)
                 ]),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('Passport No.', style: caption),
-                  Text(passengerController.passengers.first.idcard,
-                      style: textBold)
+                  Text(order.result.passengers.first.passport, style: textBold)
                 ]),
               ]),
               const VSpace(),
@@ -205,12 +205,7 @@ class ETicketCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                        paymentController
-                                            .orderResponse
-                                            .value!
-                                            .result
-                                            .flightInfo
-                                            .first
+                                        order.result.flightInfo.first
                                             .dptCityNameEng,
                                         overflow: TextOverflow.ellipsis,
                                         style: ThemeText.headline
@@ -219,8 +214,7 @@ class ETicketCard extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 1),
                                       child: Text(
-                                        paymentController.orderResponse.value!
-                                            .result.flightInfo.first.dpt,
+                                        order.result.flightInfo.first.dpt,
                                         style: ThemeText.subtitle.copyWith(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black),
@@ -239,8 +233,7 @@ class ETicketCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      paymentController.orderResponse.value!
-                                          .result.flightInfo.first.flightNum,
+                                      order.result.flightInfo.first.flightNum,
                                       overflow: TextOverflow.ellipsis,
                                       style: ThemeText.paragraph.copyWith(
                                           fontWeight: FontWeight.bold,
@@ -263,12 +256,7 @@ class ETicketCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                        paymentController
-                                            .orderResponse
-                                            .value!
-                                            .result
-                                            .flightInfo
-                                            .first
+                                        order.result.flightInfo.first
                                             .arrCityNameEng,
                                         style: ThemeText.headline
                                             .copyWith(color: grey)),
@@ -276,8 +264,7 @@ class ETicketCard extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 1),
                                       child: Text(
-                                        paymentController.orderResponse.value!
-                                            .result.flightInfo.first.arr,
+                                        order.result.flightInfo.first.arr,
                                         style: ThemeText.subtitle.copyWith(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black),
@@ -300,11 +287,8 @@ class ETicketCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text('Terminal', style: caption),
-                      paymentController.orderResponse.value!.result.flightInfo
-                              .first.dptTerminal.isNotEmpty
-                          ? Text(
-                              paymentController.orderResponse.value!.result
-                                  .flightInfo.first.dptTerminal,
+                      order.result.flightInfo.first.dptTerminal.isNotEmpty
+                          ? Text(order.result.flightInfo.first.dptTerminal,
                               style: textBold)
                           : Text("7", style: textBold)
                     ]),

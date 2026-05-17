@@ -42,7 +42,7 @@ class PromoDesc extends StatelessWidget {
                 child: Text(title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: ThemeText.title2
+                    style: ThemeText.subtitle
                         .copyWith(fontWeight: FontWeight.bold))),
             SizedBox(width: spacingUnit(1)),
 

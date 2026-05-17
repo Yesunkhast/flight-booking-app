@@ -1,4 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
+import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class SettingList extends StatelessWidget {
   }
 
   Future<void> _logout() async {
+    final userController = Get.find<UserController>();
+    userController.userIsAvailable = false;
     await DatabaseService.instance.deletedb();
     await Get.find<AuthController>().logout();
   }
@@ -73,14 +76,14 @@ class SettingList extends StatelessWidget {
         padding: EdgeInsets.all(spacingUnit(2)),
         children: [
           /// UI SETTINGS
-          const TitleBasicSmall(title: 'UI Settings'),
+          TitleBasicSmall(title: localization.uiSettings),
           PaperCard(
               content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: [
               ListTile(
                 leading: const Icon(Icons.brightness_6_outlined),
-                title: const Text('Auto'),
+                title: Text(localization.auto),
                 onTap: () {
                   _saveThemeStatus('auto');
                 },
@@ -91,7 +94,7 @@ class SettingList extends StatelessWidget {
               const LineList(),
               ListTile(
                 leading: const Icon(Icons.dark_mode),
-                title: const Text('Dark Mode'),
+                title: Text(localization.darkMode),
                 onTap: () {
                   _saveThemeStatus('dark');
                 },
@@ -102,7 +105,7 @@ class SettingList extends StatelessWidget {
               const LineList(),
               ListTile(
                 leading: const Icon(Icons.light_mode),
-                title: const Text('Light Mode'),
+                title: Text(localization.lightMode),
                 onTap: () {
                   _saveThemeStatus('light');
                 },
@@ -113,7 +116,7 @@ class SettingList extends StatelessWidget {
               const LineList(),
               ListTile(
                 leading: const Icon(Icons.language),
-                title: const Text('Language'),
+                title: Text(localization.language),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
                   Get.toNamed('/language');
@@ -124,14 +127,14 @@ class SettingList extends StatelessWidget {
           const VSpace(),
 
           /// AUTH PAGES
-          const TitleBasicSmall(title: 'Auth Pages'),
+          TitleBasicSmall(title: localization.auth),
           PaperCard(
               content: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
                     ListTile(
                       leading: const Icon(Icons.waving_hand_outlined),
-                      title: const Text('Welcome Page'),
+                      title: Text(localization.welcomePage),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                       onTap: () {
                         Get.toNamed('/welcome');
@@ -155,19 +158,19 @@ class SettingList extends StatelessWidget {
                         Get.toNamed('/register');
                       },
                     ),
-                    const LineList(),
-                    ListTile(
-                      leading: const Icon(Icons.pin),
-                      title: const Text('Pin OTP'),
-                      trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                      onTap: () {
-                        Get.toNamed('/otp');
-                      },
-                    ),
+                    // const LineList(),
+                    // ListTile(
+                    //   leading: const Icon(Icons.pin),
+                    //   title: const Text('Pin OTP'),
+                    //   trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+                    //   onTap: () {
+                    //     Get.toNamed('/otp');
+                    //   },
+                    // ),
                     const LineList(),
                     ListTile(
                       leading: const Icon(Icons.key_sharp),
-                      title: const Text('Reset Password'),
+                      title: Text(localization.resetPassword),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                       onTap: () {
                         Get.toNamed('/reset-password');
@@ -177,14 +180,14 @@ class SettingList extends StatelessWidget {
           const VSpace(),
 
           // /// ACCOUNT SETTING
-          const TitleBasicSmall(title: 'Help and Account'),
+          TitleBasicSmall(title: localization.helpAndAccount),
           PaperCard(
               content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: [
               ListTile(
                 leading: const Icon(Icons.person),
-                title: const Text('Account Information'),
+                title: Text(localization.accountInformation),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
                   showModalBottomSheet(
@@ -203,7 +206,7 @@ class SettingList extends StatelessWidget {
                   Get.toNamed('/faq');
                 },
                 leading: const Icon(Icons.help_outline),
-                title: const Text('FAQ'),
+                title: Text(localization.faq),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
               ),
               const LineList(),
@@ -212,7 +215,7 @@ class SettingList extends StatelessWidget {
                   Get.toNamed('/contact');
                 },
                 leading: const Icon(Icons.message_outlined),
-                title: const Text('Contact Admin'),
+                title: Text(localization.contactAdmin),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
               ),
               const LineList(),
@@ -221,7 +224,7 @@ class SettingList extends StatelessWidget {
                   Get.toNamed('/terms-conditions');
                 },
                 leading: const Icon(Icons.insert_drive_file_outlined),
-                title: const Text('Terms and Conditions'),
+                title: Text(localization.termsAndConditions),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
               ),
             ]),
@@ -616,6 +619,7 @@ class SettingList extends StatelessWidget {
             child: FilledButton(
                 onPressed: () {
                   _logout();
+                  // ignore: avoid_print
                   print("logout clicked");
                 },
                 style: FilledButton.styleFrom(backgroundColor: Colors.red),

@@ -1070,12 +1070,6 @@ abstract class AppLocalizations {
   /// **'Warning'**
   String get warning;
 
-  /// No description provided for @warningInvalid.
-  ///
-  /// In en, this message translates to:
-  /// **'If incorrect, it cannot be used!!!!'**
-  String get warningInvalid;
-
   /// No description provided for @passportInfo.
   ///
   /// In en, this message translates to:
@@ -1085,8 +1079,14 @@ abstract class AppLocalizations {
   /// No description provided for @passportFields.
   ///
   /// In en, this message translates to:
-  /// **'Letters, numbers, gender'**
+  /// **'Letters, Numbers, Gender'**
   String get passportFields;
+
+  /// No description provided for @warningInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'If incorrect, it cannot be used!!!!'**
+  String get warningInvalid;
 
   /// No description provided for @passport.
   ///
@@ -1099,12 +1099,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Flight Ticket Booking Terms and Conditions'**
   String get flightTermsTitle;
-
-  /// No description provided for @birthDate.
-  ///
-  /// In en, this message translates to:
-  /// **'Date of Birth'**
-  String get birthDate;
 
   /// No description provided for @expiryDate.
   ///
@@ -1129,6 +1123,630 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to home'**
   String get backToHome;
+
+  /// No description provided for @checkPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Payment'**
+  String get checkPayment;
+
+  /// No description provided for @totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total amount'**
+  String get totalAmount;
+
+  /// No description provided for @transactionValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction value'**
+  String get transactionValue;
+
+  /// No description provided for @bank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get bank;
+
+  /// No description provided for @accountHolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Account holder'**
+  String get accountHolder;
+
+  /// No description provided for @expiryTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry time'**
+  String get expiryTime;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'copied'**
+  String get copied;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @transactionNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction number'**
+  String get transactionNumber;
+
+  /// No description provided for @orderHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Order history'**
+  String get orderHistory;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @showETicket.
+  ///
+  /// In en, this message translates to:
+  /// **'Show E-Ticket'**
+  String get showETicket;
+
+  /// No description provided for @goToMyTicket.
+  ///
+  /// In en, this message translates to:
+  /// **'GO TO MY TICKET'**
+  String get goToMyTicket;
+
+  /// No description provided for @eTicket.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Ticket'**
+  String get eTicket;
+
+  /// No description provided for @paymentExpiredWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, the payment time has expired'**
+  String get paymentExpiredWarning;
+
+  /// No description provided for @paymentInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'IF YOU HAVE ALREADY PAID, A CONFIRMATION THAT YOUR TICKET BOOKING HAS BEEN SUCCESSFULLY CONFIRMED WILL BE SENT TO YOUR PHONE AND EMAIL, AND YOUR BOOKING WILL BE COMPLETED. IF YOU HAVE NOT RECEIVED SUCH A MESSAGE, PLEASE CONTACT US THROUGH THE CONTACT SECTION.'**
+  String get paymentInstructions;
+
+  /// No description provided for @warningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WARNING'**
+  String get warningTitle;
+
+  /// No description provided for @paymentSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment successful'**
+  String get paymentSuccess;
+
+  /// No description provided for @warningPassportResponsibility.
+  ///
+  /// In en, this message translates to:
+  /// **'The passenger is responsible for any risks arising from incorrectly entering their own passport information or missing the flight.'**
+  String get warningPassportResponsibility;
+
+  /// No description provided for @warningTransitFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have a connecting flight, please contact 96961414, 90901550 for detailed transit information.'**
+  String get warningTransitFlight;
+
+  /// No description provided for @warningArrivalTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Passengers must arrive at the airport 3 hours before departure for ticket and baggage registration and passport control.'**
+  String get warningArrivalTime;
+
+  /// No description provided for @warningScheduleChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Please note that schedule change notifications will be sent to the mobile number and email address registered in our system.'**
+  String get warningScheduleChanges;
+
+  /// No description provided for @warningFlightChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Please note that the airline operating the flight has the right to cancel/delay the flight due to weather or other force majeure circumstances. If such a situation occurs, ECHINA.MN shall not be liable for any subsequent consequences.'**
+  String get warningFlightChanges;
+
+  /// No description provided for @transactionDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction detail'**
+  String get transactionDetail;
+
+  /// No description provided for @paymentNotPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment not paid'**
+  String get paymentNotPaid;
+
+  /// No description provided for @userDemo.
+  ///
+  /// In en, this message translates to:
+  /// **'User Demo'**
+  String get userDemo;
+
+  /// No description provided for @forgetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password'**
+  String get forgetPassword;
+
+  /// No description provided for @boardingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Boarding Time'**
+  String get boardingTime;
+
+  /// No description provided for @checkAllNews.
+  ///
+  /// In en, this message translates to:
+  /// **'Check All News'**
+  String get checkAllNews;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @levelProgressIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'Level progress indicator'**
+  String get levelProgressIndicator;
+
+  /// No description provided for @gold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get gold;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get lightMode;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @uiSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'UI Settings'**
+  String get uiSettings;
+
+  /// No description provided for @auth.
+  ///
+  /// In en, this message translates to:
+  /// **'Auth'**
+  String get auth;
+
+  /// No description provided for @welcomePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Page'**
+  String get welcomePage;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @helpAndAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and Account'**
+  String get helpAndAccount;
+
+  /// No description provided for @accountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInformation;
+
+  /// No description provided for @contactAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Admin'**
+  String get contactAdmin;
+
+  /// No description provided for @faq.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ'**
+  String get faq;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get auto;
+
+  /// No description provided for @registerNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Now'**
+  String get registerNow;
+
+  /// No description provided for @bookingNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Created'**
+  String get bookingNotificationTitle;
+
+  /// No description provided for @bookingNotificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking has been created. Please pay the amount to the following account'**
+  String get bookingNotificationBody;
+
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @bookingTimeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello! The time to make the payment is running out. Please don\'t delay in making the payment.'**
+  String get bookingTimeUp;
+
+  /// No description provided for @bookingCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking code'**
+  String get bookingCode;
+
+  /// No description provided for @orderNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Not Found'**
+  String get orderNotFound;
+
+  /// No description provided for @orderNotFoundDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The order could not been found'**
+  String get orderNotFoundDesc;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notification;
+
+  /// No description provided for @messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get messages;
+
+  /// No description provided for @chat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get chat;
+
+  /// No description provided for @allYourOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking is the beginning of your dream'**
+  String get allYourOrders;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My orders'**
+  String get myOrders;
+
+  /// No description provided for @contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get contact;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report;
+
+  /// No description provided for @contactUsReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us below if you need help / want to report issue.'**
+  String get contactUsReport;
+
+  /// No description provided for @chooseTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose topic'**
+  String get chooseTopic;
+
+  /// No description provided for @subject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subject;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @plsChooseTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose topic'**
+  String get plsChooseTopic;
+
+  /// No description provided for @plsWriteMessageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Please write message description'**
+  String get plsWriteMessageDesc;
+
+  /// No description provided for @subRep.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit report'**
+  String get subRep;
+
+  /// No description provided for @chooseCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose category'**
+  String get chooseCategory;
+
+  /// No description provided for @contactUsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'If you are interested in working with our organization or need assistance, please select below and contact us.'**
+  String get contactUsDesc;
+
+  /// No description provided for @locationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Ulaanbaatar city, Chingeltei district 5th khoroo, MN Tower office, 15th floor, room 1510'**
+  String get locationDesc;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @faqSearchFlightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Search for Flights?'**
+  String get faqSearchFlightTitle;
+
+  /// No description provided for @faqSearchFlightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You can easily search for domestic and international flights by entering your departure city, destination, and travel date. The system will display available flights, prices, and schedules in real time.'**
+  String get faqSearchFlightDesc;
+
+  /// No description provided for @faqBookingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Book a Flight Ticket?'**
+  String get faqBookingTitle;
+
+  /// No description provided for @faqBookingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'After selecting your flight, you can complete your booking by entering passenger information and making payment through the available payment methods on the platform.'**
+  String get faqBookingDesc;
+
+  /// No description provided for @faqBookingInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where Can I Check My Booking Information?'**
+  String get faqBookingInfoTitle;
+
+  /// No description provided for @faqBookingInfoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You can view your booking details, payment status, and ticket information from your account dashboard after successfully completing your reservation.'**
+  String get faqBookingInfoDesc;
+
+  /// No description provided for @faqPaymentIssueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Completed but Ticket Not Issued?'**
+  String get faqPaymentIssueTitle;
+
+  /// No description provided for @faqPaymentIssueDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'If your payment was successful but your ticket was not issued, please contact customer support with your booking number and payment information for assistance.'**
+  String get faqPaymentIssueDesc;
+
+  /// No description provided for @faqChangeCancelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I Change or Cancel My Ticket?'**
+  String get faqChangeCancelTitle;
+
+  /// No description provided for @faqChangeCancelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Flight changes and cancellations depend on the airline policy and ticket conditions. Additional service fees may apply depending on the selected fare type.'**
+  String get faqChangeCancelDesc;
+
+  /// No description provided for @faqPassengerInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Save Passenger Information?'**
+  String get faqPassengerInfoTitle;
+
+  /// No description provided for @faqPassengerInfoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Passengers can save their personal information in the application to make future bookings faster and more convenient.'**
+  String get faqPassengerInfoDesc;
+
+  /// No description provided for @faqDocumentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What Documents Are Required for International Flights?'**
+  String get faqDocumentTitle;
+
+  /// No description provided for @faqDocumentDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'For international travel, passengers must ensure that their passport validity and visa requirements meet the destination country regulations before departure.'**
+  String get faqDocumentDesc;
+
+  /// No description provided for @faqSupportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Contact Customer Support?'**
+  String get faqSupportTitle;
+
+  /// No description provided for @faqSupportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You can contact customer support through the Help section or by using the contact information provided on the platform for booking and payment assistance.'**
+  String get faqSupportDesc;
+
+  /// No description provided for @contactUsBottomDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us and we\'ll get back to you as soon as possible.'**
+  String get contactUsBottomDesc;
+
+  /// No description provided for @contactUsBottomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Still no luck? We can help!'**
+  String get contactUsBottomTitle;
+
+  /// No description provided for @howCanWeHelpYou.
+  ///
+  /// In en, this message translates to:
+  /// **'How can we help you?'**
+  String get howCanWeHelpYou;
+
+  /// No description provided for @hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get hello;
+
+  /// No description provided for @youDontHaveBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t any booking yet'**
+  String get youDontHaveBooking;
+
+  /// No description provided for @ticketDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket Detail'**
+  String get ticketDetail;
+
+  /// No description provided for @transactionDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Date'**
+  String get transactionDate;
+
+  /// No description provided for @availableDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Date'**
+  String get availableDate;
+
+  /// No description provided for @showBoardingPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Show boarding pass'**
+  String get showBoardingPass;
+
+  /// No description provided for @priceDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Detail'**
+  String get priceDetail;
+
+  /// No description provided for @ticket.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket'**
+  String get ticket;
+
+  /// No description provided for @feeAndTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee and Tax'**
+  String get feeAndTax;
+
+  /// No description provided for @subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get subtotal;
+
+  /// No description provided for @passengerDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Passenger Detail'**
+  String get passengerDetail;
+
+  /// No description provided for @baggage.
+  ///
+  /// In en, this message translates to:
+  /// **'Baggage'**
+  String get baggage;
 }
 
 class _AppLocalizationsDelegate

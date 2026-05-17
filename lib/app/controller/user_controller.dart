@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:flight_app/app/app_link.dart';
+// import 'package:flight_app/app/app_link.dart';
+// import 'package:flight_app/app/controller/auth_controller.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:get/get_instance/src/extension_instance.dart';
+// import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flight_app/app/config/env.dart';
-import 'package:flight_app/app/controller/auth_controller.dart';
 import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/app/storage/token_storage.dart';
+// import 'package:flight_app/app/storage/token_storage.dart';
 import 'package:flight_app/models/realModel/user.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -19,8 +20,8 @@ class UserController extends GetxController {
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: Env.baseUrl,
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
+      connectTimeout: const Duration(seconds: 90),
+      receiveTimeout: const Duration(seconds: 90),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -47,49 +48,12 @@ class UserController extends GetxController {
       userIsAvailable = true;
     } else {
       userIsAvailable = false;
-      print("No user found in local DB");
-    }
-  }
-
-  Future<void> getUserToApi() async {
-    final db = await DatabaseService.instance.database;
-    try {
-      isLoading.value = true;
-      final response = await dio.get('/user/me',
-          options: Options(headers: {
-            'Authorization': 'Bearer ${await TokenStorage.getAccessToken()}'
-          }));
-      final data = response.data;
-      user.value = User.fromJson(data);
-      print("getted user: ${user.value!.toMap()}");
-      db.insert('user', {
-        'id': user.value!.id,
-        'lastName': user.value!.lastName,
-        'firstName': user.value!.firstName,
-        'email': user.value!.email,
-        'phone': user.value!.phone,
-        'image': user.value!.image,
-        'birthday': user.value!.birthday
-      });
-
-      final result = await db.query('user');
-
-      print("queryd_user: $result");
-      userIsAvailable = true;
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        userIsAvailable = false;
-        await Get.find<AuthController>().logout();
-        Get.offAllNamed(AppLink.login);
-      }
-    } finally {
-      isLoading.value = false;
+      print("No user found in local DB $result");
     }
   }
 
   Future<void> editUser({
     required String id,
-    String? token,
     String? lastName,
     String? firstName,
     String? image,
@@ -97,25 +61,50 @@ class UserController extends GetxController {
     String? birthday,
     String? phone,
     String? email,
+    String? password,
   }) async {
     try {
       isLoading.value = true;
 
+      final token = await TokenStorage.getAccessToken();
+      print("Token: $token");
+      dio.options.headers['Authorization'] = 'Bearer $token';
+      final response = await dio.patch(
+        '/api/auth/profile/',
+        data: {
+          if (lastName != null && lastName.isNotEmpty) 'lastname': lastName,
+          if (firstName != null && firstName.isNotEmpty) 'firstname': firstName,
+          if (image != null && image.isNotEmpty) 'image': image,
+          if (idCard != null && idCard.isNotEmpty) 'idcard': idCard,
+          if (birthday != null && birthday.isNotEmpty) 'birthday': birthday,
+          if (phone != null && phone.isNotEmpty) 'phone': phone,
+          if (email != null && email.isNotEmpty) 'email': email,
+        },
+      );
+
+      // Update local DB
+      print(
+          "editUser called with id: $id, lastName: $lastName, firstName: $firstName, image: $image, idCard: $idCard, birthday: $birthday, phone: $phone, email: $email");
+
+      final data = response.data;
+      print("API response for user: ${data["data"]}");
+      user.value = User.fromJson(data['data']);
+      print("here1 ${user.value!.lastName}");
+
       await DatabaseService.instance.editUser(
         id: id,
-        token: token,
-        lastName: lastName,
-        firstName: firstName,
-        image: image,
-        idCard: idCard,
-        birthday: birthday,
-        phone: phone,
-        email: email,
+        lastName: user.value!.lastName,
+        firstName: user.value!.firstName,
+        image: user.value!.image,
+        idCard: user.value!.idCard,
+        birthday: user.value!.birthday,
+        phone: user.value!.phone,
+        email: user.value!.email,
       );
 
       await getUserFromDb();
-    } catch (e) {
-      print('Error editing user: $e');
+    } on DioException catch (e) {
+      print('Error editing user: ${e.response?.data}');
     } finally {
       isLoading.value = false;
     }
@@ -139,20 +128,4 @@ class UserController extends GetxController {
       '${user.value?.lastName ?? ''} ${user.value?.firstName ?? ''}'.trim();
   String get displayPhone => user.value?.phone ?? '';
   String get displayEmail => user.value?.email ?? '';
-
-  // Future<void> insertUser(User user) async {
-  //   final db = await DatabaseService.instance.database;
-  //   await db.insert('user', {
-  //     'id': user.id,
-  //     'name': user.username,
-  //     'image': user.image,
-  //     'passportId': user.passportId,
-  //     'dateOfBirth': user.dateOfBirth,
-  //     'phone': user.phone,
-  //     'email': user.email,
-  //   });
-
-  //   // ignore: avoid_print
-  //   print("user inserted to sqlite: ${user.toMap()}");
-  // }
 }

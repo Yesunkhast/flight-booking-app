@@ -16,6 +16,11 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
 
+  // NotificationService бүртгэх + initialize
+  await NotificationService.instance.initNotif();
+  await NotificationService.instance.requestPermission();
+  await NotificationService.instance.requestExactAlarmPermission();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
