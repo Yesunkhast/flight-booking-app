@@ -9,7 +9,7 @@ import 'package:flight_app/app/controller/user_controller.dart';
 import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/app/service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 import 'package:flight_app/models/realModel/passenger.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';

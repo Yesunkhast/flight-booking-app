@@ -1,5 +1,5 @@
-import 'package:flight_app/models/list_item.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/list_item.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 
 final List<ListItem> passengerOptions = [
   ListItem(

@@ -1,6 +1,6 @@
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/chat.dart';
+import 'package:flight_app/models/ggModel/chat.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 

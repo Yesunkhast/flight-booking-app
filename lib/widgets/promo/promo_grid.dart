@@ -1,6 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/promo.dart';
+import 'package:flight_app/models/ggModel/promo.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/cards/promo_card.dart';
 import 'package:get/get.dart';

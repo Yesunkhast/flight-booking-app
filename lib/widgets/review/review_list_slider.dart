@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:flight_app/models/rating.dart';
+import 'package:flight_app/models/ggModel/rating.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/cards/rating_card.dart';
 import 'package:flight_app/widgets/title/title_action.dart';

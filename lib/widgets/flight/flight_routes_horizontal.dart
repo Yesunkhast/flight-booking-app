@@ -1,4 +1,4 @@
-import 'package:flight_app/models/flight_route.dart';
+import 'package:flight_app/models/ggModel/flight_route.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/widgets/cards/flight_route_card.dart';

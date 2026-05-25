@@ -1,6 +1,6 @@
 import 'package:change_case/change_case.dart';
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/models/promo.dart';
+import 'package:flight_app/models/ggModel/promo.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/widgets/app_button/back_icon_button.dart';

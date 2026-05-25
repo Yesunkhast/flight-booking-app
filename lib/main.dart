@@ -17,7 +17,7 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
 
-  StripePaymentService.init();
+  StripePaymentService.instance.init();
 
   await NotificationService.instance.initNotif();
   await NotificationService.instance.requestPermission();

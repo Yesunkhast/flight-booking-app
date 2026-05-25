@@ -1,5 +1,5 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/models/flight_package.dart';
+import 'package:flight_app/models/ggModel/flight_package.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/cards/package_card.dart';
 import 'package:flight_app/widgets/title/title_action.dart';

@@ -1,6 +1,6 @@
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
-import 'package:flight_app/models/user.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
+import 'package:flight_app/models/ggModel/user.dart';
 
 final List<String> bookingSteps = [
   'passengers',

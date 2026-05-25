@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:flight_app/models/category.dart';
+import 'package:flight_app/models/ggModel/category.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';

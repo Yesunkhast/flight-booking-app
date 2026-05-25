@@ -1,8 +1,8 @@
 import 'package:flight_app/app/constants/img_api.dart';
-import 'package:flight_app/models/airport.dart';
-import 'package:flight_app/models/booking.dart';
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/ggModel/airport.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';

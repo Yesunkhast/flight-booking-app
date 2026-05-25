@@ -12,7 +12,7 @@ import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 import 'package:flight_app/widgets/promo/promo_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/promo.dart';
+import 'package:flight_app/models/ggModel/promo.dart';
 import 'package:flight_app/widgets/promo/promo_list.dart';
 import 'package:flight_app/widgets/search_filter/search_input_btn.dart';
 import 'package:get/get_core/src/get_main.dart';

@@ -1,5 +1,5 @@
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_shadow.dart';

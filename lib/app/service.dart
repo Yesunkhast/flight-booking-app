@@ -266,22 +266,24 @@ class NotificationService {
 class StripePaymentService {
   static final StripePaymentService instance = StripePaymentService._();
   StripePaymentService._();
-  static const String _secretKey =
-      "sk_test_51TOUqY4SMKbv7fxQqEpniVPqfvRCDjY7jxrvfTv32wxm3l8K4sG02iNG36Z8Uj9hJ0HiSFsUfyEoGDiCP7KBcjk000TYzN7CAS"; // Stripe secret key
-  static const String _publishableKey =
-      "pk_test_51TOUqY4SMKbv7fxQgoo1B45lNxJXdl85zy5Cni3lj6JsCDgksFMi9UcdvYoUnPYgM9vx3hi8q7KXgvXdBylwO48A00wNCjQzcz"; // Stripe publishable key
 
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'https://api.stripe.com/v1',
-    headers: {
-      'Authorization': 'Bearer $_secretKey',
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  ));
+  late final String _secretKey;
+  late final String _publishKey;
+  late final Dio _dio;
 
-  /// main.dart дотор дуудна
-  static void init() {
-    Stripe.publishableKey = _publishableKey;
+  void init() {
+    _secretKey = dotenv.env['SECRET_KEY'] ?? '';
+    _publishKey = dotenv.env['PUBLISHABLE_KEY'] ?? '';
+
+    Stripe.publishableKey = _publishKey;
+
+    _dio = Dio(BaseOptions(
+      baseUrl: 'https://api.stripe.com/v1',
+      headers: {
+        'Authorization': 'Bearer $_secretKey',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    ));
   }
 
   /// Төлбөр төлөх

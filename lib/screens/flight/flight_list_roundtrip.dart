@@ -1,6 +1,6 @@
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
-import 'package:flight_app/models/trip.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
+import 'package:flight_app/models/ggModel/trip.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/widgets/flight/info_header.dart';
 import 'package:flight_app/widgets/flight/flight_trip_list.dart';

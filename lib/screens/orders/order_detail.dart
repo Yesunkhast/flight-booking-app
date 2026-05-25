@@ -9,8 +9,8 @@
 // import 'package:get/get_instance/src/extension_instance.dart';
 // import 'package:intl/intl.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/booking.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
 import 'package:flight_app/models/realModel/order.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';

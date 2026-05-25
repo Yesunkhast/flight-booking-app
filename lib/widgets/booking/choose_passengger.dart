@@ -1,8 +1,8 @@
 import 'package:change_case/change_case.dart';
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 import 'package:flight_app/models/realModel/order.dart';
-import 'package:flight_app/models/user.dart';
+import 'package:flight_app/models/ggModel/user.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';

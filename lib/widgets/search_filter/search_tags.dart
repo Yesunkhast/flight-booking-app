@@ -1,6 +1,6 @@
 import 'package:flight_app/app/controller/flight_search_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/airport.dart';
+import 'package:flight_app/models/ggModel/airport.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';

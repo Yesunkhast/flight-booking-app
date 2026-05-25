@@ -1,4 +1,4 @@
-import 'package:flight_app/models/list_item.dart';
+import 'package:flight_app/models/ggModel/list_item.dart';
 import 'package:flight_app/widgets/app_input/app_bottom_picker.dart';
 import 'package:flutter/material.dart';
 

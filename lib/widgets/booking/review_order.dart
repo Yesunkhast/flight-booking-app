@@ -1,10 +1,10 @@
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/city.dart';
+import 'package:flight_app/models/ggModel/city.dart';
 import 'package:flight_app/models/realModel/order.dart';
 import 'package:flight_app/models/realModel/passenger.dart';
-import 'package:flight_app/models/trip.dart';
-import 'package:flight_app/models/user.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/trip.dart';
+import 'package:flight_app/models/ggModel/user.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';

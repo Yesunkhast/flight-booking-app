@@ -1,7 +1,7 @@
 // import 'package:flight_app/models/city.dart';
 // import 'package:flight_app/models/plane.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 import 'package:flight_app/models/realModel/flight.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';

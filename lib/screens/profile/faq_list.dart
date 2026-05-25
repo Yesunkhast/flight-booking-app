@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
-import 'package:flight_app/models/faq.dart';
+import 'package:flight_app/models/ggModel/faq.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';

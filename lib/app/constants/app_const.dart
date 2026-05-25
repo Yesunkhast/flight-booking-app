@@ -1,5 +1,5 @@
-import 'package:flight_app/models/company.dart';
-import 'package:flight_app/models/user.dart';
+import 'package:flight_app/models/ggModel/company.dart';
+import 'package:flight_app/models/ggModel/user.dart';
 import 'package:flight_app/app/constants/img_api.dart';
 
 User userDummy = User(

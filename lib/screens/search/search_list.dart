@@ -1,5 +1,5 @@
 // import 'package:flight_app/app/controllers.dart';
-import 'package:flight_app/models/airport.dart';
+import 'package:flight_app/models/ggModel/airport.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/search_filter/city_list_autocomplete.dart';
 import 'package:flight_app/widgets/search_filter/search_input.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/general_list.dart';
+import 'package:flight_app/models/ggModel/general_list.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';
 

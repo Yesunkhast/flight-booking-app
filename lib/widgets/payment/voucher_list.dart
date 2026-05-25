@@ -1,4 +1,4 @@
-import 'package:flight_app/models/voucher.dart';
+import 'package:flight_app/models/ggModel/voucher.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/ui/themes/theme_text.dart';

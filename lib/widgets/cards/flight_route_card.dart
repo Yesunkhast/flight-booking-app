@@ -1,4 +1,4 @@
-import 'package:flight_app/models/airport.dart';
+import 'package:flight_app/models/ggModel/airport.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

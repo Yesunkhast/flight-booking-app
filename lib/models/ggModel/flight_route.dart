@@ -1,4 +1,4 @@
-import 'package:flight_app/models/airport.dart';
+import 'package:flight_app/models/ggModel/airport.dart';
 import 'package:flight_app/widgets/cards/flight_route_card.dart';
 
 class FlightRoute {

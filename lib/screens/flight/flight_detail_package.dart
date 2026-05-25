@@ -1,8 +1,8 @@
 import 'package:flight_app/app/app_link.dart';
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/flight_route.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/flight_route.dart';
 import 'package:flight_app/app/constants/img_api.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';

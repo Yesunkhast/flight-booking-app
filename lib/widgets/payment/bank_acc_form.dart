@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/list_item.dart';
+import 'package:flight_app/models/ggModel/list_item.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/utils/picker.dart';
 import 'package:flight_app/widgets/app_input/app_textfield.dart';

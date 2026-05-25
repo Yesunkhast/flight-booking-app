@@ -124,7 +124,7 @@ class PaymentController extends GetxController {
         throw Exception(data['message']);
       }
     } catch (e) {
-      print("❌ Order fetch error: $e");
+      print("Order fetch error: $e");
     } finally {
       isLoading.value = false;
     }
@@ -179,7 +179,7 @@ class PaymentController extends GetxController {
       final res = await _dio.get('/checkPayment/$orderNo/mn/');
       final data = res.data;
 
-      print("🔄 payment check: $data");
+      print("payment check: $data");
 
       if (data['status'] == 'SUCCESS') {
         paymentStatus.value = "SUCCESS";
@@ -193,7 +193,7 @@ class PaymentController extends GetxController {
         paymentStatus.value = "FAILED";
       }
     } catch (e) {
-      print("❌ check error: $e");
+      print("check error: $e");
     } finally {
       // isRequesting.value = false;
     }
@@ -222,7 +222,7 @@ class PaymentController extends GetxController {
 
   @override
   void onClose() {
-    stopChecking(); // 🔥 VERY IMPORTANT
+    stopChecking();
     super.onClose();
   }
 

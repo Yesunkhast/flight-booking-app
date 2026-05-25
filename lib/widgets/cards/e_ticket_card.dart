@@ -1,10 +1,10 @@
 import 'package:flight_app/app/controller/passenger_controller.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/booking.dart';
-import 'package:flight_app/models/city.dart';
-import 'package:flight_app/models/plane.dart';
-import 'package:flight_app/models/user.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
+import 'package:flight_app/models/ggModel/city.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
+import 'package:flight_app/models/ggModel/user.dart';
 import 'package:flight_app/widgets/decorations/cut_deco.dart';
 import 'package:flight_app/widgets/decorations/dashed_border.dart';
 import 'package:flutter/cupertino.dart';

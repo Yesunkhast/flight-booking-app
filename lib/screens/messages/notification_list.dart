@@ -4,7 +4,7 @@ import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/app/service.dart';
 import 'package:flight_app/utils/no_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/notification.dart';
+import 'package:flight_app/models/ggModel/notification.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/notifications/filters.dart';
 import 'package:flight_app/widgets/notifications/notif_item.dart';

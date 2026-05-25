@@ -3,7 +3,7 @@ import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/utils/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flight_app/models/chat.dart';
+import 'package:flight_app/models/ggModel/chat.dart';
 import 'package:flight_app/screens/messages/chat.dart';
 import 'package:flight_app/widgets/chat/chat_item.dart';
 

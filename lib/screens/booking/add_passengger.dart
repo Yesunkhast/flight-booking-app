@@ -1,6 +1,6 @@
 import 'package:flight_app/app/controller/passenger_controller.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
-import 'package:flight_app/models/list_item.dart';
+import 'package:flight_app/models/ggModel/list_item.dart';
 // import 'package:flight_app/models/realModel/passenger.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/ui/themes/theme_button.dart';

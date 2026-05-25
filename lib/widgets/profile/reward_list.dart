@@ -1,5 +1,5 @@
 import 'package:flight_app/ui/themes/theme_spacing.dart';
-import 'package:flight_app/models/reward.dart';
+import 'package:flight_app/models/ggModel/reward.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_app/widgets/cards/reward_card.dart';
 

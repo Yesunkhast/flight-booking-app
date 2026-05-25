@@ -1,4 +1,4 @@
-import 'package:flight_app/models/list_item.dart';
+import 'package:flight_app/models/ggModel/list_item.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/utils/picker.dart';
 import 'package:flight_app/widgets/search_filter/filter_flight_form.dart';

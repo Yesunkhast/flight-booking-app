@@ -1,6 +1,6 @@
-import 'package:flight_app/models/city.dart';
+import 'package:flight_app/models/ggModel/city.dart';
 import 'package:flight_app/app/constants/img_api.dart';
-import 'package:flight_app/models/plane.dart';
+import 'package:flight_app/models/ggModel/plane.dart';
 
 class FlightPackage {
   final String id;

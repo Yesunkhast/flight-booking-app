@@ -3,7 +3,7 @@ import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/widgets/cards/promo_card.dart';
 import 'package:flight_app/widgets/title/title_action.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/promo.dart';
+import 'package:flight_app/models/ggModel/promo.dart';
 import 'package:get/route_manager.dart';
 
 class PromoListSlider extends StatelessWidget {

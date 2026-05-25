@@ -1,6 +1,6 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/constants/img_api.dart';
-import 'package:flight_app/models/voucher.dart';
+import 'package:flight_app/models/ggModel/voucher.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
 import 'package:flight_app/utils/no_data.dart';
 import 'package:flight_app/widgets/cards/voucher_card.dart';

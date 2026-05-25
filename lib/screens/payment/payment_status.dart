@@ -5,7 +5,7 @@ import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_breakpoints.dart';
 import 'package:flight_app/utils/col_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flight_app/models/booking.dart';
+import 'package:flight_app/models/ggModel/booking.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 // import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
