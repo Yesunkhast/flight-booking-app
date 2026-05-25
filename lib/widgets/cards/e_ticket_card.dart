@@ -27,7 +27,7 @@ class ETicketCard extends StatelessWidget {
 
   final double _radius = 30;
   final double _maxWidth = 400;
-  final double _height = 640;
+  final double _height = 660;
 
   @override
   Widget build(BuildContext context) {

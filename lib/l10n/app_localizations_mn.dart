@@ -894,7 +894,7 @@ class AppLocalizationsMn extends AppLocalizations {
   String get cardPayment => 'Картаар төлөх';
 
   @override
-  String get requestSent => 'Request Sent';
+  String get requestSent => 'Хүсэлт илгээх';
 
   @override
   String get notifrequestDesc =>
