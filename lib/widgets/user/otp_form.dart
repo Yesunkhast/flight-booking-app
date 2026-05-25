@@ -111,7 +111,7 @@ class _OtpFormState extends State<OtpForm> {
                     separatorBuilder: (index) => const SizedBox(width: 8),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      return value == '1234' ? null : localization.pinIncorrect;
+                      return value == '1254' ? null : localization.pinIncorrect;
                     },
                     onCompleted: (pin) {
                       debugPrint('onCompleted: $pin');
@@ -160,7 +160,7 @@ class _OtpFormState extends State<OtpForm> {
                             // _authController.verifyOtp();
                             focusNode.unfocus();
                             if (formKey.currentState!.validate()) {
-                              Get.toNamed(AppLink.home);
+                              Get.toNamed(AppLink.editPassword);
                             }
                           },
                     child: Text(localization.verify.toUpperCase()),

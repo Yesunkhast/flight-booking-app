@@ -1,6 +1,8 @@
 import 'package:flight_app/app/app_link.dart';
 import 'package:flight_app/app/controller/payment_controller.dart';
+import 'package:flight_app/app/service.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
+import 'package:flight_app/ui/themes/theme_button.dart';
 import 'package:flight_app/ui/themes/theme_palette.dart';
 import 'package:flight_app/ui/themes/theme_radius.dart';
 import 'package:flight_app/ui/themes/theme_spacing.dart';
@@ -13,6 +15,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart';
 
 class PaymentTransfer extends StatelessWidget {
   const PaymentTransfer({
@@ -71,22 +74,22 @@ class PaymentTransfer extends StatelessWidget {
               SizedBox(height: spacingUnit(2)),
 
               // ── Bank logo ───────────────────────────────────────────────
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: ThemeRadius.medium,
-                ),
-                child:
-                    Center(child: Image.asset("assets/images/golomt_bank.jpg")),
-              ),
-              SizedBox(height: spacingUnit(1)),
-              Divider(
-                color: colorScheme(context).primary,
-                height: 1,
-                thickness: 2,
-              ),
-              SizedBox(height: spacingUnit(2)),
+              // Container(
+              //   width: 48,
+              //   height: 48,
+              //   decoration: BoxDecoration(
+              //     borderRadius: ThemeRadius.medium,
+              //   ),
+              //   child:
+              //       Center(child: Image.asset("assets/images/golomt_bank.jpg")),
+              // ),
+              // SizedBox(height: spacingUnit(1)),
+              // Divider(
+              //   color: colorScheme(context).primary,
+              //   height: 1,
+              //   thickness: 2,
+              // ),
+              // SizedBox(height: spacingUnit(2)),
 
               // ── Info rows ───────────────────────────────────────────────
               _InfoRow(
@@ -245,65 +248,96 @@ class PaymentTransfer extends StatelessWidget {
               paymentController.paymentStatus.value != "TIMEOUT"
                   ? SizedBox(
                       width: double.infinity,
-                      child: FilledButton(
-                        onPressed: () {
-                          print("clicked");
-                          paymentController
-                              .checkPayment(paymentController.oid.value);
-                          if (paymentController.paymentStatus.value ==
-                              "SUCCESS") {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(localization.paymentSuccess),
-                                duration: const Duration(seconds: 3),
-                                behavior: SnackBarBehavior.floating,
+                      child: Column(
+                        children: [
+                          // Check Payment товч
+                          SizedBox(
+                            width: double.infinity,
+                            child: FilledButton.icon(
+                              onPressed: () {
+                                paymentController
+                                    .checkPayment(paymentController.oid.value);
+                              },
+                              style:
+                                  ThemeButton.btnBig.merge(ThemeButton.primary),
+                              icon: const Icon(Icons.check_circle_outline,
+                                  size: 20, color: Colors.white),
+                              label: Text(
+                                localization.checkPayment,
+                                style: ThemeText.subtitle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            );
-                            Get.toNamed(AppLink.paymentStatus);
-                          }
+                            ),
+                          ),
+                          const VSpace(),
+                          // Card Payment товч
+                          SizedBox(
+                            width: double.infinity,
+                            child: OutlinedButton.icon(
+                              onPressed: () async {
+                                final success =
+                                    await StripePaymentService.instance.pay(
+                                  amount:
+                                      totalPrice!.toInt() * 100, 
+                                );
+                                if (success) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text(localization.paymentSuccess),
+                                      duration: const Duration(seconds: 2),
+                                      backgroundColor: colorScheme(context)
+                                          .onPrimaryContainer,
+                                    ),
+                                  );
+                                  NotificationService.instance.showNotification(
+                                      title: localization.paymentSuccess,
+                                      body: localization.paymentSuccessDesc,
+                                      type: "success");
+                                  Get.offNamed(AppLink.paymentStatus);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(localization.paymentFailed),
+                                      duration: const Duration(seconds: 2),
+                                      backgroundColor: colorScheme(context)
+                                          .onPrimaryContainer,
+                                    ),
+                                  );
+                                }
 
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            ScaffoldMessenger.of(Get.context!).showSnackBar(
-                              SnackBar(
-                                content: Center(
-                                    child: Text(localization.paymentNotPaid)),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: colorScheme(context).primary,
+                                // Get.toNamed('/payment/status');
+                              },
+                              style: ThemeButton.btnBig.merge(
+                                OutlinedButton.styleFrom(
+                                  side: BorderSide(
+                                      color: colorScheme(context).primary),
+                                ),
                               ),
-                            );
-                          });
-                        },
-                        style: FilledButton.styleFrom(
-                          backgroundColor: const Color(0xFFD4006E),
-                          padding:
-                              EdgeInsets.symmetric(vertical: spacingUnit(2)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: ThemeRadius.medium,
+                              icon: Icon(Icons.credit_card,
+                                  size: 20,
+                                  color: colorScheme(context).primary),
+                              label: Text(
+                                localization.cardPayment,
+                                style: ThemeText.subtitle.copyWith(
+                                  color: colorScheme(context).primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          localization.checkPayment,
-                          style: ThemeText.subtitle.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        ],
                       ),
                     )
                   : SizedBox(
                       width: double.infinity,
                       child: FilledButton(
                         onPressed: () {
-                          Get.toNamed(AppLink.paymentStatus);
+                          Get.toNamed(AppLink.home);
                         },
-                        style: FilledButton.styleFrom(
-                          backgroundColor: const Color(0xFFD4006E),
-                          padding:
-                              EdgeInsets.symmetric(vertical: spacingUnit(2)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: ThemeRadius.medium,
-                          ),
-                        ),
+                        style: ThemeButton.btnBig.merge(ThemeButton.primary),
                         child: Text(
                           localization.backToHome,
                           style: ThemeText.subtitle.copyWith(

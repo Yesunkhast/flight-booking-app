@@ -63,29 +63,29 @@ class _OrderDetailState extends State<OrderDetail> {
       }
     }
 
-    void showTicketSettings() async {
-      Get.bottomSheet(
-        StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-          return Padding(
-            padding: EdgeInsets.all(spacingUnit(2)),
-            child: const Wrap(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                GrabberIcon(),
-                TicketSettingsBottomSheet(),
-              ],
-            ),
-          );
-        }),
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        backgroundColor: colorScheme(context).surface,
-      );
-    }
+    // void showTicketSettings() async {
+    //   Get.bottomSheet(
+    //     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+    //       return Padding(
+    //         padding: EdgeInsets.all(spacingUnit(2)),
+    //         child: const Wrap(
+    //           children: [
+    //             SizedBox(
+    //               height: 30,
+    //             ),
+    //             GrabberIcon(),
+    //             TicketSettingsBottomSheet(),
+    //           ],
+    //         ),
+    //       );
+    //     }),
+    //     isScrollControlled: true,
+    //     shape: const RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    //     ),
+    //     backgroundColor: colorScheme(context).surface,
+    //   );
+    // }
 
     void showPassengerList() async {
       Get.bottomSheet(
@@ -294,7 +294,7 @@ class _OrderDetailState extends State<OrderDetail> {
 
                   /// OTHER OPTIONS
                   const LineSpace(),
-                  const TicketSettingsList(),
+                  // const TicketSettingsList(),
                   const VSpaceBig()
                 ]),
           ),
@@ -316,17 +316,17 @@ class _OrderDetailState extends State<OrderDetail> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          showTicketSettings();
-                        },
-                        style: ThemeButton.btnBig
-                            .merge(ThemeButton.outlinedPrimary(context)),
-                        child: const Icon(Icons.more_horiz, size: 18)),
-                  ),
+                  // SizedBox(
+                  //   height: 50,
+                  //   width: 50,
+                  //   child: OutlinedButton(
+                  //       onPressed: () {
+                  //         showTicketSettings();
+                  //       },
+                  //       style: ThemeButton.btnBig
+                  //           .merge(ThemeButton.outlinedPrimary(context)),
+                  //       child: const Icon(Icons.more_horiz, size: 18)),
+                  // ),
                   SizedBox(width: spacingUnit(1)),
                   Expanded(
                     child: SizedBox(

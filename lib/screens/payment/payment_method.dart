@@ -303,10 +303,12 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       //         onPressed: () {
                       //           Get.toNamed(AppLink.paymentStatus);
                       //         },
-                      //         style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                      //         child:
-                      //             const Text('CONTINUE', style: ThemeText.subtitle2)),
+                      //         style:
+                      //             ThemeButton.btnBig.merge(ThemeButton.primary),
+                      //         child: const Text('CONTINUE',
+                      //             style: ThemeText.subtitle2)),
                       //   ),
+                      // ),
                       // Row(
                       //   crossAxisAlignment: CrossAxisAlignment.center,
                       //   mainAxisAlignment: MainAxisAlignment.start,
@@ -317,13 +319,14 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       //     Column(
                       //       crossAxisAlignment: CrossAxisAlignment.end,
                       //       children: [
-                      //         Text('\$$price',
+                      //         Text('\$20',
                       //             textAlign: TextAlign.end,
                       //             style: ThemeText.headline.copyWith(
-                      //                 color: colorScheme(context).onSurfaceVariant,
+                      //                 color:
+                      //                     colorScheme(context).onSurfaceVariant,
                       //                 decoration: TextDecoration.lineThrough,
                       //                 height: 1)),
-                      //         Text('\$$finalPrice',
+                      //         Text('\$564',
                       //             textAlign: TextAlign.end,
                       //             style: ThemeText.title.copyWith(
                       //                 color: colorScheme(context).primary,
@@ -335,14 +338,14 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       //     Expanded(
                       //       child: FilledButton(
                       //           onPressed: () {
-                      //             Get.toNamed('/payment/$_paymentMethod');
+                      //             Get.toNamed('/payment/credit-card');
                       //           },
-                      //           style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                      //           child: const Text('CONTINUE',
+                      //           style: ThemeButton.btnBig
+                      //               .merge(ThemeButton.primary),
+                      //           child: const Text('CONTINUEShude',
                       //               style: ThemeText.subtitle2)),
                       //     ),
                       //   ],
-                      // ),
                       // ),
                     ],
                   ),

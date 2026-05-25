@@ -181,11 +181,12 @@ class _BookingCheckoutState extends State<BookingCheckout> {
                                           false;
                                       NotificationService.instance
                                           .showNotification(
-                                        title: localization
-                                            .bookingNotificationTitle,
-                                        body: localization
-                                            .bookingNotificationBody,
-                                      );
+                                              title:
+                                                  localization
+                                                      .bookingNotificationTitle,
+                                              body: localization
+                                                  .bookingNotificationBody,
+                                              type: "info");
                                       NotificationService.instance
                                           .scheduleAfterMinutes(
                                         title: localization.reminder,

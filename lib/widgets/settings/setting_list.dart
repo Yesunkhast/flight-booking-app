@@ -294,75 +294,75 @@ class SettingList extends StatelessWidget {
           // const VSpace(),
 
           // /// PAGE FLIGHT LIST
-          const TitleBasicSmall(title: 'Flights'),
-          PaperCard(
-              content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              ListTile(
-                leading: const Icon(Icons.list_alt_outlined),
-                title: const Text('Flight List'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.flightList);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.list_alt_outlined),
-                title: const Text('Flight List Round Trip'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.flightListRoundTrip);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.flight),
-                title: const Text('Flight Detail'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.flightDetail);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.flight_takeoff_sharp),
-                title: const Text('Flight Package Detail'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.flightDetailPackage);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.explore_outlined),
-                title: const Text('Explore'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.explore);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.airplanemode_inactive_rounded),
-                title: const Text('Flight Not Found'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.flightNotFound);
-                },
-              ),
-              const LineList(),
-              ListTile(
-                leading: const Icon(Icons.label_off_rounded),
-                title: const Text('Package Not Found'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  Get.toNamed(AppLink.packageNotFound);
-                },
-              ),
-            ]),
-          )),
+          // const TitleBasicSmall(title: 'Flights'),
+          // PaperCard(
+          //     content: Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Column(children: [
+          //     ListTile(
+          //       leading: const Icon(Icons.list_alt_outlined),
+          //       title: const Text('Flight List'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.flightList);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.list_alt_outlined),
+          //       title: const Text('Flight List Round Trip'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.flightListRoundTrip);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.flight),
+          //       title: const Text('Flight Detail'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.flightDetail);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.flight_takeoff_sharp),
+          //       title: const Text('Flight Package Detail'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.flightDetailPackage);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.explore_outlined),
+          //       title: const Text('Explore'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.explore);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.airplanemode_inactive_rounded),
+          //       title: const Text('Flight Not Found'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.flightNotFound);
+          //       },
+          //     ),
+          //     const LineList(),
+          //     ListTile(
+          //       leading: const Icon(Icons.label_off_rounded),
+          //       title: const Text('Package Not Found'),
+          //       trailing: const Icon(Icons.arrow_forward_ios, size: 12),
+          //       onTap: () {
+          //         Get.toNamed(AppLink.packageNotFound);
+          //       },
+          //     ),
+          //   ]),
+          // )),
           // const VSpace(),
 
           // /// BOOKING
@@ -618,7 +618,26 @@ class SettingList extends StatelessWidget {
             height: 50,
             child: FilledButton(
                 onPressed: () {
-                  _logout();
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(localization.logout),
+                      content: Text(localization.logoutDesc),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(localization.no),
+                        ),
+                        FilledButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _logout();
+                          },
+                          child: Text(localization.yes),
+                        ),
+                      ],
+                    ),
+                  );
                   // ignore: avoid_print
                   print("logout clicked");
                 },

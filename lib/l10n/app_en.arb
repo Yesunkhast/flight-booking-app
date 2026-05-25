@@ -284,5 +284,20 @@
   "feeAndTax":"Fee and Tax",
   "subtotal":"Subtotal",
   "passengerDetail":"Passenger Detail",
-  "baggage":"Baggage"
+  "baggage":"Baggage",
+  "subReq":"Submit Request",
+  "requestType":"Request Type",
+  "requestStatus":"Request Status",
+  "requestDesc":"Request Description",
+  "request":"Request",
+    "sendRequest":"Send Request",
+  "cardPayment":"Card Payment",
+  "requestSent":"Request Sent",
+  "notifrequestDesc":"Request sent. Please wait for the response. It will be processed within 1-3 days. Thanks.",
+  "requestDescText":"Request will be processed within 1-3 days",
+  "paymentFailed":"Payment Failed",
+  "paymentSuccessDesc":"Payment success. Thanks for your order. Have a nice flight",
+  "logoutDesc":"Are you sure to logout?",
+  "yes":"Yes",
+  "no":"no"
 }

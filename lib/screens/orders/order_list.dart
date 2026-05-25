@@ -87,18 +87,26 @@ class _OrderListState extends State<OrderList> {
                               Text(localization.myOrders,
                                   style: ThemeText.title
                                       .copyWith(color: Colors.white)),
-                              // SizedBox(
-                              //   width: 32,
-                              //   height: 32,
-                              //   child: IconButton(
-                              //       onPressed: () {
-                              //         Get.toNamed(AppLink.orderHistory);
-                              //       },
-                              //       style: ThemeButton.iconBtn(context),
-                              //       icon: Icon(Icons.history,
-                              //           color: colorScheme(context).primary,
-                              //           size: 24)),
-                              // )
+                              Row(
+                                children: [
+                                  Text(localization.request,
+                                      style: ThemeText.paragraph
+                                          .copyWith(color: Colors.white)),
+                                  SizedBox(width: spacingUnit(1)),
+                                  SizedBox(
+                                    width: 32,
+                                    height: 32,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Get.toNamed(AppLink.request);
+                                        },
+                                        style: ThemeButton.iconBtn(context),
+                                        icon: Icon(Icons.message,
+                                            color: colorScheme(context).primary,
+                                            size: 24)),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                           Text(localization.allYourOrders,

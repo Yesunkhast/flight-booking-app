@@ -1747,6 +1747,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Baggage'**
   String get baggage;
+
+  /// No description provided for @subReq.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Request'**
+  String get subReq;
+
+  /// No description provided for @requestType.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Type'**
+  String get requestType;
+
+  /// No description provided for @requestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Status'**
+  String get requestStatus;
+
+  /// No description provided for @requestDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Description'**
+  String get requestDesc;
+
+  /// No description provided for @request.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get request;
+
+  /// No description provided for @sendRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Request'**
+  String get sendRequest;
+
+  /// No description provided for @cardPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Payment'**
+  String get cardPayment;
+
+  /// No description provided for @requestSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Sent'**
+  String get requestSent;
+
+  /// No description provided for @notifrequestDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Request sent. Please wait for the response. It will be processed within 1-3 days. Thanks.'**
+  String get notifrequestDesc;
+
+  /// No description provided for @requestDescText.
+  ///
+  /// In en, this message translates to:
+  /// **'Request will be processed within 1-3 days'**
+  String get requestDescText;
+
+  /// No description provided for @paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed'**
+  String get paymentFailed;
+
+  /// No description provided for @paymentSuccessDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment success. Thanks for your order. Have a nice flight'**
+  String get paymentSuccessDesc;
+
+  /// No description provided for @logoutDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure to logout?'**
+  String get logoutDesc;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'no'**
+  String get no;
 }
 
 class _AppLocalizationsDelegate

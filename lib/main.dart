@@ -7,6 +7,7 @@ import 'package:flight_app/app/app_routes.dart';
 import 'package:flight_app/l10n/app_localizations.dart';
 import 'package:flight_app/ui/themes/theme_data.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'dart:async';
@@ -16,10 +17,11 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
 
-  // NotificationService бүртгэх + initialize
+  StripePaymentService.init();
+
   await NotificationService.instance.initNotif();
   await NotificationService.instance.requestPermission();
-  await NotificationService.instance.requestExactAlarmPermission();
+  // await NotificationService.instance.requestExactAlarmPermission();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

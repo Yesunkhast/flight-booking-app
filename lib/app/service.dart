@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flight_app/app/data/database/database_service.dart';
 import 'package:flight_app/models/realModel/notification.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,39 +13,33 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 // import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:android_intent_plus/android_intent.dart';
+// import 'package:android_intent_plus/android_intent.dart';
 
 class LocationService {
   Future<Position?> getCurrentLocation() async {
-    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // ignore: avoid_print
-      print("Location service is disabled");
-      return null;
+    try {
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) return null;
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        return null;
+      }
+
+      return await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 10), // timeout нэмнэ
+        ),
+      );
+    } catch (e) {
+      print("Location error: $e");
+      return null; // crash хийхгүйгээр null буцаана
     }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    if (permission == LocationPermission.denied) {
-      // ignore: avoid_print
-      print("Location permission denied");
-      return null;
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // ignore: avoid_print
-      print("Location permission denied forever");
-      return null;
-    }
-
-    return Geolocator.getCurrentPosition(
-      // ignore: deprecated_member_use
-      desiredAccuracy: LocationAccuracy.high,
-    );
   }
 }
 
@@ -128,13 +125,16 @@ class NotificationService {
       String? type}) async {
     final db = await DatabaseService.instance.database;
     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    await notificationsPlugin.show(
-      id: id,
-      title: title,
-      body: body,
-      payload: payload, //route
-      notificationDetails: notificationDetails(),
-    );
+
+    Future.delayed(const Duration(seconds: 5), () async {
+      await notificationsPlugin.show(
+        id: id,
+        title: title,
+        body: body,
+        payload: payload, //route
+        notificationDetails: notificationDetails(),
+      );
+    });
 
     sentNotifications.add(
       NotificationModel(
@@ -229,6 +229,7 @@ class NotificationService {
     required String body,
     required int minutes,
     String? payload,
+    double? seconds,
   }) async {
     _scheduleTimer?.cancel();
 
@@ -246,18 +247,74 @@ class NotificationService {
     await DatabaseService.instance.clearNotif();
   }
 
-  Future<void> requestExactAlarmPermission() async {
-    final android = notificationsPlugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
-    if (android != null) {
-      final granted = await android.requestExactAlarmsPermission();
-      if (granted != true) {
-        // Settings хуудас руу шилжүүлнэ
-        const intent = AndroidIntent(
-          action: 'android.settings.REQUEST_SCHEDULE_EXACT_ALARM',
-        );
-        await intent.launch();
-      }
+  // Future<void> requestExactAlarmPermission() async {
+  //   final android = notificationsPlugin.resolvePlatformSpecificImplementation<
+  //       AndroidFlutterLocalNotificationsPlugin>();
+  //   if (android != null) {
+  //     final granted = await android.requestExactAlarmsPermission();
+  //     if (granted != true) {
+  //       // Settings хуудас руу шилжүүлнэ
+  //       const intent = AndroidIntent(
+  //         action: 'android.settings.REQUEST_SCHEDULE_EXACT_ALARM',
+  //       );
+  //       await intent.launch();
+  //     }
+  //   }
+  // }
+}
+
+class StripePaymentService {
+  static final StripePaymentService instance = StripePaymentService._();
+  StripePaymentService._();
+  static const String _secretKey =
+      "sk_test_51TOUqY4SMKbv7fxQqEpniVPqfvRCDjY7jxrvfTv32wxm3l8K4sG02iNG36Z8Uj9hJ0HiSFsUfyEoGDiCP7KBcjk000TYzN7CAS"; // Stripe secret key
+  static const String _publishableKey =
+      "pk_test_51TOUqY4SMKbv7fxQgoo1B45lNxJXdl85zy5Cni3lj6JsCDgksFMi9UcdvYoUnPYgM9vx3hi8q7KXgvXdBylwO48A00wNCjQzcz"; // Stripe publishable key
+
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: 'https://api.stripe.com/v1',
+    headers: {
+      'Authorization': 'Bearer $_secretKey',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  ));
+
+  /// main.dart дотор дуудна
+  static void init() {
+    Stripe.publishableKey = _publishableKey;
+  }
+
+  /// Төлбөр төлөх
+  Future<bool> pay({required int amount, String currency = 'mnt'}) async {
+    try {
+      final response = await _dio.post(
+        '/payment_intents',
+        data:
+            'amount=$amount&currency=$currency&automatic_payment_methods[enabled]=true',
+      );
+
+      final clientSecret = response.data['client_secret'];
+
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: clientSecret,
+          merchantDisplayName: 'BookMyTix',
+          style: ThemeMode.system,
+        ),
+      );
+
+      await Stripe.instance.presentPaymentSheet();
+      return true;
+    } on DioException catch (e) {
+      // ← Яг ямар алдаа гарсныг харна
+      print('Stripe API error: ${e.response?.data}');
+      return false;
+    } on StripeException catch (e) {
+      print('Stripe: ${e.error.localizedMessage}');
+      return false;
+    } catch (e) {
+      print('Payment error: $e');
+      return false;
     }
   }
 }

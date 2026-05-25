@@ -25,6 +25,8 @@ import 'package:flight_app/screens/settings/splash/splash_screen.dart';
 import 'package:flight_app/ui/layouts/general_layout.dart';
 import 'package:flight_app/ui/layouts/home_layout.dart';
 import 'package:flight_app/widgets/booking/check_info_terms.dart';
+import 'package:flight_app/widgets/settings/request.dart';
+import 'package:flight_app/widgets/settings/request_form.dart';
 import 'package:get/route_manager.dart';
 import 'package:flight_app/app/app_link.dart';
 
@@ -120,6 +122,11 @@ final List<GetPage> appRoutes = [
   GetPage(
     name: AppLink.language,
     page: () => const GeneralLayout(content: LanguageList()),
+  ),
+
+  GetPage(
+    name: AppLink.request,
+    page: () => const GeneralLayout(content: Request()),
   ),
 
   /// AUTH

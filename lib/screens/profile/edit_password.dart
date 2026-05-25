@@ -30,125 +30,127 @@ class _EditPasswordState extends State<EditPassword> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: colorScheme(context).surfaceContainerLowest,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back_ios_new)
+        appBar: AppBar(
+          backgroundColor: colorScheme(context).surfaceContainerLowest,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(Icons.arrow_back_ios_new)),
+          title: const Text('Change Password', style: ThemeText.subtitle),
+          centerTitle: true,
         ),
-        title: const Text('Change Password', style: ThemeText.subtitle),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: ThemeSize.sm
-            ),
-            child: Form(
-              key: _keyEditPwd,
-              child: Padding(
-                padding: EdgeInsets.all(spacingUnit(2)),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  AppTextField(
-                    label: 'Current Password',
-                    obscureText: _hideCurrentPassword,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        setState(() {
-                          _errCurPwd = true;
-                        });
-                        return '';
-                      }
-                      setState(() {
-                        _errCurPwd = false;
-                      });
-                      return null;
-                    },
-                    errorText: _errCurPwd ? 'Please fill with your current password' : null,
-                    suffix: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _hideCurrentPassword = !_hideCurrentPassword;
-                        });
-                      },
-                      icon: _hideCurrentPassword == true ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
-                    ),
-                    onChanged: (_) {}
-                  ),
-                  const VSpace(),
-                  AppTextField(
-                    label: 'New Password',
-                    controller: _pass,
-                    obscureText: _hideNewPassword,
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(6),
-                    ]),
-                    errorText: _errNewPwd ? 'Please fill your password with minimum 6 characters' : null,
-                    suffix: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _hideNewPassword = !_hideNewPassword;
-                        });
-                      },
-                      icon: _hideNewPassword == true ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
-                    ),
-                    onChanged: (_) {}
-                  ),
-                  const VSpace(),
-                  AppTextField(
-                    label: 'Repeat Password',
-                    obscureText: _hideRepeatPassword,
-                    controller: _confirmPass,
-                    errorText: _errConfirmPwd ? 'Password not match' : null,
-                    validator: (value) {
-                      if (value != _pass.text) {
-                        setState(() {
-                          _errConfirmPwd = true;
-                        });
-                        return '';
-                      }
-                      return null;
-                    },
-                    suffix: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _hideRepeatPassword = !_hideRepeatPassword;
-                        });
-                      },
-                      icon: _hideRepeatPassword == true ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
-                    ),
-                    onChanged: (_) {}
-                  ),
-                  const VSpace(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: FilledButton(
-                      onPressed: () {
-                        if (_keyEditPwd.currentState!.validate()) {
-                          Get.toNamed('/profile');
-                        } else {
-                          setState(() {
-                            _errNewPwd = true;
-                          });
-                        }
-                      },
-                      style: ThemeButton.primary,
-                      child: const Text('UPDATE', style: ThemeText.subtitle2,)
-                    ),
-                  )
-                ]),
+        body: SingleChildScrollView(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: ThemeSize.sm),
+              child: Form(
+                key: _keyEditPwd,
+                child: Padding(
+                  padding: EdgeInsets.all(spacingUnit(2)),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // AppTextField(
+                        //   label: 'Current Password',
+                        //   obscureText: _hideCurrentPassword,
+                        //   validator: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       setState(() {
+                        //         _errCurPwd = true;
+                        //       });
+                        //       return '';
+                        //     }
+                        //     setState(() {
+                        //       _errCurPwd = false;
+                        //     });
+                        //     return null;
+                        //   },
+                        //   errorText: _errCurPwd ? 'Please fill with your current password' : null,
+                        //   suffix: IconButton(
+                        //     onPressed: () {
+                        //       setState(() {
+                        //         _hideCurrentPassword = !_hideCurrentPassword;
+                        //       });
+                        //     },
+                        //     icon: _hideCurrentPassword == true ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
+                        //   ),
+                        //   onChanged: (_) {}
+                        // ),
+                        const VSpace(),
+                        AppTextField(
+                            label: 'New Password',
+                            controller: _pass,
+                            obscureText: _hideNewPassword,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.minLength(6),
+                            ]),
+                            errorText: _errNewPwd
+                                ? 'Please fill your password with minimum 6 characters'
+                                : null,
+                            suffix: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _hideNewPassword = !_hideNewPassword;
+                                  });
+                                },
+                                icon: _hideNewPassword == true
+                                    ? const Icon(Icons.visibility)
+                                    : const Icon(Icons.visibility_off)),
+                            onChanged: (_) {}),
+                        const VSpace(),
+                        AppTextField(
+                            label: 'Repeat Password',
+                            obscureText: _hideRepeatPassword,
+                            controller: _confirmPass,
+                            errorText:
+                                _errConfirmPwd ? 'Password not match' : null,
+                            validator: (value) {
+                              if (value != _pass.text) {
+                                setState(() {
+                                  _errConfirmPwd = true;
+                                });
+                                return '';
+                              }
+                              return null;
+                            },
+                            suffix: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _hideRepeatPassword = !_hideRepeatPassword;
+                                  });
+                                },
+                                icon: _hideRepeatPassword == true
+                                    ? const Icon(Icons.visibility)
+                                    : const Icon(Icons.visibility_off)),
+                            onChanged: (_) {}),
+                        const VSpace(),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          child: FilledButton(
+                              onPressed: () {
+                                if (_keyEditPwd.currentState!.validate()) {
+                                  Get.toNamed('/profile');
+                                } else {
+                                  setState(() {
+                                    _errNewPwd = true;
+                                  });
+                                }
+                              },
+                              style: ThemeButton.primary,
+                              child: const Text(
+                                'UPDATE',
+                                style: ThemeText.subtitle2,
+                              )),
+                        )
+                      ]),
+                ),
               ),
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

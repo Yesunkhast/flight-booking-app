@@ -52,6 +52,9 @@ class AppLink {
   static const eTicket = '/e-ticket';
   static const eOrdersTicket = '/e-orders-detail';
 
+  // REQUEST
+  static const request = '/request';
+
   // PROMO
   static const promo = '/promos';
   static const promoDetail = '/promo-detail';

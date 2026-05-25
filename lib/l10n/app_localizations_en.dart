@@ -863,4 +863,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get baggage => 'Baggage';
+
+  @override
+  String get subReq => 'Submit Request';
+
+  @override
+  String get requestType => 'Request Type';
+
+  @override
+  String get requestStatus => 'Request Status';
+
+  @override
+  String get requestDesc => 'Request Description';
+
+  @override
+  String get request => 'Request';
+
+  @override
+  String get sendRequest => 'Send Request';
+
+  @override
+  String get cardPayment => 'Card Payment';
+
+  @override
+  String get requestSent => 'Request Sent';
+
+  @override
+  String get notifrequestDesc =>
+      'Request sent. Please wait for the response. It will be processed within 1-3 days. Thanks.';
+
+  @override
+  String get requestDescText => 'Request will be processed within 1-3 days';
+
+  @override
+  String get paymentFailed => 'Payment Failed';
+
+  @override
+  String get paymentSuccessDesc =>
+      'Payment success. Thanks for your order. Have a nice flight';
+
+  @override
+  String get logoutDesc => 'Are you sure to logout?';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'no';
 }

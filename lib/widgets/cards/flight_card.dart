@@ -286,7 +286,9 @@ class FlightCard extends StatelessWidget {
                         borderRadius: ThemeRadius.xsmall,
                       ),
                       child: Text(
-                        displayCabinCount,
+                        cabinCount == "A"
+                            ? localization.manySeats
+                            : "$cabinCount ${localization.seat}",
                         style: ThemeText.caption.copyWith(
                             color: colorScheme(context).primary,
                             fontWeight: FontWeight.w600),

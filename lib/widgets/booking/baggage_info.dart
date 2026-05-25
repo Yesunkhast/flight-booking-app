@@ -116,7 +116,7 @@ class _BaggageCard extends StatelessWidget {
 
         SizedBox(height: spacingUnit(2)),
 
-        // 🎒 Baggage list
+        // Baggage list
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

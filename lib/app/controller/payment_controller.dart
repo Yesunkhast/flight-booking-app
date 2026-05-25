@@ -14,7 +14,7 @@ class PaymentController extends GetxController {
   final isLoading = false.obs;
   final Rxn<CreateOrderResponse> orderResponse = Rxn<CreateOrderResponse>();
 
-  final RxInt remainingSeconds = (2 * 60).obs; // 2 minutes
+  final RxInt remainingSeconds = (5 * 60).obs; // 2 minutes
   final RxBool isChecking = false.obs;
   // final RxBool isRequesting = false.obs;
 

@@ -176,7 +176,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   }
                 },
                 style: ThemeButton.btnBig.merge(ThemeButton.primary),
-                child: Text(localization.continueText.toUpperCase(),
+                child: Text(localization.register.toUpperCase(),
                     style: ThemeText.subtitle)),
           ),
           const VSpaceBig(),

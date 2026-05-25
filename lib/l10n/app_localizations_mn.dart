@@ -384,13 +384,13 @@ class AppLocalizationsMn extends AppLocalizations {
   String get skip => 'Алгасах';
 
   @override
-  String get next => ':Дараах';
+  String get next => 'Дараах';
 
   @override
   String get guestUser => 'Зочин хэрэглэгч';
 
   @override
-  String get loginFormPrag => '✨ Сайнуу! Өөрийн бүртгэл рүү нэвтэрнэ үү.';
+  String get loginFormPrag => '✨ Сайнуу! Өөрийн бүртгэлээр нэвтэрнэ үү.';
 
   @override
   String get registerFormPrag =>
@@ -871,4 +871,51 @@ class AppLocalizationsMn extends AppLocalizations {
 
   @override
   String get baggage => 'Ачаа тээш';
+
+  @override
+  String get subReq => 'Хүсэлт илгээх';
+
+  @override
+  String get requestType => 'Хүсэлтийн төрөл';
+
+  @override
+  String get requestStatus => 'Хүсэлтийн статус';
+
+  @override
+  String get requestDesc => 'Хүсэлтийн тайлбар';
+
+  @override
+  String get request => 'Хүсэлт';
+
+  @override
+  String get sendRequest => 'Хүсэлт илгээх';
+
+  @override
+  String get cardPayment => 'Картаар төлөх';
+
+  @override
+  String get requestSent => 'Request Sent';
+
+  @override
+  String get notifrequestDesc =>
+      'Таны хүсэлтийг илгээлээ. Таны хүсэлтийг хариуг танд илгээх болно. Хүсэлтийн хариу 1-3 хоногийн дотор ирнэ. Баярлалаа.';
+
+  @override
+  String get requestDescText => 'Хүсэлт 1-3 хоног хүлээгдэнэ';
+
+  @override
+  String get paymentFailed => 'Төлбөр амжилтгүй';
+
+  @override
+  String get paymentSuccessDesc =>
+      'Төлбөр амжилттай хийлээгдлээ. Манайхаар захиалга хийсэнд баярлалаа. Тавтай нисээрэй';
+
+  @override
+  String get logoutDesc => 'Та системээс гарахдаа итгэлтэй байна уу?';
+
+  @override
+  String get yes => 'Тийм';
+
+  @override
+  String get no => 'Үгүй';
 }
