@@ -116,35 +116,26 @@ class Vendor {
 
     return Vendor(
       bookingUrl: JsonHelper.toStr(json['bookingUrl']),
-
       price: JsonHelper.toDouble(json['price']),
       tax: JsonHelper.toDouble(json['tax']),
       totalPrice: JsonHelper.toDouble(json['totalPrice']),
       childPrice: json['childPrice'] != null
           ? JsonHelper.toDouble(json['childPrice'])
           : null,
-
       cabin: JsonHelper.toStr(json['cabin']),
-      cabinCount: JsonHelper.toStr(json['cabinCount']), // ✅ handles int/"A"
-
+      cabinCount: JsonHelper.toStr(json['cabinCount']),
       limitRule: JsonHelper.toStr(json['limitRule']),
       limitType: JsonHelper.toStr(json['limitType']),
-
       luggage: JsonHelper.toStr(json['luggage']),
       luggageMore: JsonHelper.toStr(json['luggageMore']),
-
       carryLuggage: JsonHelper.toStr(json['carryLuggage']),
       carryLuggageMore: JsonHelper.toStr(json['carryLuggageMore']),
-
       refund: JsonHelper.toStr(json['refund']),
       change: JsonHelper.toStr(json['change']),
-
       pType: JsonHelper.toStr(json['pType']),
       tag: tag,
-
       bookingParamKey: bookingParamKey,
       flightType: JsonHelper.toStr(json['flightType']),
-
       businessExtMap: BusinessExtMap.fromJson(extMap),
     );
   }
@@ -173,7 +164,7 @@ class BusinessExtMap {
           ? JsonHelper.toDouble(json['childPrice'])
           : null,
       childCabin: JsonHelper.toStr(json['childCabin']),
-      cardType: JsonHelper.toStr(json['cardType']), // ✅ handles int/String/"0"
+      cardType: JsonHelper.toStr(json['cardType']),
     );
   }
 }
